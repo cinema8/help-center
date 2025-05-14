@@ -1,0 +1,82 @@
+---
+title: "How to Use Audio Feedback"
+description: "When viewers click on an area in the video or answer a question, you can enable them to listen to audio as feedback. Let's look at some examples:"
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# How to Use Audio Feedback
+
+## Enhance Viewer Interactivity with Audio Feedback in Cinema8
+
+When viewers click on an area in the video or answer a question, you can enable them to listen to audio as feedback. Let's look at some examples:
+
+### Using Audio Feedback in Clickable Areas
+
+<Steps>
+
+### Step 1 – Add an Audio Element
+Add the audio element you will use for feedback to the video timeline.
+
+- Turn off the **Visible** feature in its Properties panel.
+
+### Step 2 – Configure Clickable Area
+Click the **On Click** property of your clickable area and:
+
+- Select **Play Audio** from the list.
+- Choose the audio name from the **Target Track** list.
+- Save the settings.
+
+Once done, when the viewer clicks the area, the corresponding audio feedback will play.
+
+</Steps>
+
+### Using Audio Feedback with Questions
+
+<Steps>
+
+### Step 1 – Add a Question
+Add a **Single Select Question** to the timeline.
+
+![Free Text Question Element](/screenshot/questions/audioFeedback1.webp)
+
+Click the settings icon next to the desired answer and define a variable in the **Set Variable** section:
+
+- **Key**: `answer`
+- **Value**: `true`
+
+Save your settings.
+
+### Step 2 – Add an Audio Element for Feedback
+
+- Place the audio element one second after the question in the timeline.
+- Turn off the **Visible** feature in its Properties panel.
+
+![Free Text Question Element](/screenshot/questions/audioFeedback2.webp)
+
+### Step 3 – Add a Conditional Action
+
+- Insert a **Conditional Action** element into the timeline.
+- In the configuration window, click **Add Condition**.
+- Use the following setup:
+  - First box: `answer`
+  - Middle box: `=`
+  - Last box: `true`
+- Save the condition.
+
+![Free Text Question Element](/screenshot/questions/audioFeedback3.webp)
+
+### Step 4 – Set the Action
+
+In the Conditional Action Properties:
+
+- Set the same time interval as the audio.
+- Under **Condition Actions**, select **Play Audio** from the **Action** list.
+- Choose the appropriate audio from the **Target Track** list.
+- Save your settings.
+
+</Steps>
+
+<Callout type="info">
+By configuring audio feedback through clickable areas or question responses, you enhance the interactivity and engagement of your Cinema8 videos.
+</Callout>

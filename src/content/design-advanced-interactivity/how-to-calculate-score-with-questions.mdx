@@ -1,0 +1,57 @@
+---
+title: "How to Calculate Score with Questions"
+description: "What the user need when the user prepare a video quiz is perhaps to show your viewers their total score. Let's start with the first question."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# How to Calculate Score with Questions
+
+## A Step-by-Step Guide to Adding Quiz Scoring in Cinema8
+
+What the user need when the user prepare a video quiz is perhaps to show your viewers their total score. Let's start with the first question.
+
+![Scoring configuration](/screenshot/questions/calculate-score-1.webp)
+
+<Steps>
+
+### Step 1: Add the First Question
+
+Add a **Single Select Question** to the video timeline. Write the question and answers. Click the settings button at the right of the correct answer.
+
+In the **Set Variable** area:
+
+- Label: `score`
+- Value: `10`
+
+This means when the viewer selects the correct answer, they earn 10 points. After completing the settings, click **Save**.
+
+### Step 2: Add the Second Question
+
+Open the settings for the correct answer, just like before. In the **Set Variable** area:
+
+- Label: `score`
+- Value: `${score} + 10`
+
+This increases the existing score by 10 points when answered correctly. Click **Save**.
+
+### Step 3: Add More Questions
+
+Repeat the same steps for each additional question. Continue using the `${score} + 10` format to accumulate the score progressively.
+
+### Step 4: Display the Total Score
+
+At the end of the video, drag and drop the **HTML** widget from the **Elements Panel** onto the timeline.
+
+In the HTML content editor:
+
+- Type your message, for example: `Your Total Score:`
+- Click the **Dynamic Text** button.
+- Select the variable `score` from the list.
+- Click **Save**.
+
+</Steps>
+
+<Callout type="info">
+When the user previews and answers the questions, they will see their final score at the end of the video.
+</Callout>

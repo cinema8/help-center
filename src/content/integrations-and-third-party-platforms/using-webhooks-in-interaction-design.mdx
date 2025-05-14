@@ -1,0 +1,100 @@
+---
+title: "Using Webhooks in Interaction Design"
+description: "A webhook (also called a web callback or HTTP push API) is a method for an app to provide real-time information to other applications. It delivers data to other apps as events happen, allowing you to get data immediately. Cinema8 Webhooks enable you to integrate your own business processes into interactive videos."
+---
+
+# Using Webhooks in Interaction Design
+
+
+
+
+
+
+
+## Integrating Webhooks into Your Interactive Video for Real-Time Data Delivery
+
+
+
+
+
+
+
+A webhook (also called a web callback or HTTP push API) is a method for an app to provide real-time information to other applications. It delivers data to other apps as events happen, allowing you to get data immediately. Cinema8 Webhooks enable you to integrate your own business processes into interactive videos.
+
+### **Creating a Webhook**
+
+Let's walk through the steps of adding a webhook.
+
+First, return to the main menu and click on the **"Integrations"** button.
+
+![](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/image-png-Nov-01-2024-02-30-57-2965-PM-3-1-2-1.png?width=233\&height=509\&name=image-png-Nov-01-2024-02-30-57-2965-PM-3-1-2-1.png)
+
+Next, click the **"Webhooks"** button on the page that opens.
+
+Click the **"Add Webhook"** button.
+
+![](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/image-png-Nov-01-2024-02-32-19-0846-PM-3-1-2-1.png?width=670\&height=139\&name=image-png-Nov-01-2024-02-32-19-0846-PM-3-1-2-1.png)
+
+Let's explore the settings of the webhook you will add.
+
+![](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/image-png-Nov-01-2024-02-41-08-5204-PM-3-1-2-1.png?width=670\&height=525\&name=image-png-Nov-01-2024-02-41-08-5204-PM-3-1-2-1.png)
+
+**1. Webhook Name**: Enter a name for the webhook.
+
+**2. Webhook URL**: Enter the URL where the data will be posted. You can also create custom headers for additional security. By doing this, you can restrict access to your data and ensure only authorized users can access it.
+
+**3. Header Name**: Enter the name of the header you will create.
+
+**4. Header Value**: Enter the value for the header. This is used to compare and verify the header data, preventing unauthorized access to your webhook data.
+
+**5. Add New Header**: Click this button to create a new header.
+
+**6. Wait for Response**: Enable this option to stop the video while waiting for a response from the webhook URL. This ensures that the video does not continue until the webhook has completed its task.
+
+**7. Include Previous Interactions**: Enable this feature if you want to include previous interaction data in the webhook.
+
+**8. Save Settings**: Click this button to save all your settings.
+
+### **Adding Webhook to a Video**
+
+Now that you've created your webhook, let's add it to a video.
+
+![](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/image-png-Nov-01-2024-02-43-10-7488-PM-3-1-2-1.png?width=670\&height=193\&name=image-png-Nov-01-2024-02-43-10-7488-PM-3-1-2-1.png)
+
+Create a new project to add the webhook. [Click here](https://help.cinema8.com/creating-your-first-interactive-video-project?hsLang=en-gb) to see how to create a new project.
+
+In the test link, I will use two data fields ("discountCode" and "imageUrl") that can be imported into my video. I will add two HTML elements to embed these values into the video.
+
+![Notes](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/file-Nov-06-2024-01-03-24-1797-AM-Nov-06-2024-09-53-19-6320-AM-Nov-14-2024-10-02-59-3162-AM-2.png?width=32\&height=32\&name=file-Nov-06-2024-01-03-24-1797-AM-Nov-06-2024-09-53-19-6320-AM-Nov-14-2024-10-02-59-3162-AM-2.png)
+
+When you want to bring data into the video via webhook in Cinema8, you can also extract values from nested objects. [Click here](https://help.cinema8.com/tips-tricks-creating-new-webhook-in-detail?hsLang=en-gb) to learn how to extract data from nested objects in a webhook.
+
+ 
+
+Add the first HTML element to embed the "discountCode" data.
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 6](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks6-1-1-2-1.png?width=670\&height=312\&name=webhooks6-1-1-2-1.png)
+
+**1. Source Code Field**: Click on the Source Code button in the HTML element and insert the code **DiscountCode: $\{context.discountCode! -}**, then save it.
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 7](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks7-1-1-2-1.png?width=670\&height=296\&name=webhooks7-1-1-2-1.png)
+
+For the second data field, "imageUrl," add the second HTML element and place the following code in the Source Code field: **\<img src="$\{context.imageUrl}" />**
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 8](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks8-1-1-2-1.png?width=670\&height=307\&name=webhooks8-1-1-2-1.png)
+
+Next, add a clickable area that triggers the webhook when clicked. Open the settings by clicking on the Clickable Area you've added.
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 9](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks9-3-1-2-1.png?width=276\&height=492\&name=webhooks9-3-1-2-1.png)
+
+Add the Webhook action to the On Click field by selecting **Execute Webhook** from the list.
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 10](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks10-3-1-2-1.png?width=337\&height=198\&name=webhooks10-3-1-2-1.png)
+
+Click on the "Choose" button and select the **"Test Webhook"** that you created earlier.
+
+![Cinema8 Interactive Video Articles Using Webhooks in Interaction Design 11](https://help.cinema8.com/hs-fs/hubfs/Knowledge%20Base%20Import/webhooks11-3-1-2-1.png?width=340\&height=198\&name=webhooks11-3-1-2-1.png)
+
+Now, when you click on the clickable area, your Webhook will execute, and the data will be sent to the HTML tools added to your video.
+
+[Click here](https://cinema8.com/video/zO1RvxDK) to view the sample video we created.

@@ -1,0 +1,95 @@
+---
+title: "Cinema8 Private Token API"
+description: "This guide assists with integrating Cinema8 Private Token into your applications."
+---
+
+# Cinema8 Private Token API
+
+## Integrating the Cinema8 Private Token API into Your Application
+
+This guide assists with integrating Cinema8 Private Token into your applications.
+
+As a standard, the authorization header will be sent to all services as follows:
+
+```
+Authorization: Bearer base64_encode(API_KEY)
+```
+
+For a sample project with `ADQl3MO6` as the Hash ID, here are example requests:
+
+### LIST
+
+**POST**
+`https://cinema8.com/api/v1/scene/private-token/list`
+
+**Payload:**
+
+```json
+{
+  "start": 0,
+  "offset": 10,
+  "filterMap": {
+    "hashId": ["ADQl3MO6"]
+  }
+}
+```
+
+---
+
+### ADD
+
+**POST**
+`https://cinema8.com/api/v1/scene/private-token`
+
+**Payload:**
+
+```json
+{
+  "hashId": "ADQl3MO6",
+  "maxValidDuration": 30,
+  "referenceName": "john.doe@mail.com",
+  "validFrom": 1606471200000,
+  "validUntil": 1606557600000
+}
+```
+
+---
+
+### UPDATE
+
+**PUT**
+`https://cinema8.com/api/v1/scene/private-token/[PRIVATE_TOKEN]`
+
+**Payload:**
+
+```json
+{
+  "maxValidDuration": 40,
+  "referenceName": "john2.doe2@mail.com",
+  "validFrom": 1606557600000,
+  "validUntil": 1606730400000
+}
+```
+
+---
+
+### DELETE
+
+**DELETE**
+`https://cinema8.com/api/v1/scene/private-token/[PRIVATE_TOKEN]`
+
+---
+
+### ANALYTICS
+
+**POST**
+`https://cinema8.com/api/v1/analytics/scene/heatmap?private-token=[PRIVATE_TOKEN]`
+
+**Payload:**
+
+```json
+{
+  "start": 0,
+  "offset": 10
+}
+```

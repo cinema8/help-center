@@ -1,0 +1,51 @@
+---
+title: "How to use server side web hooks to inject custom variables in to video"
+description: "The Webhooks integration allows you to be automatically notified when certain events occur, without the need to constantly poll the API. Webhooks also provide access to a rule-based action that can set up a URL to receive an HTTP request whenever the rule is triggered."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Use Server-Side Webhooks to Inject Custom Variables into Video
+
+<Callout type="info">
+Use server-side webhooks in Cinema8 to automatically send and receive data between your video content and any public API or backend system.
+</Callout>
+
+## Automatically Trigger Actions and Pass Data with Cinema8 Webhooks
+
+Cinema8’s server-side webhooks allow you to respond to real-time events and inject data into videos dynamically. This eliminates the need for continuous polling and enables smooth integration with third-party systems.
+
+You can use this integration to:
+- Push data into a Cinema8 video from an external service
+- Trigger actions in your system when a viewer interacts with your content
+- Capture viewer responses or interactions and forward them to your API
+
+## How It Works
+
+<Steps>
+
+### Step 1: Define a Rule-Based Webhook Action
+
+Set up a webhook in Cinema8 using the **Webhook** integration feature. Define a rule that determines when the webhook should fire (e.g., on button click, form submission).
+
+### Step 2: Configure the Target URL
+
+Provide the **endpoint URL** that will receive the webhook request. This can be any public API or your server accepting POST requests.
+
+### Step 3: Include Custom Parameters
+
+Within the webhook setup, define the custom parameters or data fields you want to send (e.g., user ID, score, selection).
+
+### Step 4: Handle the Data in Your Application
+
+In your receiving system or API, handle the incoming request and respond accordingly — for example, by returning dynamic variables or confirming data receipt.
+
+### Step 5: Use Returned Data in the Video
+
+You can reference returned variables (e.g., `discountCode`, `userName`, etc.) inside your Cinema8 video by assigning them to elements like HTML overlays or conditional actions.
+
+</Steps>
+
+<Callout type="important">
+Cinema8 webhooks support structured and nested data. Make sure your endpoint returns JSON-formatted responses that match your video’s variable usage.
+</Callout>

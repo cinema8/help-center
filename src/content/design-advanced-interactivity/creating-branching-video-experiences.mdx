@@ -1,0 +1,84 @@
+---
+title: "Creating branching video experiences"
+description: "Create Branching Video"
+---
+
+import { Callout, Steps } from 'nextra/components'
+import { HotspotImage } from '@/components/mdx/HelpUI'
+
+# Creating Branching Video Experiences
+
+## How to Use Storyflow to Build Personalized Video Journeys
+
+**Design Video Branching** is a powerful feature in Cinema8 that allows you to connect multiple interactive videos into a seamless story. Using questions and logic, you can direct viewers to different paths based on their choices — perfect for learning, onboarding, or marketing use cases.
+
+<Steps>
+
+### Step 1: Open Media Library
+
+Click the **Media Library** button in the left panel to browse the videos you've uploaded previously.
+
+![Media Library](/screenshot/advanced-interactivity/branching-experiences-1.webp)
+
+---
+
+### Step 2: Create a New Interactive Video
+
+Click the **New Interactive Video** button to start a fresh project for your branching experience.
+
+---
+
+### Step 3: Edit Video Info
+
+Use the **Edit Video Info** button to name your video, set a description, and adjust any project-level settings.
+
+---
+
+### Step 4: Launch the Branching Editor
+
+Click the **Design Video Branching** button to open the Storyflow editor. This is where you can visually connect different video nodes using drag-and-drop.
+
+![Branching Editor](/screenshot/advanced-interactivity/branching-experiences-2.webp)
+
+</Steps>
+
+Once you've created your Storyflow structure, you can start inserting **questions** or **conditional paths** to guide the viewer.
+
+👉 [Learn how to connect questions between branching videos](/design-advanced-interactivity/connecting-questions-in-branching-videos)
+
+
+## Visual Guide to the Branching Interface
+
+<HotspotImage 
+  src="/screenshot/advanced-interactivity/branching-editor-1.png"
+  hotspots={[
+    {
+      x: 20,
+      y: 40,
+      title: "Starting Scene",
+      description: "This is your main project node. You can add elements and connect it to other videos."
+    },
+    {
+      x: 38,
+      y: 47,
+      title: "Insert Menu",
+      description: "Add elements like Image, Question, Hotspot, Connect to video, or Action from this menu."
+    },
+    {
+      x: 70,
+      y: 30,
+      title: "Branch Connections",
+      description: "These curved lines represent how different video segments are linked."
+    },
+    {
+      x: 94,
+      y: 12,
+      title: "Preview",
+      description: "Use this button to test the flow of your branching project."
+    }
+  ]}
+/>
+
+<Callout type="default">
+For a visual demonstration, you may also refer to interactive tutorials in the help center or request live training from our support team.
+</Callout>

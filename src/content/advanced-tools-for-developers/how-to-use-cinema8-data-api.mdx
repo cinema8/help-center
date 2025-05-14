@@ -1,0 +1,122 @@
+---
+title: "How to Use Cinema8 Data API?"
+description: "The Cinema8 Data API enables you to interact with Cinema8 Player via the API interface, allowing you to perform tasks such as managing projects and uploading media content. It uses the same interface for HTML5 versions of the player. Here's how you can get started:"
+---
+
+# How to Use Cinema8 Data API?
+
+## A Guide to Using Cinema8's Data API for Project and Media Management
+
+The Cinema8 Data API enables you to interact with Cinema8 Player via the API interface, allowing you to perform tasks such as managing projects and uploading media content. It uses the same interface for HTML5 versions of the player. Here's how you can get started:
+
+### Setup
+
+To begin, create an API key in the **Advanced** section of your Account Settings.
+
+### Making Requests
+
+**Host:** `https://cinema8.com/api/v1`
+
+**Headers:**
+
+```
+Authorization: Bearer <base_64_encoded(api_key)>
+```
+
+---
+
+### Project API
+
+**Project# list**
+Returns a list of projects. This request supports paging and sorting.
+
+```http
+POST https://cinema8.com/api/v1/scene/list
+```
+
+**Response:**
+
+```json
+{
+  "totalRecords": 62,
+  "resultSet": [
+    {
+      "id": 1800,
+      "hashId": "YVX3ZZD4",
+      "name": "Demo-01",
+      "description": "Demo-01 Description",
+      "mediaContent": {
+        "id": 1352,
+        "mediaPlatform": "STREAMX",
+        "name": "SampleVideo_1280x720_5mb.mp4",
+        "entryStatus": null,
+        "duration": null,
+        "url": null,
+        "thumbnail": null,
+        "entryId": "0_xqsmyhxo",
+        "mediaType": null,
+        "mediaSourceType": null,
+        "hashId": null
+      },
+      "remoteRef": null,
+      "autoplay": true,
+      "tracks": null,
+      "uuid": "097d2201-6b5f-42d8-9080-f8fea6c712a0",
+      "image": {
+        "id": 2452,
+        "url": "https://static-01.cinema8.com/gallery/50/155aa3d8-e0c2-494f-ada7-7826c2219741/16"
+      },
+      "showTrackMark": true,
+      "showShareIcon": true,
+      "retakeable": true,
+      "anonymousAllowed": true,
+      "createdAt": 1484203906915,
+      "duration": 30
+    }
+  ]
+}
+```
+
+**Project#get**
+Returns project data for a given project ID.
+
+```http
+GET https://cinema8.com/api/v1/scene/{id}
+```
+
+---
+
+### Media API
+
+**Media# upload**
+Allows you to upload media content files.
+
+```http
+POST https://cinema8.com/api/v1/media/upload/
+```
+
+**Media# list**
+Returns a list of media content, supporting paging and sorting.
+
+```http
+GET https://cinema8.com/api/v1/media/list/
+```
+
+**Response:**
+
+```json
+{
+  "totalRecords": 42,
+  "resultSet": [
+    {
+      "id": 2350,
+      "mediaPlatform": "STREAMX",
+      "name": "Quick Charge 3.mp4",
+      "entryStatus": "READY",
+      "duration": 65,
+      "mediaType": "VIDEO",
+      "hashId": "rJV61nJg"
+    }
+  ]
+}
+```

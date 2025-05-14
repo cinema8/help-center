@@ -1,0 +1,48 @@
+---
+title: "JavaScript Webhooks"
+description: "Enhance your interactive videos with custom JavaScript callbacks using Cinema8’s Execute Custom Callback feature."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# JavaScript Webhooks
+
+<Callout type="info">
+Use JavaScript webhooks to trigger your own business logic directly from video interactions.
+</Callout>
+
+Cinema8 allows you to inject custom JavaScript code into your interactive videos using the **Execute Custom Callback** action. This is a powerful way to connect user actions within the video to external logic in your application.
+
+## How It Works
+
+### 1. Trigger a Callback from Video Elements
+
+You can attach the **Execute Custom Callback** action to various elements inside the Cinema8 Creative Studio:
+
+- Image elements with an `onClick` action
+- Clickable Area components
+- Conditional Actions
+- Timeline-based Action elements
+
+When any of these elements are triggered during playback, your custom JavaScript callback will be executed in the embedding context.
+
+### 2. Handle the Callback in Your JavaScript
+
+Use the Cinema8 JavaScript API to listen for the callback. Here’s an example of how to catch it:
+
+```js filename="example.js"
+var ivideo = new IVideo('#video', {
+  id: '4JyYR9JQ',
+  autoplay: false,
+  width: 854,
+  height: 480,
+  onready: function() {},
+  onprogress: function() {},
+  onplay: function() {},
+  onpause: function() {},
+  onend: function() {},
+  oncustomcallback: function(param) {
+    // This is where your logic runs
+    console.log(param);
+  }
+});

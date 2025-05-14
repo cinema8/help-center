@@ -1,0 +1,61 @@
+---
+title: "Integrating Cinema8 with Google Analytics"
+description: "Cinema8 lets you embed your Google Tag Manager ID directly into custom player configurations, allowing you to track viewer data through your connected Google Analytics account."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# Integrating Cinema8 with Google Analytics
+
+Cinema8 supports Google Analytics integration through **Google Tag Manager (GTM)**. You can assign a GTM ID to each custom player configuration, which injects GTM into the video player embed. This allows you to track video impressions and behavior using your GA dashboard.
+
+<Callout type="info">
+Cinema8 currently supports Google Analytics integration via Google Tag Manager only. You can manage GTM per-player configuration inside the Cinema8 dashboard under Customisation → Player Themes.
+</Callout>
+
+## Integration Steps
+
+<Steps>
+### Step 1: Create or locate a GTM container
+
+- Go to https://tagmanager.google.com
+- Create a container or use an existing one
+- Copy your container ID (e.g., `GTM-XXXXXXX`)
+
+### Step 2: Add GTM ID to Cinema8 Player Theme
+
+- Log into your **Cinema8 dashboard**
+- Navigate to **Customisation → Player Themes**
+- Select or create a player configuration
+- Paste your GTM ID into the **Google Tag Manager** field
+- Save your player settings
+
+### Step 3: Use the player in your project
+
+- Embed your interactive video using the configured player
+- GTM will automatically be injected into the iframe
+</Steps>
+
+## Optional: Trigger custom events with GTM
+
+You can push custom video events (like play or pause) using the Widget API.
+
+```js filename="widget.js"
+c8PlayerApi.on('play', () => {
+  window.dataLayer = window.dataLayer || []
+  dataLayer.push({
+    event: 'video_play',
+    videoId: c8PlayerApi.getVideoId?.()
+  })
+})
+```
+
+<Callout type="important">
+To implement full tracking, you must configure GTM Tags, Triggers, and Variables for these events in your GTM workspace. Cinema8 does not push analytics events by default.
+</Callout>
+
+## Learn more
+
+- [Widget API](/advanced-tools-for-developers/widget-api)
+- [Custom Callbacks](/advanced-tools-for-developers/javascript-webhooks-custom-callbacks)
+- [Google Tag Manager Docs](https://support.google.com/tagmanager/)

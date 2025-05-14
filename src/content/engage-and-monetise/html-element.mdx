@@ -1,0 +1,92 @@
+---
+title: "HTML Element"
+description: "Use Cinema8’s HTML element to display custom messages, variables, or gamified experiences—like awarding badges when a viewer passes a quiz."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# HTML Element
+
+The **HTML Element** in Cinema8 gives you the flexibility to display custom content such as formatted text, media, embedded widgets, and dynamic variables—directly in your videos. It’s perfect for adding personalized messages, gamified elements, and interactive feedback based on viewer behavior.
+
+One powerful example: **rewarding viewers with a badge** when they achieve a specific score in a quiz.
+
+---
+
+## Use Case: Awarding a Badge After a Quiz
+
+Let’s say you want to award the “Honesty Badge” if a viewer answers at least 2 out of 3 quiz questions correctly. Here’s how to do it step-by-step.
+
+---
+
+## How to Set Up an HTML-Based Gamified Badge
+
+<Steps>
+
+### Step 1: Add the HTML Element
+
+- Open your project in **Cinema8 Creative Studio**.
+- From the **Elements Panel**, drag the **HTML Element** onto the timeline where the badge message should appear.
+- Give the element a clear name (e.g., `BadgeRewardDisplay`).
+
+### Step 2: Enter Custom HTML Content
+
+- Use the **HTML Editor** to enter custom content.
+- You can include:
+  - Text, links, or images
+  - Dynamic variables like `{score}` or `{viewerName}`
+
+### Step 3: Add the Badge Image (Hidden by Default)
+
+- Upload the badge image to your **Image Library**.
+- Drag the **Image Element** onto the timeline where you want the badge to appear.
+- In the **Properties Panel**, uncheck the **Visible** box to keep it hidden initially.
+
+### Step 4: Create Quiz Questions and Track Score
+
+- Drag and drop a **Single Select Question** element for each question.
+- For each correct answer, assign a variable update (e.g., `score = score + 1`).
+
+### Step 5: Use Conditional Logic to Trigger the Badge
+
+- Add a **Conditional Widget** after all questions are answered.
+- In the **Properties Panel**, define the condition:  
+  `If score >= 2, then Set Visible: Badge Image Element`
+- This will make the badge appear when the condition is met.
+
+### Step 6: Preview and Finalize
+
+- Use the **Preview Mode** to test the interaction:
+  - Do quiz questions score correctly?
+  - Does the badge appear when expected?
+- Save and publish once everything works smoothly.
+
+</Steps>
+
+---
+
+## Best Practices for HTML Elements
+
+<Callout type="info">
+🎯 Pro Tip: Use HTML elements for light customizations, and rely on built-in widgets when possible for easier styling and responsiveness.
+</Callout>
+
+- **Keep it focused** – Use for personalized messages, not entire layouts.
+- **Use variables wisely** – Keep naming consistent and descriptive (`score`, `viewerEmail`).
+- **Test thoroughly** – Always preview to verify logic, visibility, and timing.
+
+---
+
+## Next Steps
+
+Start integrating HTML elements into your projects today to:
+
+- Reward users with badges
+- Show personalized content
+- Create dynamic branching narratives
+
+For advanced workflows, check out:
+
+- [Using Conditional Widgets to Show/Hide Elements](#)
+- [Creating Gamified Quizzes in Cinema8](#)
+- [Tracking Viewer Progress with Variables](#)

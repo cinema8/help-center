@@ -1,0 +1,94 @@
+---
+title: "Embedding Cinema8 Interactive Videos"
+description: "Embedding Cinema8 interactive videos enables seamless integration with your websites, mobile apps, and LMS platforms. Whether you’re creating engaging marketing campaigns, enhancing e-learning courses, or adding interactivity to mobile apps, embedding makes your content easily accessible without requiring viewers to leave the platform."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# Embedding Cinema8 Interactive Videos
+
+Embedding Cinema8 interactive videos enables seamless integration with your websites, mobile apps, and LMS platforms. Whether you’re creating engaging marketing campaigns, enhancing e-learning courses, or adding interactivity to mobile apps, embedding makes your content easily accessible without requiring viewers to leave the platform.
+
+<Steps>
+
+### Step 1: Publish your video
+
+Ensure your video is published before embedding it. Open your video in **Cinema8 Creative Studio** and click the **Publish** button in the top-right corner.
+
+### Step 2: Access the embed code
+
+Open the **Sharing Options** menu and go to the **Embed Code** tab. Choose:
+
+- **Fixed dimensions** to set a width and height
+- **Responsive dimensions** to make the video adapt to its container
+
+### Step 3: Copy the embed code
+
+Click the **Copy Embed Code** button. The HTML iframe code will be copied and ready to paste into your platform.
+
+</Steps>
+
+## Embedding Options by Platform
+
+### 1. Embedding into Websites
+
+Use your CMS or HTML editor (e.g., WordPress, Wix, Webflow) to add an HTML block and paste the embed code.
+
+<Callout type="info">
+Use responsive dimensions for a seamless experience across desktop, tablet, and mobile devices.
+</Callout>
+
+### 2. Embedding into Mobile Apps
+
+Use a WebView component depending on your platform:
+
+#### iOS (Swift)
+
+```swift filename="iOS.swift"
+let webView = WKWebView(frame: self.view.frame)
+let videoURL = URL(string: "https://cinema8.com/video/yourVideoID")!
+let request = URLRequest(url: videoURL)
+webView.load(request)
+self.view.addSubview(webView)
+```
+
+#### Android (Java)
+
+```java filename="Android.java"
+WebView webView = findViewById(R.id.webview);
+webView.getSettings().setJavaScriptEnabled(true);
+webView.loadUrl("https://cinema8.com/video/yourVideoID");
+```
+
+#### React Native
+
+Use [`react-native-webview`](https://github.com/react-native-webview/react-native-webview):
+
+```js filename="EmbedVideo.js"
+import { WebView } from 'react-native-webview';
+
+<WebView
+  source={{ uri: 'https://cinema8.com/video/yourVideoID' }}
+  javaScriptEnabled
+/>
+```
+
+### 3. Embedding into LMS Platforms
+
+Log into your LMS (e.g., Moodle, Akademi.net, Blackboard). Use an **HTML block** or **External Content** option to paste the embed code.
+
+<Callout type="default">
+Cinema8 works seamlessly with LMS platforms like Moodle, Blackboard, Canvas, and Akademi.net.
+</Callout>
+
+## Customising Your Embedded Videos
+
+- **Playback Controls**: Show/hide controls like play, pause, or volume
+- **Start Time**: Begin playback from a specific second using the `?start=XX` query param
+- **Domain Restrictions**: In Privacy Settings, restrict playback to authorized domains
+
+## Best Practices for Embedding
+
+- ✅ Test responsiveness on all devices
+- 🔒 Use domain whitelisting for security
+- ⚙️ Monitor load performance on your target platforms

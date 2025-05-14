@@ -1,0 +1,94 @@
+---
+title: "Authentication & SSO"
+description: "By default, Cinema8 videos play anonymously across all platforms. This guide explains how to enable authenticated playback and single sign-on (SSO) via the Data API."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Authentication & SSO
+
+## Implementing Authentication and Single Sign-On (SSO) in Cinema8
+
+By default, Cinema8 videos play anonymously. In this mode, all viewer interactions are tracked under an anonymous identity.
+
+If you'd like to track known users (e.g. from your intranet, LMS, mobile app, or SSO system), you can use the **Cinema8 Data API** to authenticate users via the `loginAsWithUsername` method and pass a valid token to the player.
+
+<Callout type="warning">
+This method allows secure "on behalf of" authentication. It’s your responsibility to ensure user tokens are securely generated and not exposed client-side.
+</Callout>
+
+---
+
+## How to Authenticate a User
+
+<Steps>
+
+### Step 1: Generate the Token with `loginAsWithUsername`
+
+Send a POST request to the following endpoint:
+
+```http filename="login-as.txt"
+POST https://cinema8.com/api/v1/authenticate/loginAsWithUsername/bearer
+Content-Type: application/x-www-form-urlencoded
+```
+
+**Payload:**
+
+```txt
+token=YOUR_ADMIN_TOKEN
+username=accountname\\username
+```
+
+- `token`: Your admin token from the Cinema8 Token Console  
+- `username`: The target username, including account name (e.g., `myaccount\\johndoe`)
+
+**Success Response:**  
+`200 OK` — returns an `authToken` valid for 6 hours  
+**Error Response:**  
+`401 Unauthorized` — user not found in the system
+
+<Callout type="info">
+If the user doesn’t exist yet, create the user using the Cinema8 Data API before calling this method.
+</Callout>
+
+### Step 2: Pass the Token to the Player
+
+Once you have the token, pass it into the `authToken` field of your JS Player config:
+
+```js filename="player-auth-token.js" showLineNumbers
+var player = new Cinema8Player("#video", {
+  id: "YVX3wMX4",
+  style: "position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; border: 0;",
+  authToken: "YOUR_GENERATED_TOKEN",
+  onready: function () {
+    console.log("onready fired");
+  },
+  onplay: function () {
+    console.log("onplay fired");
+  },
+  onpause: function () {
+    console.log("onpause fired");
+  },
+  onprogress: function () {
+    console.log("onprogress fired");
+  },
+  onend: function () {
+    console.log("onend fired");
+  }
+});
+```
+
+</Steps>
+
+---
+
+## Best Practices
+
+- Store tokens in a cache or map with a 6-hour expiration policy
+- Always use HTTPS when transmitting tokens
+- Do not expose admin tokens to frontend clients
+- Use token rotation if building long-running or sensitive sessions
+
+<Callout type="important">
+All tracking and reporting in Cinema8 becomes user-specific once a valid token is used. This enables detailed analytics and personalization.
+</Callout>

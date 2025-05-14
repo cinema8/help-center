@@ -1,0 +1,610 @@
+---
+title: "Widget Development Playground"
+description: "Explore Cinema8's Widget API through a live video and interactive code samples."
+---
+
+ 
+import { Callout } from 'nextra/components'
+import Cinema8Video from '@components/mdx/Cinema8Video'
+
+# Widget Development Playground
+
+This page demonstrates the full capabilities of the [Cinema8 Widget API](/advanced-tools-for-developers/widget-api) using a live video example. It includes all supported widget property types, HTML usage with Handlebars, dynamic interactions with JavaScript, and runtime variable access.
+
+<Callout type="info" className="mb-6">
+This playground showcases a working widget built using Cinema8’s native development environment. You can inspect widget behavior, supported methods, events, and more.
+</Callout>
+
+## 🎬 Live Playground Video
+
+<Cinema8Video videoId="zX07A0DA" aspectRatio="16/9" className="my-4" />
+
+## 🛠️ Widget Properties Demo
+
+<figure className="my-6">
+  <img src="/screenshot/widget-playground-props-1.jpg" alt="Widget Property Overview" className="rounded-lg shadow" />
+  <figcaption className="text-sm text-center mt-2">Visual representation of the defined properties used in this playground</figcaption>
+</figure>
+
+<figure className="my-6">
+  <img src="/screenshot/widget-playground-props-2.jpg" alt="Widget Property Overview" className="rounded-lg shadow" />
+  <figcaption className="text-sm text-center mt-2">Visual representation of the defined properties used in this playground</figcaption>
+</figure>
+
+## 🧩 HTML Code
+
+```html showLineNumbers copy
+<div class='c-{{uid}}'>
+  <div class='col'>
+    
+    <div>
+      <span>uid (Unique Identifier)</span>
+      <span>{{uid}}</span>
+    </div>
+    
+    <div>
+      <span>Text</span>
+      <span>{{text}}</span>
+    </div>
+
+    <div>
+      <span>Text Area</span>
+      <span>{{textArea}}</span>
+    </div>
+    
+    <div>
+      <span>Color</span>
+      <span class='color'>{{color}}</span>
+    </div>
+    
+    <div>
+      <span>Boolean Type</span>
+      <span>{{booleanType}}</span>
+    </div>
+    
+    <div>
+      <span>Image</span>
+      <img src='{{image}}' width='100' height='100' />
+    </div>
+    
+    <div>
+      <span>Video</span>
+      <video class='video' controls nodownload>
+        <source src='{{video}}' />
+      </video> 
+    </div>
+    
+    <div>
+      <span>Text List</span>
+      <ul>
+        {{#each textList}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    
+    <div>
+      <span>Image List</span>
+      <div class='image-list'>
+        {{#each imageList}}
+          <img src='{{this}}'/>
+        {{/each}}
+      </div>
+    </div>
+    
+    <div>
+      <span>Select Type</span>
+      {{#each selectType}}
+          <span>{{this}}</span>
+      {{/each}}
+      
+      <br/>
+      Selected: {{selectedSelectType}}
+    </div>
+    
+    <div>
+      <span>Action Feature</span>
+      <button class='action-feature-btn'>Click to play video</button>
+    </div>
+    
+    
+    
+    <div>
+      <span>Clickable Single Item</span>
+      <button data-onclick-ref="text"> jump to 00:10 and pause video</button>
+    </div>
+    
+    
+      
+    <div>
+      <span>Clickable List Item (1:play, 2:pause, 3:jump to 00:15)</span>
+      <ul>
+        {{#each textList}}
+          <li data-onclick-ref="textList">{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+  
+  <div class='col'>
+    
+    <div>
+      <span>Variable (html)</span>
+      <span>Score: ${score}</span>
+      <span>License: ${license!none}</span>
+    </div>
+    
+    <div>
+      <button class="score-variable-30">Set Variable (score:30)</button>
+      <button class="score-variable-add-10">Add +10</button>
+      <button class="license-variable-enterprise">set Variable (license:'Enterprise')</button>
+    </div>
+  
+    <div>
+      <span>Variables</span>
+      <button class='variables'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Widget Props</span>
+      <button class='widget-props'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Widget Prop by key(textArea)</span>
+      <button class='widget-prop-single'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Track Props</span>
+      <button class='track-props'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Track Prop by key(duration)</span>
+      <button class='track-prop-duration'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Runtime</span>
+      <button class='runtime'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Play</span>
+      <button class='play'>Play</button>
+    </div>
+    
+    <div>
+      <span>Pause</span>
+      <button class='pause'>Pause</button>
+    </div>
+    
+    <div>
+      <span>Video paused</span>
+      <button class='paused'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Current time</span>
+      <button class='current-time'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Set Current time</span>
+      <button class='set-current-time'>Set current time (00:12)</button>
+    </div>
+    
+    <div>
+      <span>Hide player controls</span>
+      <button class='hide-player-controls'>Hide player controls</button>
+    </div>
+    
+    <div>
+      <span>Show player controls</span>
+      <button class='show-player-controls'>Show player controls</button>
+    </div>
+    
+    
+    <div>
+      <span>Volume</span>
+      <button class='volume'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Set volume</span>
+      <button class='set-volume'>Set volume (0.5)</button>
+      <button class='mute-volume'>Mute volume (0)</button>
+    </div>
+    
+    <div>
+      <span>Subtitles</span>
+      <button class='subtitles'>Click and check Console</button>
+    </div>
+    
+     <div>
+      <span>Current subtitle</span>
+      <button class='subtitle'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Set subtitles</span>
+      <button class='set-sub-en'>Set English (en)</button>
+      <button class='set-sub-de'>Set German (de)</button>
+      <button class='set-sub-none'>Turn off subtitles</button>
+    </div>
+    
+    <div>
+      <span>Launch fullscreen</span>
+      <button class='launch-fs'>Launch fullscreen</button>
+    </div>
+    
+    <div>
+      <span>Exit fullscreen</span>
+      <button class='exit-fs'>Exit fullscreen</button>
+    </div>
+    
+    <div>
+      <span>Playback rate</span>
+      <button class='playback-rate'>Click and check Console</button>
+    </div>
+    
+     <div>
+      <span>Set playback rate</span>
+      <button class='set-playback-rate-0-5'>Set playback rate (0.5)</button>
+      <button class='set-playback-rate-1'>Set playback rate (1)</button>
+    </div>
+    
+     <div>
+      <span>Set invisible</span>
+      <button class='set-invisible'>Set invisible</button>
+    </div>
+    
+    <div>
+      <span>Quality levels</span>
+      <button class='quality-levels'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Current quality levels</span>
+      <button class='quality-level'>Click and check Console</button>
+    </div>
+    
+    <div>
+      <span>Set quality level</span>
+      <button class='set-quality-level-360p'>Set quality level (360p)</button>
+    </div>
+  
+    <br /><br />  
+  
+  </div>
+ 
+</div>
+```
+
+## 🎨 CSS Code
+
+```css showLineNumbers copy
+.c-{{uid}}{
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  padding: 1rem;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: space-between;
+}
+.c-{{uid}} .col{
+  width: 50%;  
+}
+.c-{{uid}} .col > div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .75rem;
+}
+.c-{{uid}} .col > div span:first-child{
+  font-weight: bold;
+}
+.c-{{uid}} .color{
+  color: {{color}};
+}
+.c-{{uid}} .video{
+  width: 300px;
+}
+.c-{{uid}} .image-list img{
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+}
+.c-{{uid}} button{
+    width: 200px;
+}
+```
+
+## 📜 JavaScript Code
+
+```js showLineNumbers copy
+// Set Variable
+// Unique named variable declaration
+var foo_{{uid}} = 'bar'
+console.log('Foo: ', foo_{{uid}});
+
+// unique named function declaration
+function testFn_{{uid}}(){
+  
+}
+
+// Set Variable
+$('.c-{{uid}} .score-variable-30').click(function() {
+    c8PlayerApi.setVariable('score', 30);
+});
+
+// Set variable / Get variable
+$('.c-{{uid}} .score-variable-add-10').click(function() {
+  var prevState = c8PlayerApi.getVariable('score');
+  c8PlayerApi.setVariable('score', prevState + 10);
+});
+
+// Set Variable
+$('.c-{{uid}} .license-variable-enterprise').click(function() {
+    c8PlayerApi.setVariable('license', 'Enterprise');
+});
+
+// Variables
+$('.c-{{uid}} .variables').click(function() {
+  console.log(c8PlayerApi.getVariables())
+});
+
+// Widget Props
+$('.c-{{uid}} .widget-props').click(function() {
+   console.log(c8PlayerApi.getWidgetProps());
+});
+
+// Widget Prop
+$('.c-{{uid}} .widget-prop-single').click(function() {
+   console.log(c8PlayerApi.getWidgetProp('textArea'));
+});
+
+// Track Props
+$('.c-{{uid}} .track-props').click(function() {
+   console.log(c8PlayerApi.getTrackProps());
+});
+
+// Track prop
+$('.c-{{uid}} .track-prop-duration').click(function() {
+  // second parameter is default value
+   console.log(c8PlayerApi.getTrackProp('duration', 10));
+});
+
+// Widget prop action
+$('.c-{{uid}} .action-feature-btn').click(function() {
+    c8PlayerApi.executeWidgetPropActions("actionFeature");
+});
+
+// Runtime
+$('.c-{{uid}} .runtime').click(function() {
+    console.log(c8PlayerApi.getRuntime());
+});
+
+// Play video
+$('.c-{{uid}} .play').click(function() {
+   c8PlayerApi.play();
+});
+
+// Pause video
+$('.c-{{uid}} .pause').click(function() {
+   c8PlayerApi.pause();
+});
+
+// Checks whether video is paused.
+$('.c-{{uid}} .paused').click(function() {
+   console.log('Paused: ', c8PlayerApi.paused());
+});
+
+// Current time
+$('.c-{{uid}} .current-time').click(function() {
+   console.log('Current Time: ', c8PlayerApi.currentTime().toFixed(2));
+});
+
+// Set current time
+$('.c-{{uid}} .set-current-time').click(function() {
+   c8PlayerApi.currentTime(12);
+});
+
+// Hide player controls
+$('.c-{{uid}} .hide-player-controls').click(function() {
+   c8PlayerApi.hideControls();
+});
+
+// Show player controls
+$('.c-{{uid}} .show-player-controls').click(function() {
+   c8PlayerApi.showControls();
+});
+
+// Volume
+$('.c-{{uid}} .volume').click(function() {
+   console.log('Volume: ', c8PlayerApi.volume());
+});
+
+// Set volume
+$('.c-{{uid}} .set-volume').click(function() {
+   c8PlayerApi.volume(0.5);
+});
+
+// Mute volume
+$('.c-{{uid}} .mute-volume').click(function() {
+   c8PlayerApi.volume(0);
+});
+
+// Returns available subtitles
+$('.c-{{uid}} .subtitles').click(function() {
+   console.log(c8PlayerApi.subtitles());
+});
+
+// Current subtitle
+$('.c-{{uid}} .subtitle').click(function() {
+   console.log(c8PlayerApi.subtitle());
+});
+
+// Set subtitle
+$('.c-{{uid}} .set-sub-en').click(function() {
+   c8PlayerApi.subtitle('en');
+});
+
+// Set subtitle
+$('.c-{{uid}} .set-sub-de').click(function() {
+   c8PlayerApi.subtitle('de');
+});
+
+// Set subtitle
+$('.c-{{uid}} .set-sub-none').click(function() {
+   c8PlayerApi.subtitle('off');
+});
+
+// Launch fullscreen
+$('.c-{{uid}} .launch-fs').click(function() {
+   c8PlayerApi.launchFullscreen();
+});
+
+// Exit fullscreen
+$('.c-{{uid}} .exit-fs').click(function() {
+   c8PlayerApi.exitFullscreen();
+});
+
+// Playback rate
+$('.c-{{uid}} .playback-rate').click(function() {
+   console.log(c8PlayerApi.playbackRate());
+});
+
+// Set playback rate
+$('.c-{{uid}} .set-playback-rate-0-5').click(function() {
+   c8PlayerApi.playbackRate(0.5);
+});
+
+// Set playback rate
+$('.c-{{uid}} .set-playback-rate-1').click(function() {
+   c8PlayerApi.playbackRate(1);
+});
+
+// Set playback rate
+$('.c-{{uid}} .set-invisible').click(function() {
+   c8PlayerApi.setInvisible();
+   //c8PlayerApi.setVisible();
+});
+
+// Returns available quality levels if exist
+$('.c-{{uid}} .quality-levels').click(function() {
+   console.log(c8PlayerApi.qualityLevels());
+});
+
+// Current quality level of the video
+$('.c-{{uid}} .quality-level').click(function() {
+   console.log(c8PlayerApi.qualityLevel());
+});
+
+// Sets quality level of the video of given quality level ( Set "auto" for Auto level )
+$('.c-{{uid}} .set-quality-level-360p').click(function() {
+   c8PlayerApi.qualityLevel(2);
+   c8PlayerApi.play();
+});
+
+/**
+ *  EVENTS
+ */
+ c8PlayerApi.on("play", function(){
+    console.log("Play Event");
+  })
+
+  c8PlayerApi.on("pause", function(){
+    console.log("Pause Event");
+  })
+
+  c8PlayerApi.on("visibilityChange", function(visible){
+    console.log("VisibilityChange Event:", visible)
+  })
+
+  c8PlayerApi.on("playbackRateChange", function(playbackRate){
+    console.log("PlaybackRateChange Event:", playbackRate)
+  })
+
+  c8PlayerApi.on("qualityLevelChange", function(quality){
+    console.log("QualityLevelChange Event:", quality)
+  })
+
+  c8PlayerApi.on("fullscreenChange", function(fullscreen){
+    console.log("FullscreenChange Event:", fullscreen)
+  })
+
+  c8PlayerApi.on("widgetDestroy", function(){
+    console.log("WidgetDestroy Event")
+  })
+
+  c8PlayerApi.on("variableChange", function(variableName, prevValue, newValue){
+    console.log("VariableChange Event:", variableName, prevValue, newValue)
+  })
+
+/*
+
+  // Returns object of current audio track if exist, otherwise it returns null;
+  c8PlayerApi.audioTrack(); 
+  {
+    "label": "Spanish",
+    "value": "es"
+  }
+  
+  // Sets audio track of the video by given index
+  c8PlayerApi.audioTrack(1);
+  
+  // Returns available audio tracks if exist, otherwise it returns an empty array
+  c8PlayerApi.audioTracks(); 
+    [
+      {
+        "label": "English",
+        "value": "en"
+      },
+      {
+        "label": "Spanish",
+        "value": "es"
+      }
+    ]
+    
+    // Returns authenticated user info
+    c8PlayerApi.getAuthenticatedUser(); 
+    {
+      name: 'John',
+      surname: 'Doe',
+      username: 'john.doe'
+    }
+    
+    // Store key-value pair data
+    c8PlayerApi.postData(payload).then(function(res){
+
+    });
+    
+    // Returns stored data
+    c8PlayerApi.getData().then(function(res){
+      console.log(res)
+    });
+*/
+
+```
+
+## 🧪 Try More
+
+Explore the full API capabilities including:
+
+* Variable handling via `c8PlayerApi.getVariable()`
+* Event hooks like `on('play')`, `on('pause')`, `on('visibilityChange')`
+* Playback control (play, pause, seek, fullscreen)
+* Subtitle & audio track settings
+* Volume and quality control
+* Storing & retrieving data with `postData()` and `getData()`
+
+---
+
+<Callout type="tip" className="mt-10">
+You can build your own widgets by following the [Widget API Guide](/advanced-tools-for-developers/widget-api) or clone the sample from this playground.
+</Callout>

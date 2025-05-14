@@ -1,0 +1,17 @@
+export default {
+  'using-templates-for-quick-video-creation': 'Using Templates for Quick Video Creation',
+  'creating-interactive-360-videos': 'Creating Interactive 360° Videos',
+  'ai-powered-chapter-suggestions': 'AI-Powered Chapter Suggestions',
+  'adding-background-music-and-sound-effects': 'Adding Background Music and Sound Effects',
+  'making-the-most-out-of-your-cinema8-plan': 'Making the Most Out of Your Cinema8 Plan',
+  'screen-recording-with-cinema8': 'Screen Recording with Cinema8',
+  'adding-chapters-to-your-video': 'Adding Chapters to Your Video',
+  'automate-video-editing-and-organisation-with-ai': 'Automate Video Editing and Organisation with AI',
+  'subtitle-editor-add-and-edit-captions-easily': 'Subtitle Editor: Add and Edit Captions Easily',
+  'adding-subtitles-to-your-video': 'Adding Subtitles to Your Video',
+  'editing-videos-on-cinema8-and-adding-background-music': 'Editing Videos on Cinema8 and Adding Background Music',
+  'dashboard-overview': 'Dashboard Overview',
+  'creating-your-first-video': 'Creating Your First Video',
+  'what-you-can-achieve-with-growth-tools-cinema8-use-cases': 'What You Can Achieve with Growth Tools (Cinema8 Use Cases)',
+  'ai-powered-subtitles-and-translations': 'AI-Powered Subtitles and Translations',
+};

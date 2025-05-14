@@ -1,0 +1,61 @@
+---
+title: "How to Add Time Restriction to Question Types"
+description: "Using time restrictions for questions in an interactive video can capture viewers' attention and introduce a gamified challenge. Let's get started."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Add Time Restriction to Question Types
+
+<Callout type="info">
+Adding time restrictions enhances interactivity and creates game-like pressure in learning or quiz scenarios.
+</Callout>
+
+## Using the Countdown Element with Questions
+
+<Steps>
+
+### Step 1: Add a Question to the Timeline
+
+Begin by adding any question type (e.g., multiple choice, fill in the blank) to your video timeline.
+
+### Step 2: Add the Countdown Widget
+
+Drag and drop the **Countdown** element from the **Elements** panel to the same time interval as the question.
+
+![Countdown Timer](/screenshot/questions/countdown-1.webp)
+
+This widget controls how long a viewer has to respond.
+
+### Step 3: Configure General Settings
+
+Use the Countdown’s **Properties Panel** to:
+
+- Set the countdown duration (e.g., 5 seconds)
+- Style the countdown appearance if needed
+
+### Step 4: Define "On Complete" Behavior
+
+Select an **On Complete** action — this will trigger if the viewer fails to respond within the countdown period.
+
+Common use cases:
+
+- **Jump in This Project**  
+  Automatically skip to another part of the video.
+
+- **Set Visible + Play Audio**  
+  Trigger a voice alert such as:  
+  _"Your time is up, please make a choice."_  
+  Set the audio element as **invisible**, then choose **Play Audio** in Countdown’s **On Complete** settings.
+
+- **Set Variable**  
+  Track if the viewer answered in time.  
+  You can use this later to display a summary or score.
+
+[Learn how to use variables →](/design-advanced-interactivity/using-variables-in-interaction-design)
+
+</Steps>
+
+<Callout type="default">
+For more options, read the full documentation for the <a href="/design-advanced-interactivity/countdown-element" target="_blank">Countdown Element</a>.
+</Callout>

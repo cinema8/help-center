@@ -1,0 +1,89 @@
+---
+title: "Connecting Questions in Branching Videos"
+description: "Branching Videos"
+---
+
+import { Callout, Steps } from 'nextra/components'
+import { HotspotImage } from '@/components/mdx/HelpUI'
+
+# Connecting Questions in Branching Videos
+
+## Creating Dynamic Viewer Experiences with Interactive Video Branching in Cinema8
+
+When creating interactive videos in Cinema8, you can link multiple videos together using the **Storyflow** feature. By inserting questions between segments, you give viewers control over the path they take—making each experience uniquely personal.
+
+<Callout type="info">
+Use branching to guide viewers through customized scenarios based on their answers. Ideal for training, e-learning, and marketing journeys.
+</Callout>
+
+---
+
+## How to Connect Questions Between Videos
+
+<Steps>
+
+### Step 1: Access Storyflow Editor  
+Hover over your interactive video in the dashboard and click the three-dot menu. Select **Quick-Start Dashboard** or go directly to **Design Video Branching**.
+
+### Step 2: Edit Video Details (Optional)  
+Click on **Edit Video Info** to update project metadata like name, description, or thumbnail.
+
+### Step 3: Open the Branching Designer  
+Use the **Design Video Branching** button to launch the visual editor. Here, you’ll see all videos and how they’re connected.
+
+### Step 4: Add Questions as Decision Points  
+Click the **“+” button** on a video node and choose **Question**. You can create:
+- Single-select or multi-select questions
+- Define answers and connect each one to different video segments
+
+### Step 5: Configure Branching Logic  
+Connect answers to the relevant next videos. These connections determine how viewers navigate through the content.
+
+### Step 6: Use Navigation Tools  
+Inside the editor, you can:
+- Zoom in/out or fullscreen the canvas  
+- Lock elements in place  
+- Change the line style between segments  
+- Use the **Preview** button to simulate the full branching experience
+
+</Steps>
+
+---
+
+## Example: Branching with Questions
+
+<HotspotImage 
+  src="/screenshot/advanced-interactivity/branching-question-editor-1.png"
+  hotspots={[
+    {
+      x: 20,
+      y: 45,
+      title: "Video Node",
+      description: "Represents one video in the branching flow. Elements like questions are listed inside the node."
+    },
+    {
+      x: 42,
+      y: 50,
+      title: "Add Question",
+      description: "Click the '+' icon and select 'Question' to create a branching decision point."
+    },
+    {
+      x: 80,
+      y: 10,
+      title: "Question Settings Panel",
+      description: "Configure the question title, input the text, and define possible answers. You can link answers to different video paths."
+    },
+    {
+      x: 60,
+      y: 35,
+      title: "Answer Links",
+      description: "Each answer in a question can be connected to different video scenes for personalized flow."
+    },
+    {
+      x: 88,
+      y: 12,
+      title: "Save Button",
+      description: "Click Save to apply your question and start defining where each answer leads."
+    }
+  ]}
+/>

@@ -1,0 +1,50 @@
+---
+title: "How to Use Server Side Webhooks to Inject Custom Variables into Video"
+description: "The Webhooks integration allows you to be automatically notified when certain events occur without the need to constantly poll the API. It also provides you with access to a new rule action, enabling you to set up a URL that will receive an HTTP request every time the rule is triggered."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Use Server Side Webhooks to Inject Custom Variables into Video
+
+<Callout type="info">
+Cinema8 supports **server-side webhooks**, allowing you to send and receive real-time data from external systems based on rule-triggered events inside your interactive videos.
+</Callout>
+
+## A guide to leveraging webhooks for integrating custom variables into your videos
+
+Webhooks enable two-way communication with external systems by making HTTP requests to your specified endpoints when predefined events occur in your video.
+
+<Steps>
+
+### Step 1: Define Your Webhook Endpoint
+
+Create a publicly accessible URL on your server that can receive HTTP POST requests. This endpoint will be triggered when an event rule is activated in Cinema8.
+
+### Step 2: Add a Rule in Cinema8
+
+- Open your interactive project in Cinema8 Creative Studio.
+- Navigate to the **Rules** panel.
+- Add a new rule and choose **Action: Send Webhook**.
+
+### Step 3: Configure the Webhook Action
+
+- Paste your endpoint URL into the action configuration.
+- Optionally include **custom payload data** (e.g. viewer ID, video time, variable value).
+- You can format your request as JSON, form data, or URL params depending on your API needs.
+
+### Step 4: Process Incoming Data on Your Server
+
+Your server should handle the incoming data, perform the necessary logic (e.g. save to DB, validate status), and optionally return a response (e.g. a new variable value).
+
+### Step 5: Use the Response in Cinema8
+
+If your server returns variables in the expected format, you can capture them and use them inside your video. For example:
+- Set a user variable (e.g. `"userName" = "John"`)
+- Show/hide content based on returned values
+
+</Steps>
+
+<Callout type="default">
+Cinema8 webhooks are ideal for syncing data with CRMs, marketing tools, learning systems, or triggering external logic based on video interactions.
+</Callout>

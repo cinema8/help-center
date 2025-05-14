@@ -1,0 +1,123 @@
+http://localhost:3000/create-and-edit-videos/automate-video-editing-and-organisation-with-ai
+  --links are missing.
+  
+http://localhost:3000/create-and-edit-videos/what-you-can-achieve-with-growth-tools-cinema8-use-cases
+  --links are missing.
+
+  
+  http://localhost:3000/host-manage-and-customise/brand-your-platform-white-labelling-custom-domains-and-cname-explained
+  
+  --needs check and validation
+  
+  http://localhost:3000/host-manage-and-customise/bulk-video-migration-using-ftp-upload
+  
+  --needs content check
+  
+  
+  http://localhost:3000/engage-and-monetise/interaction-elements-how-to-use-the-property-panel
+    --links are missing.
+  
+  
+  http://localhost:3000/engage-and-monetise/getting-started-with-widgets-and-elements
+      --links are missing.
+  
+  
+  http://localhost:3000/engage-and-monetise/getting-started-with-widgets-and-elements
+     --needs check and validation --enhance content
+     
+  http://localhost:3000/engage-and-monetise/capturing-leads-from-videos
+     --needs check and validation --enhance content
+  
+  
+  http://localhost:3000/engage-and-monetise/making-amazing-video-surveys-with-hotspots   
+        --links are missing.
+  
+  
+  http://localhost:3000/engage-and-monetise/html-element#
+  
+          --links are missing.
+  
+  
+  http://localhost:3000/engage-and-monetise/adding-video-overlays
+            --links are missing.
+  
+  
+  http://localhost:3000/engage-and-monetise/generating-leads-with-adaptive-intro-forms
+            --links are missing.
+            
+  http://localhost:3000/engage-and-monetise/collaborating-on-videos
+            --links are missing.
+  
+  http://localhost:3000/engage-and-monetise/add-or-edit-interactivity
+            --links are missing.
+            
+  http://localhost:3000/engage-and-monetise/examples-of-growing-your-business-with-video
+  links and video urls.
+  
+  http://localhost:3000/engage-and-monetise/using-introduction-forms
+              --links are missing.
+              
+http://localhost:3000/accounts-and-billing/sign-up-for-cinema8-with-email-or-social-accounts
+              --links are missing.
+              
+ http://localhost:3000/advanced-tools-for-developers/api-keys
+ check links
+ 
+ http://localhost:3000/advanced-tools-for-developers/rest-api
+ check links
+ 
+ http://localhost:3000/advanced-tools-for-developers/widget-api
+ check content
+ check links
+ 
+ analyse and optimize needs content improvements.
+ 
+ 
+ http://localhost:3000/advanced-tools-for-developers/getting-started-with-cinema8-api
+ organize icons
+ 
+ http://localhost:3000/integrations-and-third-party-platforms/integrating-cinema8-with-other-platforms
+ needs content fixes.and links
+ 
+ 
+ Integrations and third-party platforms 
+ --dublicates- webhook js api etc..
+ webhook konusu cok karistirilmis.
+ adds konusu cok karistirilmis. DFP-VAST -- monetization , VPAID export konusu hic yok su anda.
+ 
+ 
+ http://localhost:3000/integrations-and-third-party-platforms/using-webhooks-in-interaction-design
+ needs full update-sample video is not working..
+ 
+ 
+ ---yeni entegrasyonlar [CRM konulari --]
+ ---Widget --design advanced interactivity de hic gecmiyor.
+ hotspot ve html element baska basliklar altinda.
+ 
+ --Design advanced Interactivitynin layoutu elden gecmeli, start-end akisi olmali.--
+ 
+ http://localhost:3000/design-advanced-interactivity/easy-access-guide-complete-list-of-interactivity-elements
+ needs update.
+ 
+ http://localhost:3000/design-advanced-interactivity/dynamic-image-element
+ deprecreated
+ 
+ http://localhost:3000/design-advanced-interactivity/connecting-questions-in-branching-videos
+ needs update
+ 
+ http://localhost:3000/design-advanced-interactivity/how-to-use-action-elements
+ content needs improvement
+ 
+ http://localhost:3000/design-advanced-interactivity/using-variables-in-interaction-design
+ content needs improvement
+ 
+ ----------------
+ https://support.cinema8.com/portal/en/kb/articles/using-cinema8-videos-in-twitter-31-1-2022
+ eski sistemde var burda yok-EKLEMEDIM, secure sharing de bahsediliyor.
+ 
+ http://localhost:3000/integrations-and-third-party-platforms/working-with-video-url-parameters
+ eski sistemde var burda yoktu ekledim.
+ 
+ ----Storyflow icin daha fazla icerik yazilabilir
+ ----widget konusu hic yok, sadece development tarafinda sayfalari var.
+ 

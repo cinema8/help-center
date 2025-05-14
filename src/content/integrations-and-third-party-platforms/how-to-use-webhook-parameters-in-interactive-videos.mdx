@@ -1,0 +1,61 @@
+---
+title: "How to Use Webhook Parameters in Interactive Videos"
+description: "Learn how to extract and display object values sent via webhook inside a Cinema8 interactive video."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Use Webhook Parameters in Interactive Videos
+
+<Callout type="info">
+Cinema8 allows you to use webhook data to personalize your video by accessing object values such as user information.
+</Callout>
+
+## Accessing Webhook Object Data
+
+Let’s say the webhook sends the following object:
+
+```json filename="webhook-payload.json"
+{
+  "score": 85,
+  "user": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "userName": "john.doe"
+  }
+}
+```
+
+You can extract and display values like `firstName`, `lastName`, and `userName` directly in the video using the **HTML element**.
+
+First, add the HTML element to your video.  
+[Learn how to add HTML elements →](/engage-and-monetise/html-element)
+
+Then insert the appropriate display code inside the element to show the webhook parameters.
+
+![Display values using HTML element](/screenshot/webhook/webhook-1.webp)
+
+Preview the video to see the dynamic values appear.
+
+![Preview result with webhook data](/screenshot/webhook/webhook-2.webp)
+
+## Using Conditional Logic with Webhook Parameters
+
+To take it further, you can conditionally control elements based on webhook values.
+
+1. Add a **Conditional Action** element to your video.  
+   [Learn how to add conditional actions →](/design-advanced-interactivity/conditional-action-element)
+
+2. In the condition configuration, add:
+
+```
+user.username = john.doe
+```
+
+> `user` refers to the object from the webhook payload, and `username` is the field you’re matching.
+
+![Conditional action setup](/screenshot/webhook/webhook-3.webp)
+
+<Callout type="important">
+This conditional logic will only trigger if the webhook data has been successfully received by the video.
+</Callout>

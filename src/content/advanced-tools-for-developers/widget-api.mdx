@@ -1,0 +1,193 @@
+---
+title: "Cinema8 Widget API"
+description: "Develop custom widgets for Cinema8 with full access to the runtime player environment, timeline data, dynamic props, and user actions."
+---
+
+import { Callout } from 'nextra/components'
+import { CodeBracketIcon, Cog6ToothIcon, PuzzlePieceIcon, PlayCircleIcon } from '@heroicons/react/24/outline'
+
+# Cinema8 Widget API
+
+<span className="block text-gray-500 text-base font-normal mt-1">Build interactive widgets with JavaScript, CSS, and Handlebars templating</span>
+
+Widgets are reusable components that run inside the Cinema8 player. You can use the default widgets or develop your own using the **Cinema8 Widget Development Environment**.
+
+<Callout type="info" className="mt-6 mb-8">
+  See also: [Widget Playground](https://support.cinema8.com/portal/en/kb/articles/widget-development-playground)
+</Callout>
+
+## Widget Basics
+
+* Widgets are embedded on the video timeline.
+* They support dynamic properties, actions, and runtime control.
+* You can configure widgets via Creative Studio.
+
+### Common Widget Properties
+
+All widgets inherit:
+
+* `name`
+* `start`, `end`
+* `visible`
+* `onStart`, `onEnd`, `onClick`
+* `position` (percentage-based)
+
+You can also define your own **custom props** (e.g., `text`, `color`, `video`).
+
+### Supported Property Types
+
+* Text (string)
+* Text Area (multiline string)
+* Color (hex string)
+* Image (URL)
+* Video (URL)
+* Boolean
+* Text List (array)
+* Image List (array)
+* Select (dropdown)
+* Action (clickable)
+
+## Accessing Parameters
+
+### HTML
+
+Use Handlebars templates:
+
+```html
+<p>{{text}}</p>
+```
+
+Lists:
+
+```html
+<ul>
+  {{#each textList}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
+```
+
+### JavaScript
+
+```js
+c8PlayerApi.getWidgetProps()
+c8PlayerApi.getWidgetProp('textArea')
+```
+
+Unique IDs:
+
+```js
+$('.c-{{uid}} .widget-button').click(() => {
+  console.log(c8PlayerApi.getWidgetProp('text'))
+})
+```
+
+### CSS
+
+```css
+.c-{{uid}} {
+  background: {{color}};
+  padding: 1rem;
+}
+```
+
+## Using `{{uid}}`
+
+Ensures unique styling and DOM selection:
+
+* HTML: `<div class="c-{{uid}}">`
+* CSS: `.c-{{uid}} {}`
+* JS: `$('.c-{{uid}}')`
+
+## Accessing Runtime Data
+
+```js
+c8PlayerApi.getTrackProps()
+c8PlayerApi.getTrackProp('duration')
+```
+
+Authenticated user:
+
+```js
+const user = c8PlayerApi.getAuthenticatedUser()
+```
+
+## Video Control APIs
+
+```js
+c8PlayerApi.play()
+c8PlayerApi.pause()
+c8PlayerApi.currentTime()
+c8PlayerApi.volume(0.5)
+c8PlayerApi.subtitle("en")
+c8PlayerApi.audioTrack(1)
+c8PlayerApi.qualityLevel("auto")
+```
+
+## Variable Storage
+
+```js
+c8PlayerApi.setVariable('score', 10)
+c8PlayerApi.getVariable('score')
+```
+
+Persistent variables:
+
+```js
+c8PlayerApi.setVariable('userChoice', 'A', true)
+```
+
+## Saving Data
+
+```js
+c8PlayerApi.postData({ feedback: 'Great!' }).then(console.log)
+```
+
+Retrieve data:
+
+```js
+c8PlayerApi.getData().then(console.log)
+```
+
+## Runtime Events
+
+```js
+c8PlayerApi.on("play", () => { ... })
+c8PlayerApi.on("pause", () => { ... })
+c8PlayerApi.on("visibilityChange", visible => { ... })
+c8PlayerApi.on("variableChange", (key, prev, next) => { ... })
+```
+
+## Executing Actions
+
+```js
+c8PlayerApi.executeWidgetPropActions('onImageHover')
+```
+
+## Using Clickable Props
+
+Enable "isClickable" in Studio and bind:
+
+```html
+<li data-onclick-ref="textList">Item</li>
+```
+
+## Handlebars Helpers
+
+```js
+<#Handlebars>
+  Handlebars.registerHelper("uppercase", val => val.toUpperCase())
+</#Handlebars>
+```
+
+Then in HTML:
+
+```html
+{{uppercase text}}
+```
+
+---
+
+<Callout type="warning">
+Need help? Visit the [Widget Playground](https://support.cinema8.com/portal/en/kb/articles/widget-development-playground) for examples.
+</Callout>

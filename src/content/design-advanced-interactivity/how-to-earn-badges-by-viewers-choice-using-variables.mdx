@@ -1,0 +1,62 @@
+---
+title: "How to Earn Badges by Viewers' Choice w/Variables"
+description: "Using badges, one of the gamification elements, in your videos can significantly increase engagement by encouraging viewers to keep watching. For example, imagine a video with three questions. If the viewer answers two questions correctly, they earn the Honesty badge. Let's walk through how to set this up:"
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Earn Badges by Viewers' Choice w/Variables
+
+## A step-by-step guide to implementing gamification with badge rewards in your interactive videos
+
+Using badges — one of the most effective gamification elements — can significantly boost viewer engagement by rewarding participation. For example, in a video with three questions, if a viewer answers at least two correctly, they can earn a badge like "Honesty." Here's how to implement this:
+
+<Steps>
+
+### Step 1: Add the Badge Image
+Ensure your badge image is stored in your image library. Add it to the timeline using the **Image** widget and position it where you want the badge to appear. Adjust its display duration and **disable the "Visible" setting** in the Properties panel.
+
+### Step 2: Add the First Question and Initialize Score
+Add a **Single Select Question** to your video. In the correct option’s settings, define a variable called `score`. Type:
+
+```text
+score = 1
+```
+
+in the **Set Variable** section and save.
+
+### Step 3: Add the Second Question and Increment Score
+Add a second question. In the correct option’s settings, increment the score variable by using:
+
+```text
+score = ${score} + 1
+```
+
+and save.
+
+### Step 4: Add the Third Question and Continue Tracking Score
+Repeat the same for the third question. Use the same score update logic to track correct answers.
+
+### Step 5: Set a Condition for Badge Visibility
+Add a **Conditional** widget to check if the viewer earned enough points. Set the condition:
+
+```text
+score = 2
+```
+
+This ensures the badge appears only if two or more correct answers were given.
+
+### Step 6: Position the Conditional Action Widget
+Place the **Conditional Action** widget right after the second or third question (depending on when you want the badge to appear).
+
+### Step 7: Set the Badge Display Action
+In the Conditional Action Properties, choose **Set Visible** as the action, and select the badge image from the **Target Tracklist**. Save the settings.
+
+### Step 8: Copy Conditions if Needed
+If you want to check the condition multiple times, copy the Conditional Action widget to other points in the video timeline where it makes sense to evaluate the badge display.
+
+</Steps>
+
+<Callout type="info">
+By following these steps, you can gamify your videos with badge-based rewards, increasing motivation and interaction from your viewers.
+</Callout>

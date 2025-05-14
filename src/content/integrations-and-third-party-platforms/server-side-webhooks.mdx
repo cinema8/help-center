@@ -1,0 +1,73 @@
+---
+title: "Server Side WebHooks"
+description: "A webhook (also called a web callback or HTTP push API) is a way for an app to provide other applications with real-time information. A webhook delivers data to other applications as it happens, so you receive data immediately. Cinema8 Webhooks allow you to inject your own business processes into interactive videos."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Server Side WebHooks
+
+## Integrating Custom Business Processes into Cinema8 Videos
+
+A webhook (also called a web callback or HTTP push API) is a way for an app to provide other applications with real-time information. A webhook delivers data to other applications as it happens, so you receive data immediately. Cinema8 Webhooks allow you to inject your own business processes into interactive videos.
+
+<Callout type="info">
+Cinema8 server-side webhooks allow you to send and receive structured data between your video content and your application backends in real time.
+</Callout>
+
+### Creating a Webhook
+
+Let’s go over the steps to add a webhook.
+
+First, return to the main menu and click on the **Integrations** button.
+
+![Cinema8 Integrations](/screenshot/server-side-webhooks/image-1.webp)
+
+Then click the **Webhooks** button. Click the **Add Webhook** button.
+
+![Add Webhook Cinema8](/screenshot/server-side-webhooks/image-2.webp)
+
+Let’s look at the webhook settings:
+
+![Webhook Settings Cinema8](/screenshot/server-side-webhooks/image-3.webp)
+
+1. Enter the name of the webhook.  
+2. Enter the URL where data will be posted. You can also create custom headers to increase security.  
+3. Specify the name of the header.  
+4. Enter values for the header to validate requests.  
+5. Click to add additional headers.  
+6. Enable this to pause the video until the webhook responds.  
+7. Enable this to include earlier interaction data in the webhook.  
+8. Click **Save** to apply your settings.
+
+### Adding Webhook to Video
+
+Now, create a test webhook by following the steps above.
+
+![Test Webhook URL](/screenshot/server-side-webhooks/image-4.webp)
+
+The test URL uses a simple echo service that returns two example values: `discountCode` and `imageUrl`.
+
+To display them in your video:
+
+1. Add two **HTML** elements to your video.
+2. In the **Source Code** field of the first HTML tool, add:  
+   `DiscountCode: ${discountCode}`
+3. In the second HTML tool, add:  
+   `<img src="${imageUrl}" />`
+
+Next, add a **Clickable Area** element to trigger the webhook.
+
+Set its **On Click** action to **Execute Webhook**.
+
+![Execute Webhook Cinema8](/screenshot/server-side-webhooks/image-5.webp)
+
+Once clicked, the webhook is activated and sends data to the HTML elements in the video.
+
+<Callout type="important">
+Cinema8 Webhooks support nested object models. You can access deep values from structured data responses. [Learn more](/integrations-and-third-party-platforms/using-webhooks-in-interaction-design)
+</Callout>
+
+[Click here to view a sample video](https://cinema8.com/video/zO1RvxDK)
+
+[How to Use Webhook Parameters in Interactive Videos](/integrations-and-third-party-platforms/how-to-use-webhook-parameters-in-interactive-videos)

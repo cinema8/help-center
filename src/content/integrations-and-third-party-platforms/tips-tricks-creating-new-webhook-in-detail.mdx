@@ -1,0 +1,38 @@
+---
+title: "Creating a New Webhook"
+description: "Learn how to configure a new webhook to integrate Cinema8 videos with external systems."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Creating a New Webhook
+
+<Callout type="info">
+Use webhooks to connect Cinema8 interactions with external systems by sending real-time data.
+</Callout>
+
+## Step-by-Step Setup
+
+### 1. Name
+
+Give your webhook a meaningful name. This helps identify its purpose, especially if you're managing multiple webhooks.
+
+### 2. URL
+
+Enter the endpoint where data should be sent. Make sure it's a valid and secure URL that can handle POST requests.
+
+### 3. Headers
+
+You can add custom headers to the request. This is useful for including tokens or authentication credentials to securely validate requests on your server.
+
+### 4. Additional Settings
+
+- **Execute Synchronously**:  
+  If enabled, the video will pause until the webhook call is completed. Use this for mission-critical events that must finish before playback continues.
+
+- **Post User Interactions**:  
+  Choose specific interactive elements (like buttons or forms) that should trigger data to be sent via the webhook.
+
+<Callout type="important">
+For best results, test your webhook endpoint before enabling synchronous execution.
+</Callout>

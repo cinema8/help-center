@@ -1,0 +1,58 @@
+---
+title: "Cinema8 Support for oEmbed and Player.js"
+description: "oEmbed is an open format that enables embedding a URL's representation on third-party sites. With oEmbed, a website can display embedded content (like photos or videos) when a user posts a link to that resource without needing to parse the resource directly."
+---
+
+import { Callout } from 'nextra/components'
+
+# Cinema8 Support for oEmbed and Player.js
+
+## Seamless Integration of Cinema8 Interactive Videos Across Platforms
+
+**oEmbed** is an open format that enables embedding a URL's representation on third-party sites. With oEmbed, a website can display embedded content—such as photos or videos—when a user posts a link to that resource without having to parse or render the content manually.
+
+<Callout type="info">
+Cinema8 supports the oEmbed specification, allowing its videos to be embedded into platforms that use rich-text or WYSIWYG editors supporting oEmbed endpoints.
+</Callout>
+
+### How oEmbed Works
+
+An *oEmbed* exchange takes place between:
+
+- **Consumer:** A platform or website embedding content (e.g., Medium, WordPress).
+- **Provider:** Cinema8, responding with metadata like the embed HTML.
+
+This makes it easier for platforms to display video previews without extra coding or API parsing.
+
+---
+
+## Player.js Compatibility
+
+**Player.js** is a lightweight JavaScript API standard that enables developers to control media (play, pause, volume, etc.) inside embedded iframes using postMessage. It is supported by many video platforms.
+
+<Callout type="info">
+Cinema8 players are compatible with the Player.js API, allowing you to control embedded interactive videos programmatically via iframe.
+</Callout>
+
+Supported methods include:
+
+- `play()`
+- `pause()`
+- `getCurrentTime()`
+- `setCurrentTime(seconds)`
+- `getDuration()`
+- `mute()` / `unmute()`
+
+This allows tight integration into complex frontend frameworks and LMS platforms.
+
+---
+
+## Practical Use Cases
+
+- Embedding Cinema8 videos into content platforms (e.g., **Medium**, **Kickstarter**, **Notion**) that support oEmbed URLs.
+- Using **CKEditor**, **TinyMCE**, or other HTML editors with oEmbed preview capabilities.
+- Integrating Player.js into a custom video experience to monitor progress or trigger actions programmatically.
+
+<Callout type="important">
+Cinema8's oEmbed and Player.js support improves compatibility across global content platforms while maintaining full interactivity and analytics.
+</Callout>

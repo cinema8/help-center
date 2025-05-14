@@ -1,0 +1,86 @@
+---
+title: "Generating API key for integrations"
+description: "Get an API Key"
+---
+
+import { Callout, Steps } from 'nextra/components'
+import { HotspotImage } from '@/components/mdx/HelpUI'
+
+# Generating API Key for Integrations
+
+## Setting Up API Keys for Cinema8 Platform Integration
+
+Before you can start using the Cinema8 Platform APIs and SDKs, you must sign up and create a billing account.
+
+<Callout type="info" title="New Users">
+To learn more, see our guide on [Getting Started with Cinema8 Platform](/host-manage-and-customise/getting-started-with-cinema8-cms-a-platform-built-for-growth).
+</Callout>
+
+Cinema8 supports the **OAuth** specification to authorize access to API endpoints.
+
+## How to Generate an API Key
+
+<Steps>
+
+### Go to the Integrations Area  
+Navigate to the **Cinema8 admin panel**, and go to the **Integrations** section under the sidebar.
+
+### Select "API Keys"  
+In the top tabs, click on the **API Keys** tab.
+
+### Assign the Key to a User  
+Choose a user from the dropdown. API keys will inherit the selected user’s roles and permissions.
+
+### Create the API Key  
+Click the **Create** button to generate a new API key.
+
+</Steps>
+
+## Visual Guide
+
+<HotspotImage 
+  src="/screenshot/api_key.png"
+  hotspots={[
+    {
+      x: 68,
+      y: 25,
+      title: "User Dropdown",
+      description: "Select a user whose roles and permissions will apply to this API key."
+    },
+    {
+      x: 85,
+      y: 25,
+      title: "Create Button",
+      description: "Click to generate the API key for the selected user."
+    },
+    {
+      x: 48,
+      y: 45,
+      title: "Generated API Key",
+      description: "Copy the key from here and use it in your integrations."
+    },
+    {
+      x: 52,
+      y: 82,
+      title: "Sensitive Data Encryption",
+      description: "Optional: enable encryption for sensitive API interactions."
+    }
+  ]}
+/>
+
+## Add the API Key to Your Request
+
+Include your API key in every **REST** or **JavaScript API** request.  
+Replace `YOUR_API_KEY` with your actual key in the sample code.
+
+[→ View sample code on Cinema8 GitHub](https://github.com/cinema8/player.js/tree/master/codesamples)
+
+<Callout type="info" title="Good to Know">
+Cinema8 API keys do **not expire**, and you can create **multiple keys** for different users or use cases.
+</Callout>
+
+## Related Resources
+
+- [Authentication & SSO](/advanced-tools-for-developers/authentication-and-sso)  
+- [JavaScript API](/advanced-tools-for-developers/javascript-api)  
+- [REST API](/advanced-tools-for-developers/rest-api)

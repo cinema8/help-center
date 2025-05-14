@@ -1,0 +1,71 @@
+---
+title: "Javascript WebHooks - Custom CallBacks"
+description: "To enable JavaScript webhooks in Cinema8, use the 'Execute Custom Callback' action type. Setting up a JavaScript webhook in Cinema8 is a simple two-step process."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# Javascript WebHooks – Custom Callbacks
+
+## Integrate Custom JavaScript for Enhanced Interactivity in Cinema8
+
+Cinema8 allows you to attach JavaScript-based webhooks to interactive video elements. This enables developers to execute custom JavaScript logic at runtime — ideal for triggering business processes, analytics, or advanced UI behaviors.
+
+<Callout type="info">
+To use JavaScript webhooks in Cinema8, select the <strong>"Execute Custom Callback"</strong> action type inside the Creative Studio.
+</Callout>
+
+## How It Works
+
+<Steps>
+
+### Step 1: Trigger an Action Within the Video
+
+Use any of the following to trigger your JavaScript callback:
+
+- Set an **onClick** action on an **Image** element → _"Execute Custom Callback"_
+- Set an **onClick** action on a **Clickable Area**
+- Use a **Conditional Action** element with the same action type
+- Use an **Action** element on the timeline
+
+Once triggered, the video will pass control to the JavaScript context via `onCustomCallback`.
+
+![Cinema8 Articles - Javascript web hooks](/screenshot/execute-custom-callback-1-1-2-1.webp)
+
+### Step 2: Catch the Callback in JavaScript
+
+Embed your video using the Cinema8 Player JavaScript API, and define your callback function using `onCustomCallback`:
+
+```js filename="custom-callback.js" showLineNumbers
+var player = new Cinema8Player("#video", {
+  id: "rJVZ6nJg",
+  onReady: function () {
+    // console.log("onReady fired");
+  },
+  onPlay: function () {
+    // console.log("onPlay fired");
+  },
+  onPause: function () {
+    // console.log("onPause fired");
+  },
+  onProgress: function () {
+    // console.log("onProgress fired");
+  },
+  onEnd: function () {
+    // console.log("onEnd fired");
+  },
+  onCustomCallback: function (param) {
+    console.log("Custom callback:", param);
+  },
+  onWebhookResponse: function (response) {
+    console.log("Webhook response:", response);
+  }
+});
+```
+
+</Steps>
+
+## Need a Working Example?
+
+You can download a working implementation directly from our GitHub:  
+[→ Cinema8 JavaScript API on GitHub](https://github.com/cinema8)

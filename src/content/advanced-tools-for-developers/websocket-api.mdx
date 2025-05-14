@@ -1,0 +1,114 @@
+---
+title: "WebSocket API"
+description: "The WebSocket API within Cinema8's widget development environment allows you to create real-time communication and collaboration tools for interactive videos."
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# WebSocket API
+
+## WebSocket-Powered Widget Development
+
+Cinema8 provides a WebSocket API that enables real-time interaction inside widgets. You can build live collaboration, chat, polling, or scoring mechanisms using this interface.
+
+<Callout type="info">
+This API is only available within the Cinema8 widget runtime (Creative Studio or embedded widgets).
+</Callout>
+
+## Creating a WebSocket Instance
+
+To create a WebSocket instance:
+
+```js filename="websocket-init.js"
+var socket = new c8PlayerApi.webSocket({
+  persistent: true
+});
+```
+
+- The `persistent` option determines whether data sent through the socket is stored or not.
+
+---
+
+## WebSocket Event Handlers
+
+These event handlers are available on the WebSocket object:
+
+```js filename="websocket-events.js"
+socket.onOpen = function () {
+  console.log("Socket Connection Open!");
+};
+
+socket.onMessage = function (message) {
+  console.log(message.data);
+};
+
+socket.onActiveConnectionsChange = function (message) {
+  console.log(message.data);
+};
+
+socket.onClose = function () {
+  console.log("Socket Connection Closed!");
+};
+
+socket.onError = function (err) {
+  console.log("Socket Connection Error!", err);
+};
+```
+
+---
+
+## Publishing and Closing
+
+You can publish messages like this:
+
+```js filename="websocket-publish.js"
+socket.publish({
+  msg: "Hi",
+  user: "John"
+});
+```
+
+Close the socket when your widget is destroyed:
+
+```js filename="widget-cleanup.js"
+c8PlayerApi.on("widgetDestroy", function () {
+  socket.close();
+});
+```
+
+---
+
+## WebSocket Search
+
+You can search previously published data using the `search()` method:
+
+```js filename="websocket-search.js"
+var queryFilter = {
+  sortField: "created",
+  sortOrder: "asc",
+  offset: 0,
+  limit: 10,
+  filters: [
+    { field: "created", operator: ">", value: 1678724096803 },
+    { field: "data.score", operator: ">", value: 55 }
+  ]
+};
+```
+
+You can also group results by a field using `groupBy`, such as `"data.liked"`.
+
+---
+
+## WebSocket Data Model
+
+Each WebSocket message published from a widget includes the following structure:
+
+- `client_id`: Unique ID for the widget instance  
+- `created`: Timestamp of creation  
+- `id`: Unique message ID  
+- `data`: Payload defined by the developer  
+- `username`: Automatically assigned from authenticated user (if available)
+
+<Callout type="default">
+This model enables real-time data storage, filtering, and display for collaborative widget experiences.
+</Callout>

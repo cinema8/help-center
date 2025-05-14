@@ -1,0 +1,87 @@
+---
+title: "Working with Video URL Parameters"
+description: "Customize Cinema8 videos dynamically using URL parameters including autoplay, subtitles, tokens, and more."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Working with Video URL Parameters
+
+Cinema8 allows you to customize the behavior of your interactive videos by appending URL parameters. These parameters help you control playback, subtitles, user data, and much more.
+
+<Callout type="info">
+You can also use URL parameters in <strong>embedded iframes</strong> and update them dynamically using the <a href="/developer/javascript-api">Cinema8 JavaScript API</a>.
+</Callout>
+
+## 🎬 Example
+
+```text
+https://cinema8.com/video/ADQrr9X6?sub=en&t=10&autoplay=1
+```
+
+This URL starts the video at the **10th second** and automatically enables **English subtitles** with **autoplay** turned on.
+
+### Embed Example
+
+```html
+<iframe
+  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+  src="https://cinema8.com/video/5J7ArMDN?sub=en&t=10&autoplay=1"
+  frameborder="0"
+  allow="autoplay; fullscreen; microphone; camera"
+  allowfullscreen
+></iframe>
+```
+
+---
+
+## Available URL Parameters
+
+| Parameter           | Description                                                                                             | Default | Notes                                                                 |
+|---------------------|---------------------------------------------------------------------------------------------------------|---------|------------------------------------------------------------------------|
+| `autoplay`          | Plays video automatically if set to `1`.                                                               | `0`     | Values: `0` = false, `1` = true                                       |
+| `sub`               | Loads selected subtitle by language code.                                                              | `null`  | Use subtitle codes from Creative Studio.                             |
+| `token`             | Pass user authentication token for tracking and analytics.                                             | `null`  | Learn more in [Authentication Tokens](/developer/authentication).    |
+| `externalVideoUrl`  | Loads an external video into Cinema8 player.                                                           | `null`  | Must be a valid video URL.                                           |
+| `controls`          | Show/hide player controls.                                                                             | `1`     | Values: `1` = show, `0` = hide                                       |
+| `muted`             | Mutes the video by default.                                                                            | `0`     | Values: `1` = muted, `0` = unmuted                                   |
+| `loop`              | Enables continuous playback loop.                                                                      | `0`     | Values: `1` = loop, `0` = no loop                                    |
+| `externalUser`      | Track anonymous users with metadata fields.                                                            | `null`  | Use JSON object format (see below).                                  |
+| `t`                 | Starts video at a specific time (in seconds).                                                          | `null`  | Must be a valid number within video duration.                        |
+| `resumeLastPosition`| Resumes playback from where viewer left off (for authenticated users).                                | `0`     | Values: `1` = enable, `0` = disable                                  |
+
+---
+
+## 🧠 External User Example
+
+Use the `externalUser` parameter to anonymously track a viewer’s profile for analytics without creating an account:
+
+```json
+externalUser: {
+  "name": "John",
+  "surname": "Doe",
+  "email": "john.doe@gmail.com",
+  "reference": "111-222-333"
+}
+```
+
+This user data will be available in reporting dashboards but **will not create a user account**.
+
+---
+
+## 🔧 Controlling via JavaScript API
+
+You can also change or append URL parameters dynamically with the Cinema8 JavaScript API:
+
+```js
+player.setVariable('sub', 'en');
+player.setVariable('t', 15);
+```
+
+Use these methods to create dynamic video experiences based on user input or external data.
+
+---
+
+<Callout type="tip">
+This feature is ideal for personalization, multilingual playback, and progress tracking — all via just the video URL.
+</Callout>

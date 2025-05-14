@@ -1,0 +1,112 @@
+---
+title: "Element Properties, Common Features"
+description: "Learn how to configure common settings for interactive elements in Cinema8, including actions, timing, visibility, and positioning."
+---
+
+import { Callout } from 'nextra/components'
+
+# Element Properties, Common Features
+
+<Callout type="info">
+Every interactive element in Cinema8 shares a set of common properties. These control how and when the element appears, responds to user actions, and interacts with your video.
+</Callout>
+
+## Element Basics
+
+| Field        | Description                                               |
+|--------------|-----------------------------------------------------------|
+| **Name**     | Label used to identify the element. Visible only in editor. |
+| **Start**    | Timestamp when the element appears on the video.          |
+| **End**      | Timestamp when the element disappears from the video.     |
+| **Visible**  | Toggle to set whether the element is initially visible.   |
+
+## Triggered Actions
+
+You can assign **one or more actions** to these triggers:
+
+- **On Click**: When the viewer clicks the element.
+- **On Appear**: When the element appears on the timeline.
+- **On Disappear**: When the element disappears from the timeline.
+
+Use the **+ Add Action** button to configure multiple chained behaviors.
+
+---
+
+## 🔁 Playback Actions
+
+| Action                 | Description |
+|------------------------|-------------|
+| **Pause Video**        | Pauses playback of the main video. |
+| **Play Video**         | Resumes playback if paused. |
+| **Jump to Time**       | Jumps to a specific timestamp. |
+| **Rewind Video**       | Skips backward to a predefined earlier time. |
+| **Connect to a Video** | Switches to another Cinema8 project/video. |
+| **Playback Speed**     | Sets a new playback rate (e.g., 0.5x, 1.5x). |
+
+## 🔊 Audio Control
+
+| Action             | Description |
+|--------------------|-------------|
+| **Play Audio**     | Plays a selected audio file over the video. |
+| **Stop Audio**     | Stops currently playing audio. |
+| **Mute Video**     | Mutes the video's audio track. |
+| **Unmute Video**   | Restores the video's audio track. |
+
+## 👁 Visibility & UI
+
+| Action                    | Description |
+|---------------------------|-------------|
+| **Set Visible**           | Makes another element visible. |
+| **Set Invisible**         | Hides a selected element. |
+| **Show Player Controls**  | Reveals the native player controls. |
+| **Hide Player Controls**  | Hides the native controls. |
+| **Enable Play Button**    | Shows play button on video player. |
+| **Disable Play Button**   | Hides play button. |
+| **Enable Pause Button**   | Shows pause button on player. |
+| **Disable Pause Button**  | Hides pause button. |
+| **Enable Seekbar**        | Makes the seekbar visible. |
+| **Disable Seekbar**       | Hides the seekbar from viewers. |
+
+## 🧠 Variables & Logic
+
+| Action                  | Description |
+|-------------------------|-------------|
+| **Set Variable**        | Creates a variable and assigns a value to it. |
+| **Execute Custom Callback** | Runs a custom script (for advanced integrations). |
+| **Execute Webhook**     | Triggers an external webhook request. |
+
+<Callout type="info">
+For conditional flows and logic-based branching, see the [Conditional Action Element guide](https://help.cinema8.com/conditional-action-element?hsLang=en-gb).
+</Callout>
+
+## 📦 SCORM Actions
+
+| Action                   | Description |
+|--------------------------|-------------|
+| **SCORM Set Completed**  | Marks the training as completed. |
+| **SCORM Set Success**    | Marks the session as passed. |
+| **SCORM Set Failed**     | Marks the session as failed. |
+| **SCORM Set Value**      | Sends a value (score, variable, etc.) to the SCORM system. |
+
+---
+
+## 🧭 Positioning Elements
+
+Interactive elements can be positioned precisely using percentage-based values.
+
+| Property | Description |
+|----------|-------------|
+| **Top**  | Distance from the top of the screen. |
+| **Left** | Distance from the left edge. |
+| **Width**| Width of the element in % of video width. |
+| **Height**| Height in % of video height. |
+
+---
+
+## Example Screens
+
+![Element property panel](/screenshot/advanced-interactivity/element-panel-1.png)  
+![Extended property panel](/screenshot/advanced-interactivity/element-panel-2.png)
+ 
+
+ 

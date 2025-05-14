@@ -1,0 +1,93 @@
+---
+title: "Conditional Action Element"
+description: ""
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Conditional Action Element
+
+## How to Use the Conditional Action Tool to Trigger Actions Based on User Interactions
+
+With the Conditional Action tool, you can store a mouse click or the answer to a question within the video. Later, you can trigger actions based on the data you have stored in memory.
+
+![Conditional Action Start](/screenshot/advanced-interactivity/conditional-action-1.webp)
+
+<Steps>
+
+### Step 1: Add a Question
+
+Add a question to your video.
+
+![Add Question](/screenshot/advanced-interactivity/conditional-action-2.webp)
+
+### Step 2: Set Variables for Answers
+
+Click the **"New York"** button and add a new **"On Click"** action from the Properties panel.  
+Choose **"Set Variable"**, then:
+
+- **Key:** `choice`  
+- **Value:** `false`
+
+![Set Variable Wrong Answer](/screenshot/advanced-interactivity/conditional-action-3.webp)
+
+<Callout type="info">
+💡 **Note:** When "Allow Multiple Execution" is checked, the variable can be changed multiple times. If unchecked, it only sets once.
+</Callout>
+
+Repeat this for the **"Washington"** option with:
+
+- **Key:** `choice`  
+- **Value:** `true`
+
+![Set Variable Correct Answer](/screenshot/advanced-interactivity/conditional-action-4.webp)
+
+Now:
+- Selecting **New York** sets `choice = false`
+- Selecting **Washington** sets `choice = true`
+
+### Step 3: Add the Conditional Action Element
+
+Drag the **Conditional Action** tool from the element list and drop it onto the layer.
+
+![Add Conditional Element](/screenshot/advanced-interactivity/conditional-action-5.webp)
+
+### Step 4: Build the Query
+
+Click **Add Condition** to define a query that checks the variable value.
+
+![Query Builder](/screenshot/advanced-interactivity/conditional-action-6.webp)
+
+In the panel:
+
+- Select variable: `choice`
+- Operator: `equals`
+- Value: `true`
+
+### Step 5: Add the Response Action
+
+Add a feedback element like an **Image** or **Text** block that shows when the answer is correct.
+
+![Add Feedback Element](/screenshot/advanced-interactivity/conditional-action-7.webp)
+
+The viewer will see the feedback **only if `choice = true`**.
+
+![Congrats Message Preview](/screenshot/advanced-interactivity/conditional-action-8.webp)
+
+### Step 6: Final Configuration
+
+Click the **Conditional Action** element again to configure the behavior.
+
+![Re-select Conditional Element](/screenshot/advanced-interactivity/conditional-action-9.webp)
+
+Choose the **action** (e.g., `Set Visible`) and link it to the **feedback element**.
+
+![Select Target Element and Action](/screenshot/advanced-interactivity/conditional-action-10.webp)
+
+</Steps>
+
+<Callout type="info">
+💡 **Note:** The Conditional Action tool checks its condition throughout its **start–end time range**. It doesn’t just trigger once.
+</Callout>
+
+You can also add another Conditional Action for when `choice = false` to display a different message or take another action.

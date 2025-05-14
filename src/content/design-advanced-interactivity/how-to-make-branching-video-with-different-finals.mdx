@@ -1,0 +1,72 @@
+---
+title: "How to Make Branching Video with Different Finals"
+description: "Imagine having multiple questions in your interactive video and several final scenes shaped by the choices made by viewers. How would you manage this situation?"
+---
+
+import { Steps, Callout } from 'nextra/components'
+
+# How to Make Branching Video with Different Finals
+
+## Building Multi-Outcome Experiences with Conditional Logic
+
+Imagine having multiple questions in your interactive video and several final scenes shaped by the choices made by viewers. How would you manage this situation?
+
+This guide walks you through an example where a specific combination of answers leads to a unique final video segment.
+
+![Branching with Multiple Finals](/screenshot/advanced-interactivity/branching-different_finals.webp)
+
+<Steps>
+
+### Step 1: Create the Project  
+After logging into Cinema8 Creative Studio, create your interactive project and open the editor.
+
+### Step 2: Add Question 1 (00:00:05.000)  
+- Insert a **Single Select Question** at the 5-second mark.  
+- Set variables for each option:
+  - First Option → `question1 = a`
+  - Second Option → `question1 = b`
+  - Third Option → `question1 = c`
+- Click **Save** after assigning values.
+
+### Step 3: Add Question 2 (00:00:10.000)  
+- Copy the question element to 10 seconds.  
+- Configure as:
+  - First Option → `question2 = a`
+  - Second Option → `question2 = b`
+  - Third Option → `question2 = c`
+
+### Step 4: Add Question 3 (00:00:15.000)  
+- Copy the question element again to 15 seconds.  
+- Set variable values:
+  - First Option → `question3 = a`
+  - Second Option → `question3 = b`
+  - Third Option → `question3 = c`
+
+### Step 5: Add Conditional Widget  
+- Add a **Conditional Action** widget between 00:00:17.000 – 00:00:18.000.  
+- Configure it to check for all 3 variable values:
+  - `question1 = a`
+  - `question2 = c`
+  - `question3 = b`
+- Click **Save** after adding the conditions.
+
+### Step 6: Define the Outcome  
+- In the **Conditional Action Properties**, set the action as:
+  - **Action Type**: "Jump in This Project"  
+  - **Jump To Time**: `00:01:00.000` (start of Final 2)
+
+### Step 7: Add Other Final Paths  
+- Repeat Steps 5–6 for additional combinations that lead to different final outcomes.  
+- Place each conditional action in the same decision window (`00:00:17.000 – 00:00:18.000`).
+
+### Step 8: Pause the Video After Final  
+- To prevent viewers from continuing after a final, insert an **Action** widget at the end of Final 2.  
+- Set the action to "Pause Video"  
+- Configure time: `00:01:25.000 – 00:01:26.000`  
+- Save changes.
+
+</Steps>
+
+---
+
+By strategically placing questions, setting variables, and using conditional logic, you can build complex branching experiences with distinct endings tailored to viewer decisions.

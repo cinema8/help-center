@@ -1,0 +1,144 @@
+// 🌐 Cinema8 Nextra Root Layout
+import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Banner, Head } from 'nextra/components'
+import { getPageMap } from 'nextra/page-map'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+//import InjectA11yWidget from '@components/integration/InjectA11yWidget'
+import InjectSearchWidget from '@components/integration/InjectSearchWidget'
+import PopupModalTrigger from '@components/popup/PopupModalTrigger'
+import MobileSearchTriggerButton from '@components/search/MobileSearchTriggerButton'
+import CustomFooter  from '@components/layout/CustomFooter'
+
+
+import 'nextra-theme-docs/style.css'
+import './globals.css'
+
+export const metadata = {
+  title: 'Cinema8 Help Center',
+  description: 'Help and documentation for Cinema8 interactive video platform.',
+  keywords: ['Cinema8', 'Docs', 'Interactive Video', 'Help Center', 'Support'],
+  openGraph: {
+    title: 'Cinema8 Help Center',
+    description: 'Learn how to use Cinema8 to create, publish, and analyze interactive videos.',
+    url: 'https://help.cinema8.com',
+    siteName: 'Cinema8 Help Center',
+    locale: 'en_US',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cinema8 Help Center',
+    description: 'Get support and explore features of the Cinema8 video platform.',
+    creator: '@cinema8com',
+  }
+}
+
+// 🎉 Optional banner
+const banner = (
+  <Banner storageKey="cinema8-docs-banner">
+    🎉 New! Explore advanced interactivity with Cinema8’s branching editor.{' '}
+    <a href="/design-advanced-interactivity" style={{ textDecoration: 'underline' }}>
+      Learn more →
+    </a>
+  </Banner>
+)
+
+const navbar = (
+	<Navbar
+	  align="left"
+	  logo={
+		<div className="flex items-center shrink-0 min-w-[260px] sm:min-w-[280px]">
+		      <Link href="/" className="flex items-center space-x-3">
+		        {/* Logo Image */}
+		        <div className="relative w-36 h-8">
+		          <Image
+		            src="/logo.webp"
+		            alt="Cinema8"
+		            fill
+		            className="object-contain dark:invert"
+		          />
+		        </div>
+
+		        {/* Badge */}
+		        <span className="px-2 py-1 text-sm font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-md whitespace-nowrap leading-none">
+		          <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+		            HELP CENTER
+		          </span>
+		        </span>
+		      </Link>
+		    </div>
+	  }
+	>
+	  {/* Navbar Content */}
+	  <div className="flex items-center justify-between w-full flex-wrap gap-4">
+	    
+	    {/* Right section: links + search */}
+	    <div className="flex items-center justify-end flex-grow gap-4 min-w-0">
+	      
+	      {/* Submit Ticket */}
+	      <PopupModalTrigger url="https://cinema8.com/static/contact-form.html?v=l2r2ESP2Lfo7Rtb-EAsGa" />
+
+	      {/* cinema8.com link */}
+	      <Link
+	        href="https://cinema8.com"
+	        target="_blank"
+	        rel="noopener noreferrer"
+	        className="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 transition-all duration-300 relative group cursor-pointer"
+	      >
+	        Cinema8.com
+	      </Link>
+
+	      {/* Mobile search icon (visible below sm) */}
+		  <MobileSearchTriggerButton />
+
+
+	      {/* Full search bar for desktop */}
+	      <div className="flex-shrink max-w-xs w-full hidden sm:block">
+	        <div
+	          id="sparc-search-container"
+	          data-mode="popup"
+	          className="w-full"
+	        />
+	      </div>
+	    </div>
+	  </div>
+	</Navbar>
+
+
+
+);
+
+
+// 📎 Footer
+const footer = (
+  <CustomFooter></CustomFooter>
+)
+
+// 🌍 Root Layout
+export default async function RootLayout({ children }) {
+  return (
+    <html lang="en" dir="ltr" suppressHydrationWarning>
+      <Head>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+      <body>
+        
+		{/*<InjectA11yWidget /> */}
+        <InjectSearchWidget />
+        <Layout
+          banner={null}
+          navbar={navbar}
+          footer={footer}
+          pageMap={await getPageMap()}
+          search={null}
+          docsRepositoryBase="https://github.com/cinema8/help-center/blob/main"
+        >
+          {children}
+        </Layout>
+      </body>
+    </html>
+  )
+}

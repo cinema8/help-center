@@ -1,0 +1,132 @@
+---
+title: "How to Use Action Elements?"
+description: "You can add actions by dragging and dropping an Action widget to the timeline from the Elements panel. Assign a name to the widget and save it. Then, in the Properties panel, select an action from the Action list."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# How to Use Action Elements?
+
+## Enhance Video Interactivity with Cinema8 Action Elements
+
+Cinema8 offers **action widgets** that trigger predefined behaviors within your videos. All interactive widgets have action properties (onStart, onEnd, onClick), but you can also use the standalone **Action Element** from the Elements panel.
+
+<Callout type="info">
+Use action widgets to create dynamic, interactive experiences by controlling video playback, navigation, visibility, and more.
+</Callout>
+
+## 📌 Getting Started
+
+<Steps>
+  <li>Drag and drop the <strong>Action</strong> widget onto the timeline from the <strong>Elements</strong> panel.</li>
+  <li>Assign a name to the widget and click <strong>Save</strong>.</li>
+  <li>In the <strong>Properties</strong> panel, choose the desired action from the <strong>Action List</strong>.</li>
+</Steps>
+
+---
+
+## 🎬 Available Actions
+
+### ▶ Pause Video
+Temporarily halts the video when triggered. Ideal for drawing attention or waiting for input.
+
+### ▶ Play Video
+Resumes video playback if paused. Often paired with "Pause Video".
+
+### ⏩ Jump in This Project
+Skips to a specified timestamp in the current video.
+
+- **Action Value**: Enter the target time (e.g., `00:01:30`)
+
+### 🔁 Jump to Another Project
+Navigates to another Cinema8 video project.
+
+- **Project**: Choose the target project  
+- **Start Time**: Define when playback should begin
+
+---
+
+### 👁 Set Visible
+Makes a hidden element (image, video, HTML, etc.) appear on screen.
+
+- **Target Track**: Select the element to show  
+<Callout type="warning">Ensure the target element is added and named in advance.</Callout>
+
+### 👁‍🗨 Set Invisible
+Hides a visible element from the screen.
+
+- **Target Track**: Select the element to hide
+
+---
+
+### 🔊 Play Audio
+Begins playback of an audio element.
+
+- **Target Track**: Select the audio to play
+
+### 🔇 Stop Audio
+Stops playback of a currently playing audio element.
+
+- **Target Track**: Select the audio to stop
+
+---
+
+### 🌐 Open URL
+Opens a given URL in the viewer's browser.
+
+- **URL**: Enter a full link (e.g., `https://example.com`)
+
+### 🔈 Mute Video
+Silences video audio.
+
+### 🔉 Playback Speed
+Adjusts the speed of video playback (e.g., `0.5`, `1.5`).
+
+### ⏪ Rewind Video
+Rewinds the video to a specified time.
+
+- **Action Value**: Target rewind time (e.g., `00:00:10`)
+
+---
+
+### 🎛 Player Controls
+
+- **Show Player Controls**: Makes playback buttons visible  
+- **Hide Player Controls**: Hides all player UI
+
+---
+
+### ⏯ Play/Pause Buttons
+
+- **Enable Play Button** / **Disable Play Button**  
+- **Enable Pause Button** / **Disable Pause Button**
+
+<Callout type="warning">
+Use these settings to restrict viewer interaction during forced pauses or instructional moments.
+</Callout>
+
+---
+
+### 🕓 Seekbar
+
+- **Enable Seekbar**: Allows viewer to scrub through the video  
+- **Disable Seekbar**: Prevents skipping or rewinding
+
+---
+
+### 🧠 Set Variable
+Creates or updates a variable within the video context. Useful for conditional logic and personalized flows.
+
+```js
+// Example usage
+score = 10
+score = ${score} + 5
+```
+
+Use this action to build logic across scenes, store viewer decisions, or trigger different endings.
+
+---
+
+<Callout type="tip">
+Pair the <strong>Set Variable</strong> action with <strong>Conditional Action</strong> to create branching logic and adaptive experiences.
+</Callout>

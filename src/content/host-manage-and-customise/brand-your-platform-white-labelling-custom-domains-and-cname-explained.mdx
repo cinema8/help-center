@@ -1,0 +1,74 @@
+---
+title: "Brand Your Platform: White Labelling, Custom Domains, and CNAME Explained"
+description: "Empower your brand with Cinema8’s white labelling and domain customisation features. Learn how to use CNAME records, apply your branding, and unlock private labelling for Enterprise accounts."
+---
+
+import { Callout } from 'nextra/components'
+
+# Brand Your Platform: White Labelling, Custom Domains, and CNAME Explained
+
+Cinema8 gives you the tools to fully brand your platform and deliver a seamless experience to your users. Whether you're customizing your subdomain, applying your brand assets, or enabling private white labelling, this guide walks you through the key options.
+
+---
+
+## 1. Set Up a Custom Domain or Subdomain
+
+You can serve your Cinema8 platform under your own domain or subdomain (e.g. `video.yourcompany.com`) using **CNAME records**.
+
+### ✅ How to Configure Your CNAME
+
+1. Log in to your domain provider (e.g. GoDaddy, Cloudflare).
+2. Go to **DNS Settings** for your domain.
+3. Create a **CNAME record** pointing to your Cinema8 subdomain:
+   - **Host/Name**: e.g. `video` (for `video.yourdomain.com`)
+   - **Type**: `CNAME`
+   - **Value**: `yourcompany.cinema8.com` *(provided in your Cinema8 dashboard)*
+
+4. Save changes and wait for propagation (can take up to 24 hours).
+5. Let the Cinema8 team know once setup is complete to verify the domain.
+
+<Callout type="info">
+🔐 SSL certificates are automatically managed by Cinema8 once the CNAME is validated.
+</Callout>
+
+---
+
+## 2. Apply Your Logo, Colors, and Visual Style
+
+Custom branding allows you to make Cinema8 feel like an extension of your business.
+
+### 🎨 What You Can Customize
+
+- **Logo** (header and login page)
+- **Favicon**
+- **Primary and secondary colors**
+- **Typography and UI accents**
+- **Loading screen and splash visuals**
+
+You can apply branding directly from the **Brand Settings** section of your dashboard (available in most paid plans).
+
+---
+
+## 3. Unlock Full White Labelling (Enterprise)
+
+For enterprise users, **private white labelling** enables even deeper customization:
+
+- **Remove all Cinema8 branding**
+- **Use a custom login page and dashboard URL**
+- **Custom email templates and sender address**
+- **SSO (Single Sign-On) with your identity provider**
+- **Dedicated success manager and priority support**
+
+> This feature is only available to Enterprise plan subscribers. Please [contact our team](https://cinema8.com/contact-us) to discuss your use case and enable full white labelling.
+
+---
+
+## Summary
+
+Cinema8 gives you full control over how your platform looks and where it’s accessed from:
+
+- ✅ Use your own domain via CNAME setup.
+- ✅ Add your brand visuals and UI colors.
+- ✅ Request full white labelling with custom login, SSO, and support.
+
+Make your platform truly yours and deliver a consistent, professional brand experience from start to finish.

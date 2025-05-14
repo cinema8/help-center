@@ -1,0 +1,77 @@
+---
+title: "REST API"
+description: "This section provides an overview of using the Cinema8 REST API."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# REST API
+
+This section provides an overview of using the Cinema8 REST API and how to authenticate, access endpoints, and begin development.
+
+## Before You Begin
+
+[→ Access the Cinema8 REST API documentation and Postman collection](https://documenter.getpostman.com/view/6096343/2s7ZT4xRyW)
+
+To begin, you’ll need an API key. You can generate one from your admin panel to authenticate requests to the Cinema8 API.
+
+<Callout type="info">
+Cinema8’s REST API allows you to access video scenes, folders, users, media assets, and analytics programmatically.
+</Callout>
+
+## Getting Started
+
+<Steps>
+
+### Step 1: Understand the Endpoint Structure
+
+All API endpoints start with:
+
+```txt
+https://cinema8.com/api/v1/
+```
+
+### Step 2: Use Authorization Headers
+
+To authenticate requests, include your API key in the request headers:
+
+```http
+Authorization: Bearer <base_64_encoded(API_KEY)>
+```
+
+### Step 3: Replace Path Parameters
+
+Some endpoints require dynamic parameters like `{video_id}`. Replace them with actual values when making requests.
+
+</Steps>
+
+## Available Resources
+
+```md
+| Resource           | Endpoint                                |
+|--------------------|------------------------------------------|
+| Interactive Video  | https://cinema8.com/api/v1/scene         |
+| Folder             | https://cinema8.com/api/v1/folder        |
+| Media              | https://cinema8.com/api/v1/media         |
+| User               | https://cinema8.com/api/v1/user          |
+| Analytics          | https://cinema8.com/api/v1/analytics     |
+```
+
+> Items like `{video_id}` in paths are placeholders for actual values.
+
+## Example Request
+
+```bash filename="get-user.sh"
+curl https://cinema8.com/api/v1/user \
+  -H "Authorization: Bearer YOUR_ENCODED_API_KEY"
+```
+
+## Postman Collection
+
+You can download the official Cinema8 API collection for Postman here:
+
+- [Cinema8 API.postman_collection.json](https://support.cinema8.com/api/attachment/download/q57hh01235561e90f4a5d8cb678675df13c22) (26 KB)
+
+![Info](https://help.cinema8.com/hubfs/Knowledge%20Base%20Import/info-Nov-06-2024-01-03-04-7575-AM-Nov-06-2024-09-52-36-5246-AM-4-1.png)
+
+[→ Open the Cinema8 API Reference Documentation Site](https://documenter.getpostman.com/view/6096343/2s7ZT4xRyW)

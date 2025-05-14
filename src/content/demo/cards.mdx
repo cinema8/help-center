@@ -1,0 +1,268 @@
+import KBCard from '@components/mdx/KBCard'
+import Card from '@components/mdx/Card'
+
+import { Spacer } from '@components/mdx/HelpUI'
+
+import { PlayIcon } from '@heroicons/react/24/outline';  // Correct import
+import { folderMeta } from '@lib/folderMeta';
+import { RocketLaunchIcon, ArrowPathIcon, VideoCameraIcon } from '@heroicons/react/24/outline';
+import { LinkButton } from '@components/mdx/LinkButton';
+
+import { C8VideoTutorial, Cinema8VideoPreview } from '@components/mdx/HelpUI';
+import Cinema8Video  from '@components/mdx/Cinema8Video';
+ 
+import { 
+  CTA1,
+  CTA2,
+  CTA3,
+   
+} from '@components/mdx/HelpUI';  // Importing the CTA components
+
+<Spacer />
+
+# Example of Cards Usage in Nextra
+
+<Spacer />
+{/* Stacked Cards with Vertical Spacing */}
+<div className="space-y-6">
+  <Card
+    title="Documentation"
+    href="/docs"
+  >
+    Explore our comprehensive guides to help you get started with the platform.
+  </Card>
+
+  <Card
+    title="Video Tutorials"
+    href="/tutorials"
+  >
+    Watch step-by-step video guides to learn the platform features.
+  </Card>
+</div>
+
+
+
+{/* Two Cards in One Row with Horizontal Spacing */}
+<div className="flex space-x-6 m-8">
+  <Card
+    title="Documentation"
+    href="/docs"
+  >
+    Explore our comprehensive guides to help you get started with the platform.
+  </Card>
+
+  <Card
+    title="Video Tutorials"
+    href="/tutorials"
+  >
+    Watch step-by-step video guides to learn the platform features.
+  </Card>
+</div>
+
+
+ <div className="flex flex-wrap gap-6">
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="zO1LdBJK"
+      posterSrc="/videos/demo-poster.jpg"
+      caption="See it in action"
+    />
+  </div>
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="4Oqw1yXa"
+      posterSrc="/videos/demo2.jpg"
+      caption="Watch the magic"
+      useModal={true}
+      maskType = 'wave'
+      
+    />
+  </div>
+    <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="zO1LdBJK"
+      posterSrc="/videos/demo-poster.jpg"
+      caption="See it in action"
+      maskType = 'split'
+    />
+  </div>
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="4Oqw1yXa"
+      posterSrc="/videos/demo2.jpg"
+      caption="Watch the magic"
+      maskType = 'striped'
+    />
+  </div>
+  
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="4Oqw1yXa"
+      posterSrc="/videos/demo2.jpg"
+      caption="Watch the magic"
+      maskType = 'spotlight'
+    />
+  </div>
+  
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="4Oqw1yXa"
+      posterSrc="/videos/demo2.jpg"
+      caption="Watch the magic"
+      maskType = 'splash'
+    />
+  </div>
+  
+  <div className="flex-1 basis-1/3 min-w-[280px]">
+    <Cinema8VideoPreview
+      videoId="4Oqw1yXa"
+      posterSrc="/videos/demo2.jpg"
+      caption="Watch the magic"
+      maskType = 'diamond'
+    />
+  </div>
+</div>
+
+ 
+ <Cinema8Video videoId="WDerp5Xy" />
+
+ <Cinema8Video 
+  videoId="WDerp5Xy"
+  className="my-8 lg:my-12"
+/>
+
+ <Cinema8Video
+  videoId="WDerp5Xy"
+  className="border-4 border-gray-200 p-2 rounded-xl"
+/>
+ 
+<Cinema8VideoPreview
+  videoId="WDerp5Xy"
+  posterSrc="/videos/demo-poster.jpg"
+  caption="See it in action"
+/>
+ 
+
+{/* Grouped Cards in a Grid Layout */}
+<div className="grid grid-cols-2 gap-6 mb-8">
+  <Card
+    title="Documentation"
+    href="/docs"
+  >
+    Explore our comprehensive guides to help you get started with the platform.
+  </Card>
+
+  <Card
+    title="Video Tutorials"
+    href="/tutorials"
+  >
+    Watch step-by-step video guides to learn the platform features.
+  </Card>
+
+  <Card
+    title="Feature Guide"
+    href="/features"
+    icon={<PlayIcon className="w-6 h-6 text-blue-600" />}
+  >
+    Learn about all the features we offer, from basic to advanced.
+  </Card>
+
+  <Card
+    title="Contact Support"
+    href="/contact"
+  >
+    Get in touch with our support team for any questions or issues.
+  </Card>
+</div>
+
+{/* Call to Action Components */}
+<div className="space-y-8">
+  <CTA1 
+  title="Start Creating Interactive Videos"
+  description="Cinema8 makes it easy to add quizzes, polls and CTAs to your videos."
+  buttonText="Get Started Free"
+  buttonLink="/signup"
+/>
+
+<CTA2
+  title="Upgrade Your Plan"
+  description="Unlock advanced analytics and unlimited video interactions."
+  buttonText="View Pricing"
+  buttonLink="/pricing"
+/>
+
+<CTA3
+  title="Need Help Getting Started?"
+  description="Our documentation has everything you need to master Cinema8."
+  buttonText="Browse Docs"
+  buttonLink="/documentation"
+/>
+
+<CTA1
+  className="bg-gradient-to-r from-purple-600 to-indigo-600"
+  buttonClassName="bg-yellow-400 text-gray-900 hover:bg-yellow-300"
+  title="Limited Time Offer"
+  description="Get 30% off annual plans this week only."
+/>
+
+<CTA2
+  title={
+    <div className="flex items-center justify-center gap-2">
+      <RocketLaunchIcon className="w-6 h-6" />
+      <span>Boost Engagement Now</span>
+    </div>
+  }
+  description="Add interactive elements to increase viewer participation by 300%"
+  buttonText="See Case Studies"
+/>
+
+<div className="flex flex-col items-center">
+  <CTA3
+    title="Ready to Transform Your Videos?"
+    description="Try Cinema8 risk-free for 14 days"
+  />
+ </div>
+
+
+
+<LinkButton href="/features" variant="secondary">
+  View Features
+</LinkButton>
+
+// Outline button
+<LinkButton href="/docs" variant="outline">
+  Documentation
+</LinkButton>
+// With custom class
+<LinkButton 
+  href="/contact" 
+  className="px-8 py-4 text-lg"
+>
+  Contact Sales
+</LinkButton>
+
+
+</div>
+
+
+{/* Categories Section */}
+<section className="py-16 px-6 max-w-7xl mx-auto">
+  <div className="text-center mb-16">
+    <h2 className="text-3xl font-bold mb-4">Browse by Topic</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      Explore our knowledge base organized by functionality.
+    </p>
+  </div>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {folderMeta.map(({ slug, title, description, icon }) => (
+      <KBCard
+        key={slug}
+        title={title}
+        href={`/${slug}`}
+        icon={icon}
+        desc={description}
+      />
+    ))}
+  </div>
+</section>

@@ -1,0 +1,77 @@
+---
+title: "Dynamic Image Element"
+description: "With the Dynamic Image element, you can add images over your video via a URL. If the image in the URL is deleted, the image in the video will also be deleted. If the image in the URL changes, the image in the video will also change accordingly."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Dynamic Image Element
+
+<Callout type="warning">
+This widget is **deprecated** and replaced by a new version in the [Widget Library](https://cinema8.com/widget-library/dynamic-image-widget-8750). The information on this page is for reference only and applies to legacy projects.
+</Callout>
+
+## How to Add and Edit Dynamic Images in Interactive Videos
+
+<Callout type="info">
+The **Dynamic Image Element** allows you to display remote images over your video using a direct image URL. The image updates in real-time if the source changes.
+</Callout>
+
+<Steps>
+
+### Step 1: Add the Element to the Layer
+
+Drag and drop the **Dynamic Image** element from the Elements panel into the timeline layer. A field will appear prompting you to enter the image URL.
+
+![Dynamic Image URL Entry](/screenshot/advanced-interactivity/dynamic-image-1.webp)
+
+### Step 2: Enter the Image URL
+
+1. Paste the image URL you want to use (e.g., `http://.hurimg.com//hdn/...jpg`).  
+2. Click **Save** to add the image to your timeline.
+
+![Element Added to Timeline](/screenshot/advanced-interactivity/dynamic-image-2.webp)
+
+</Steps>
+
+---
+
+## Editing Dynamic Image Element Settings
+
+Once added, click the element in the timeline to open the settings panel.
+
+![Dynamic Image Layer](/screenshot/advanced-interactivity/dynamic-image-3.webp)
+
+### Basic Fields
+
+| Field | Description |
+|-------|-------------|
+| **Name** | Internal label for the element |
+| **Start** | When the element appears on screen |
+| **End** | When the element exits the screen |
+
+![Dynamic Image Settings Panel](/screenshot/advanced-interactivity/dynamic-image-4.webp)
+
+### Behavior Settings
+
+![Dynamic Image Actions Panel](/screenshot/advanced-interactivity/dynamic-image-5.webp)
+
+| Option | Description |
+|--------|-------------|
+| **On Appear Action** | Choose what happens when the element appears. [See all actions](/design-advanced-interactivity/element-properties-common-features) |
+| **+ Add Action** | Add multiple actions |
+| **Image URL** | Remote source of the image |
+
+### Advanced Options
+
+![Dynamic Image Advanced Panel](/screenshot/advanced-interactivity/dynamic-image-6.webp)
+
+| Option | Description |
+|--------|-------------|
+| **Preload** | Loads the image before the video reaches this element to avoid flickering |
+| **Entrance Animation** | Animation effect when element enters |
+| **Exit Animation** | Animation effect when element exits |
+| **Save / Delete** | Apply or remove the element settings |
+
+ 
+ 

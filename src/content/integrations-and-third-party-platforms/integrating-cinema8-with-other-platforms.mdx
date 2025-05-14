@@ -1,0 +1,92 @@
+---
+title: "Integrating Cinema8 with Other Platforms"
+description: "Explore how to connect Cinema8 with third-party platforms using built-in tools, APIs, SCORM, and widgets."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Integrating Cinema8 with Other Platforms
+
+Cinema8 offers flexible integration capabilities that allow you to connect interactive video experiences with a wide range of third-party platforms, analytics tools, and learning management systems.
+
+<Callout type="info">
+Most integrations can be configured without coding using our sharing tools, SCORM exports, or visual widget editor. For advanced use cases, our JS and REST APIs provide full control.
+</Callout>
+
+## Ready-to-Use Integration Models
+
+### Google Tag Manager (GTM)
+
+Google Tag Manager allows you to manage analytics and conversion tracking without modifying code.
+
+- Track user interactions like play, pause, and quiz completions
+- Push events to GTM dataLayer
+- Add marketing or retargeting tags
+
+<Callout type="important">
+You can inject GTM scripts in the player container or configure it through your platform where the video is embedded.
+</Callout>
+
+---
+
+### Google Fonts
+
+Cinema8 supports Google Fonts for customizing text styling inside interactive layers. Add your desired font via the Creative Studio or embed it directly in custom widgets.
+
+---
+
+### DFP and VAST Ad Integrations
+
+Cinema8 can communicate with ad servers using:
+
+- Google DFP (DoubleClick)
+- VAST-compliant video ad servers
+
+This allows you to run pre-roll, mid-roll, or overlay ads inside your interactive videos.
+
+---
+
+### 3rd Party Video Hosting
+
+Cinema8 supports embedding or referencing videos from:
+
+- Brightcove
+- Kaltura
+- AWS MediaConvert or CloudFront
+- Other CDNs or video providers
+
+Use the Creative Studio to embed external media sources or customize video flow via the JS API.
+
+---
+
+### SCORM Integration
+
+Cinema8 supports:
+
+- **SCORM 1.2**
+- **SCORM 2004 (all editions)**
+
+This allows LMS platforms like Akademi.net, Moodle, Blackboard, or Canvas to track:
+
+- Watch completion
+- Quiz responses
+- User progress
+
+<Callout type="info">
+SCORM exports include built-in data tracking and are compatible with most SCORM-compliant LMS platforms.
+</Callout>
+
+---
+
+## Developer-Focused Integrations
+
+### JavaScript API
+
+Use the Cinema8 JavaScript API to control video behavior, track events, or integrate with your frontend logic.
+
+```js filename="example.js"
+c8PlayerApi.on("play", () => {
+  console.log("Video started");
+});
+
+c8PlayerApi.setVariable('score', 100);

@@ -1,0 +1,37 @@
+---
+title: "Creating New Webhook in detail"
+description: "The \"Create New Webhook\" screen in Cinema8 allows you to set up a webhook to connect and exchange data with your own systems. By completing the required fields, you can fully configure a webhook for your interactive video projects."
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Creating New Webhook in Detail
+
+<Callout type="info">
+Use Cinema8's webhook setup to exchange real-time data with your backend systems securely and efficiently.
+</Callout>
+
+The **"Create New Webhook"** screen in Cinema8 allows you to set up a webhook to connect and exchange data with your own systems. By completing the required fields, you can fully configure a webhook for your interactive video projects.
+
+## Setting Up a New Webhook
+
+**1. Name**  
+Enter a unique name for the webhook in the **Name** field.
+
+**2. URL**  
+Specify the webhook endpoint in the **URL** field, where Cinema8 will send data.
+
+**3. Add Headers**  
+Use the **Add Headers To Request** section to define any custom headers and values. This is essential for securing the webhook connection, allowing you to pass tokens or credentials during the interaction.
+
+## Webhook Settings
+
+**Execute Synchronously**  
+Enable this option if you want the video to pause until the webhook completes execution. This is useful for scenarios requiring ordered data processing.
+
+**Post User Interactions**  
+Choose which interactive elements in your video will send data through the webhook.
+
+<Callout type="important">
+These settings ensure your webhook is securely and correctly configured for real-time video interaction workflows.
+</Callout>

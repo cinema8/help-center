@@ -1,0 +1,127 @@
+---
+title: "Studio Development - Using Variables"
+description: "Cinema8 Creative Studio allows you to develop video interactions without writing code through drag-and-drop tools. You can still create variables within the video, populate them from integrations or widgets you've developed, and build algorithms based on these variables."
+---
+
+import { Callout } from 'nextra/components'
+
+# Studio Development - Using Variables
+
+## Working with Runtime Variables in Interactive Videos
+
+Cinema8 Creative Studio allows you to develop video interactions without writing code through drag-and-drop tools. You can still create variables within the video, populate them from integrations or widgets you've developed, and build algorithms based on these variables.
+
+Variables are key data elements within the Cinema8 environment. You can share data using variables between widgets, interactive elements, and projects.
+
+Use variables to control what actions to trigger with conditional actions, visualize variable values, and get/set variables within JavaScript API and widgets.
+
+---
+
+### Creating Variables
+
+You can create or edit variables at various points:
+
+- Using the `onClick`, `onStart`, and `onEnd` action lists of any widgets with the "Add Variable" method  
+- Using questions, which automatically create a variable with the question name  
+- Programmatically using the JS API or widget API  
+- Using custom server-side webhooks, where every return parameter will be accessible as variables within the video
+
+<Callout type="info">
+Variables are not sticky between projects by default. Selecting the <strong>"Copy between projects"</strong> checkbox makes the variable sticky between projects.
+</Callout>
+
+Each question widget in Creative Studio adds a variable to the video context with its defined name. The answers are stored within this variable.
+
+If a user is authenticated while watching the video, a pre-defined variable named **`authenticatedUser`** will be available.
+
+---
+
+### Using Variables in HTML Elements
+
+Access authenticated user properties like this:
+
+```html
+${authenticatedUser.username!DEFAULT_VALUE}
+${authenticatedUser.surname!DEFAULT_VALUE}
+${authenticatedUser.name!DEFAULT_VALUE}
+```
+
+---
+
+### Using Variables in JavaScript Code
+
+```js
+getAuthenticatedUser();
+```
+
+---
+
+### Ways to Fill `authenticatedUser`
+
+- [API Token Authentication / SSO](/advanced-tools-for-developers/authentication-and-sso)  
+- [Private Token API](/advanced-tools-for-developers/cinema8-private-token-api)  
+- [Working with video URL parameters](/integrations-and-third-party-platforms/working-with-video-url-parameters.mdx)  
+- [How to create introduction forms](/engage-and-monetise/using-introduction-forms)
+
+---
+
+### 1. Creating Variables from Element Actions
+
+In Creative Studio, every element can trigger `onStart`, `onEnd`, and `onClick` functions. These have a standard action list.  
+The **Set Variable** action allows you to create or update a variable.
+
+Example (Figure-1):
+
+```text
+score = 10
+score = ${score} + 5
+```
+
+This syntax works across all text properties of interactive elements, including HTML widget and widget library.
+
+<Callout type="info">
+<strong>*Allow Multiple Execution*</strong> enables the variable to be updated multiple times.<br/>
+<strong>*Copy between projects*</strong> makes the variable available across linked projects.
+</Callout>
+
+---
+
+### 2. Creating Variables via JS API
+
+```html
+<script>
+  player.setVariable("score", 10, false); // dynamically set non-sticky variable
+</script>
+```
+
+---
+
+### 3. Accessing Variables in Widget Development
+
+```js
+getAuthenticatedUser();
+getVariable('score');
+```
+
+You can pass dynamic data to widgets from any text widget property:
+
+```html
+${authenticatedUser.username}
+${score}
+```
+
+---
+
+### 4. Injecting Variables from Webhooks
+
+Every server-side webhook response parameter will be injected into the runtime context.
+
+You can access them like this:
+
+```html
+${uniqueId}
+```
+
+```js
+getVariable('uniqueId');
+```
