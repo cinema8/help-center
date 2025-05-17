@@ -177,13 +177,9 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Link
-              href="/submit-ticket"
-              className="mt-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors text-center"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Submit Ticket
-            </Link>
+           
+            <PopupModalTrigger url="https://cinema8.com/static/contact-form.html?v=l2r2ESP2Lfo7Rtb-EAsGa" />
+          
             <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex justify-center">
               <button
                 onClick={toggleTheme}

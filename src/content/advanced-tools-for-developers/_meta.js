@@ -11,7 +11,6 @@ export default {
   'authentication-and-sso': 'Authentication & SSO',
   'widget-api': 'Widget API',
   'cinema8-private-token-api': 'Cinema8 Private Token API',
-  'cinema8-javascript-api': 'Cinema8 Javascript API',
   'how-to-use-cinema8-data-api': 'How to Use Cinema8 Data API?',
   'support-for-cmi5-and-xapi': 'Support for CMI5 and Xapi',
   'widget-development-playground': 'Widget Development Playground',

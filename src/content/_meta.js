@@ -36,11 +36,7 @@ export default {
 	 'analyze-and-optimise': 'Analyze and optimise',
 	 'integrations-and-third-party-platforms': 'Integrations and third-party platforms',
 	 'advanced-tools-for-developers': 'Advanced tools for developers',
-	 'accounts-and-billing': 'Accounts and billing',
-	 demo: 	 {
-		   display: 'hidden',
-	 	   title : 'Demo',
-  	      },
+	 'accounts-and-billing': 'Accounts and billing' 
 }
 
 // No need for the custom Italic component anymore

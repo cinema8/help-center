@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 //import InjectA11yWidget from '@components/integration/InjectA11yWidget'
 import InjectSearchWidget from '@components/integration/InjectSearchWidget'
+import InjectChatbotWidget from '@components/integration/InjectChatbotWidget'
 import PopupModalTrigger from '@components/popup/PopupModalTrigger'
 import MobileSearchTriggerButton from '@components/search/MobileSearchTriggerButton'
 import CustomFooter  from '@components/layout/CustomFooter'
@@ -51,8 +52,7 @@ const navbar = (
 	  align="left"
 	  logo={
 		<div className="flex items-center shrink-0 min-w-[260px] sm:min-w-[280px]">
-		      <Link href="/" className="flex items-center space-x-3">
-		        {/* Logo Image */}
+ 		        {/* Logo Image */}
 		        <div className="relative w-36 h-8">
 		          <Image
 		            src="/logo.webp"
@@ -68,8 +68,7 @@ const navbar = (
 		            HELP CENTER
 		          </span>
 		        </span>
-		      </Link>
-		    </div>
+ 		    </div>
 	  }
 	>
 	  {/* Navbar Content */}
@@ -128,6 +127,7 @@ export default async function RootLayout({ children }) {
         
 		{/*<InjectA11yWidget /> */}
         <InjectSearchWidget />
+		<InjectChatbotWidget />
         <Layout
           banner={null}
           navbar={navbar}

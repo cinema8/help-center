@@ -1,5 +1,5 @@
 ---
-title: "Working with Video URL Parameters"
+title: "Customizing Cinema8 Videos Using URL Parameters"
 description: "Customize Cinema8 videos dynamically using URL parameters including autoplay, subtitles, tokens, and more."
 ---
 
@@ -10,8 +10,9 @@ import { Callout, Steps } from 'nextra/components'
 Cinema8 allows you to customize the behavior of your interactive videos by appending URL parameters. These parameters help you control playback, subtitles, user data, and much more.
 
 <Callout type="info">
-You can also use URL parameters in <strong>embedded iframes</strong> and update them dynamically using the <a href="/developer/javascript-api">Cinema8 JavaScript API</a>.
+You can also use URL parameters in **embedded iframes** and update them dynamically using the [Cinema8 JavaScript API](/advanced-tools-for-developers/javascript-api).
 </Callout>
+
 
 ## 🎬 Example
 
@@ -41,7 +42,7 @@ This URL starts the video at the **10th second** and automatically enables **Eng
 |---------------------|---------------------------------------------------------------------------------------------------------|---------|------------------------------------------------------------------------|
 | `autoplay`          | Plays video automatically if set to `1`.                                                               | `0`     | Values: `0` = false, `1` = true                                       |
 | `sub`               | Loads selected subtitle by language code.                                                              | `null`  | Use subtitle codes from Creative Studio.                             |
-| `token`             | Pass user authentication token for tracking and analytics.                                             | `null`  | Learn more in [Authentication Tokens](/developer/authentication).    |
+| `token`             | Pass user authentication token for tracking and analytics.                                             | `null`  | Learn more in [Authentication Tokens](/advanced-tools-for-developers/authentication-and-sso).    |
 | `externalVideoUrl`  | Loads an external video into Cinema8 player.                                                           | `null`  | Must be a valid video URL.                                           |
 | `controls`          | Show/hide player controls.                                                                             | `1`     | Values: `1` = show, `0` = hide                                       |
 | `muted`             | Mutes the video by default.                                                                            | `0`     | Values: `1` = muted, `0` = unmuted                                   |

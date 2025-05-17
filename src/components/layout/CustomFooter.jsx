@@ -81,28 +81,28 @@ export default function Footer() {
                 className: "text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors"
               }
             ].map((social) => (
-              <a
-                key={social.href}
-                rel="nofollow noopener"
-                className={`${social.className}`}
-                target="_blank"
-                aria-label={social.label}
-                href={social.href}
+                    <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                  className={social.className}
+                >
+            <span className="icon">
+              <svg
+                version="1.0"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                aria-hidden="true"
+                focusable="false"
+                className="w-5 h-5 fill-current"
               >
-                <span className="icon">
-                  <svg 
-                    version="1.0" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 512 512" 
-                    aria-hidden="true"
-                    className="w-5 h-5 fill-current"
-                  >
-                    <g>
-                      {social.icon}
-                    </g>
-                  </svg>
-                </span>
-              </a>
+                <g>{social.icon}</g>
+              </svg>
+            </span>
+          </a>
             ))}
           </div>
         </div>
