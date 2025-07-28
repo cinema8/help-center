@@ -78,7 +78,11 @@ const navbar = (
 	    <div className="flex items-center justify-end flex-grow gap-4 min-w-0">
 	      
 	      {/* Submit Ticket */}
-	      <PopupModalTrigger url="https://cinema8.com/static/contact-form.html?v=l2r2ESP2Lfo7Rtb-EAsGa" />
+		  <PopupModalTrigger 
+		    portalId="145119654" 
+		    formId="77647adc-0b19-45bd-8b89-be131595eace" 
+		    region="eu1" 
+		  />
 
 	      {/* cinema8.com link */}
 	      <Link
