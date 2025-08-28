@@ -121,14 +121,14 @@ export default function Navbar() {
                 </Link>
               ))}
             </nav>
-            
-			{/* Submit Ticket */}
-			<PopupModalTrigger 
-				    portalId="145119654" 
-				    formId="77647adc-0b19-45bd-8b89-be131595eace" 
-				    region="eu1" 
-				  />
-            
+
+            {/* Submit Ticket */}
+            <PopupModalTrigger 
+                  portalId="145119654" 
+                  formId="77647adc-0b19-45bd-8b89-be131595eace" 
+                  region="eu1" 
+            />
+
             {mounted && (
               <button
                 onClick={toggleTheme}
@@ -146,6 +146,9 @@ export default function Navbar() {
                 )}
               </button>
             )}
+            <div className="inline-flex items-center justify-center cursor-pointer rounded-full border border-[#A101FF] bg-[#A101FF] text-white font-semibold py-1.5 px-4 text-xs leading-none transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg">
+              <a className="" target="_parent" title="Sign in" href="https:/www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -181,6 +184,7 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <a className="px-4 py-3 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" target="_parent" title="Sign in" href="https:/www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
            
             <PopupModalTrigger url="https://cinema8.com/static/contact-form.html?v=l2r2ESP2Lfo7Rtb-EAsGa" />
           

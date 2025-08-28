@@ -21,6 +21,17 @@ export default withNextra({
           port: "9090",
           pathname: "/**",
         },
+        // Cinema8 assets
+        {
+          protocol: "https",
+          hostname: "cinema8.com",
+          pathname: "/**",
+        },
+        {
+          protocol: "https",
+          hostname: "www.cinema8.com",
+          pathname: "/**",
+        },
       ],
     },
 })
