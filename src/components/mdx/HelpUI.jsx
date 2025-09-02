@@ -625,7 +625,7 @@ export function ProgressTracker({ steps, currentStep }) {
   );
 }
 
-export function HotspotImage({ src, hotspots }) {
+export function HotspotImage({ src, hotspots, alt}) {
   const [activeHotspot, setActiveHotspot] = useState(null);
   
   const toggleHotspot = (index) => {
@@ -636,7 +636,7 @@ export function HotspotImage({ src, hotspots }) {
     <div className="relative my-6 group">
       <img 
         src={src} 
-        alt="" 
+        alt={alt || ""} 
         className="w-full rounded-lg border border-gray-200 shadow-sm transition-opacity duration-200"
         style={{ opacity: activeHotspot !== null ? 0.9 : 1 }}
       />
