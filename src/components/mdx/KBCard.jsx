@@ -19,8 +19,8 @@ export default function KBCard({ title, href, icon, desc }) {
         >
           <div className="w-8 h-8 flex items-center justify-center">
             <Image
-              src={icon}
-              alt=""
+              src={icon.src}
+              alt={icon.alt}
               width={32}
               height={32}
               className="transition-all duration-300 dark:invert"

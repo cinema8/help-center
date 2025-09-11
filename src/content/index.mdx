@@ -95,13 +95,14 @@ import Link from 'next/link'
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {folderMeta.map(({ slug, title, description, icon }) => (
+      {folderMeta.map(({ slug, title, description, icon, alt}) => (
         <KBCard
           key={slug}
           title={title}
           href={`/${slug}`}
           icon={icon}
           desc={description}
+          alt ={alt}
         />
       ))}
     </div>
