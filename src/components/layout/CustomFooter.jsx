@@ -442,21 +442,21 @@ export default function Footer() {
             </p>
             <nav className="text-md-start flex flex-row gap-3 lg:mt-6 text-[#CACACA]">
               <a
-                href="https://cinema8.com/legal#terms-and-conditions"
+                href="https://cinema8.com/terms-and-conditions"
                 title="Terms & Conditions"
                 className="fs-sm me-3 hover:text-[#a101ff]"
               >
                 Terms & Conditions
               </a>
               <a
-                href="https://cinema8.com/legal#privacy"
+                href="https://cinema8.com/privacy"
                 title="Privacy"
                 className="fs-sm me-3 hover:text-[#a101ff]"
               >
                 Privacy
               </a>
               <a
-                href="https://cinema8.com/legal#cookie-policy"
+                href="https://cinema8.com/cookie-policy"
                 title="Cookie Policy"
                 className="fs-sm hover:text-[#a101ff]"
               >

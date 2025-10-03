@@ -16,25 +16,25 @@ import CustomFooter  from '@components/layout/CustomFooter'
 
 import 'nextra-theme-docs/style.css'
 import './globals.css'
+const OG = 'https://static-01.cinema8.com/gallery/19500/8cbb3795-ba34-4971-a86d-fe6f72bd4856/logo.webp';
 
 export const metadata = {
-  title: 'Cinema8 Help Center',
-  description: 'Help and documentation for Cinema8 interactive video platform.',
-  keywords: ['Cinema8', 'Docs', 'Interactive Video', 'Help Center', 'Support'],
-  openGraph: {
-    title: 'Cinema8 Help Center',
-    description: 'Learn how to use Cinema8 to create, publish, and analyze interactive videos.',
-    url: 'https://help.cinema8.com',
-    siteName: 'Cinema8 Help Center',
-    locale: 'en_US',
-    type: 'website'
+	title: 'Cinema8 Help Center',
+	description: 'Help and documentation for Cinema8 interactive video platform.',
+	keywords: ['Cinema8', 'Docs', 'Interactive Video', 'Help Center', 'Support'],
+	openGraph: {
+		title: 'Cinema8 Help Center',
+		description: 'Learn how to use Cinema8 to create, publish, and analyze interactive videos.',
+		url: 'https://help.cinema8.com',
+		siteName: 'Cinema8 Help Center',
+		locale: 'en_US',
+		type: 'website',
+		images: [{ url: OG, width: 1200, height: 630, alt: 'Cinema8 Logo', type: 'image/webp' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Cinema8 Help Center',
-    description: 'Get support and explore features of the Cinema8 video platform.',
-    creator: '@cinema8com',
-  }
+  twitter: { card: 'summary_large_image',
+			 title: 'Cinema8 Help Center',
+		     description: 'Get support and explore features of the Cinema8 video platform.',
+		     creator: '@cinema8com', images: [OG] },
 }
 
 // 🎉 Optional banner
