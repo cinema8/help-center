@@ -77,7 +77,7 @@ export default function Footer() {
                     href="https://stats.uptimerobot.com/03nJECJ7Xx"
                     title="System Status"
                     target="_blank"
-                    rel="noreferrer noopener"
+                    rel="noreferrer noopener nofollow"
                   >
                     System Status
                   </a>
