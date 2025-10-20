@@ -139,6 +139,8 @@ export default async function RootLayout({ children }) {
           pageMap={await getPageMap()}
           search={null}
           docsRepositoryBase="https://github.com/cinema8/help-center/blob/main"
+					editLink={null}
+					feedback={{content: null}}
         >
           {children}
         </Layout>
