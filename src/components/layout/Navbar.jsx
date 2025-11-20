@@ -147,10 +147,9 @@ export default function Navbar() {
               </button>
             )}
             <div className="inline-flex items-center justify-center cursor-pointer rounded-full border border-[#A101FF] bg-[#A101FF] text-white font-semibold py-1.5 px-4 text-xs leading-none transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg">
-              <a className="" target="_parent" title="Sign in" href="https:/www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
+              <a className="" target="_parent" title="Sign in" href="https://www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
             </div>
           </div>
-
           {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-gray-600 dark:text-gray-300"
