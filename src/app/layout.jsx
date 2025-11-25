@@ -120,8 +120,41 @@ const footer = (
   <CustomFooter></CustomFooter>
 )
 
+	const organizationJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		"@id": "https://cinema8.com/#organization",
+		"name": "Cinema8",
+		"legalName": "Cinema8 Limited",
+		"url": "https://cinema8.com",
+		"logo": "https://cinema8.com/static/img/logo.png",
+		"foundingDate": "2021",
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "St John's Innovation Centre, Cowley Road",
+			"addressLocality": "Cambridge",
+			"addressRegion": "Cambridgeshire",
+			"postalCode": "CB4 0WS",
+			"addressCountry": "GB"
+		},
+		"sameAs": [
+			"https://www.linkedin.com/company/cinema8/",
+			"https://x.com/cinema8official",
+			"https://www.facebook.com/Cinema8official",
+			"https://www.instagram.com/cinema8video",
+			"https://www.youtube.com/c/Cinema8official",
+			"https://www.trustpilot.com/review/cinema8.com",
+			"https://www.capterra.co.uk/software/181472/cinema8",
+			"https://www.g2.com/products/cinema8/reviews"
+		],
+		"description": "Cinema8 is a secure video hosting and AI-powered interactive video platform for businesses.",
+		"disambiguatingDescription": "Cinema8 is a video hosting and interactive video platform for businesses, not a movie theatre or entertainment venue."
+	}
+
 // 🌍 Root Layout
 export default async function RootLayout({ children }) {
+
+
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <Head>
@@ -129,9 +162,17 @@ export default async function RootLayout({ children }) {
       </Head>
       <body>
         
-		{/*<InjectA11yWidget /> */}
+				{/*<InjectA11yWidget /> */}
         <InjectSearchWidget />
-		<InjectChatbotWidget />
+				<InjectChatbotWidget />
+
+				<script
+        	type="application/ld+json"
+        	dangerouslySetInnerHTML={{
+          	__html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c'),
+        	}}
+      	/>
+				
         <Layout
           banner={null}
           navbar={navbar}
