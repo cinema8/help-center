@@ -466,7 +466,7 @@ export default function Footer() {
           </div>
           <div className="lg:w-1/2 flex flex-col items-start lg:items-end">
             <p className="text-sm mb-2 max-w-lg text-left text-[#CACACA]">
-              Cinema8 is a secure video hosting platform, offering a smarter way to host, share and analyse video content. Our all-in-one platform combines powerful video management with advanced analytics and interactive tools like CTAs, lead generation forms, and shoppable video features. Cinema8 is ideal for video marketing, interactive learning, and video agencies looking to scale with smarter, data-driven video experiences.
+              Cinema8 is a secure video hosting platform for businesses, with built-in interactivity, analytics, and CRM integrations.
             </p>
             <div className="flex flex-col-reverse lg:flex-row items-start lg:items-center gap-2 lg:gap-4 w-full lg:justify-end">
               {/* Social media links */}
