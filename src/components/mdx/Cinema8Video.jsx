@@ -39,10 +39,8 @@ const Cinema8Video = forwardRef(({
       <iframe
         ref={iframeRef}
         sandbox="allow-scripts allow-forms allow-same-origin allow-presentation allow-popups allow-downloads"
-        src={`https://cinema8.com/video/${videoId}?autoplay=${autoplay ? 1 : 0}&raw=0`}
+        src={`https://cinema8.com/video/${videoId}`}
         allowFullScreen
-        webkitallowfullscreen
-        mozallowfullscreen
         className="absolute top-0 left-0 w-full h-full"
         loading="lazy"
       />
