@@ -1,0 +1,16 @@
+site: https://help.cinema8.com
+name: Cinema8 Help Center
+description: Official Cinema8 documentation and product help articles.
+sitemap: https://help.cinema8.com/sitemap.xml
+robots: https://help.cinema8.com/robots.txt
+
+# Core docs areas
+https://help.cinema8.com/create-and-edit-videos
+https://help.cinema8.com/host-manage-and-customise
+https://help.cinema8.com/engage-and-monetise
+https://help.cinema8.com/design-advanced-interactivity
+https://help.cinema8.com/share-videos-securely
+https://help.cinema8.com/analyze-and-optimise
+https://help.cinema8.com/integrations-and-third-party-platforms
+https://help.cinema8.com/advanced-tools-for-developers
+https://help.cinema8.com/accounts-and-billing

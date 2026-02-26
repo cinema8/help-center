@@ -13,10 +13,9 @@ export async function generateMetadata(props) {
   const params = await props.params
   const slug = Array.isArray(params.mdxPath) ? params.mdxPath : []
 
-  // Rezerv yolları dışla
+  // Remove reserved paths and JSON files from the slug to prevent conflicts with Next.js routing
   if (slug[0] && (RESERVED.includes(slug[0]) || slug[0].endsWith('.json'))) {
-    // Meta üretme, indexlenmesin
-    return { robots: { index: false, follow: false } }
+    notFound()
   }
 
   try {
@@ -42,8 +41,7 @@ export async function generateMetadata(props) {
       },
     }
   } catch {
-    // İçerik bulunamadıysa meta üretme
-    return { robots: { index: false, follow: false } }
+    notFound()
   }
 }
 
