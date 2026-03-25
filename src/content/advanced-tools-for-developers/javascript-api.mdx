@@ -1,11 +1,11 @@
 ---
 title: "Guide to extending Cinema8 with the JavaScript API"
-description: "Integrate Cinema8’s player into your website with JavaScript API features for fully customised interactive experiences. Visit Cinema8."
+description: "Integrate Cinema8's player into your website with JavaScript API features for fully customised interactive experiences. Visit Cinema8."
 
 og:type: website
 og:locale: en_US
 og:site_name: Cinema8 Help Center
- 
+
 og:description: Learn how to use Cinema8 to create, publish, and analyze interactive videos.
 og:title: Cinema8 Help Center
 
@@ -16,50 +16,60 @@ import {
   Cog6ToothIcon,
   PlayCircleIcon,
   ArrowDownTrayIcon,
-  FilmIcon
+  FilmIcon,
+  BellAlertIcon,
+  CpuChipIcon
 } from '@heroicons/react/24/outline'
 import { Callout } from 'nextra/components'
 import Cinema8Video from '@components/mdx/Cinema8Video'
 
-# JavaScript API  
+# JavaScript API
 <span className="block text-gray-500 text-base font-normal mt-1">Extend Cinema8 Player with your own code</span>
 
 Cinema8 provides a powerful JavaScript API that extends the default HTML5 video API, enabling developers to create highly interactive and intelligent video applications.
 
 ---
 
-## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><ArrowDownTrayIcon className="w-5 h-5 text-blue-600" /> Download And Setup</span>
+## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><ArrowDownTrayIcon className="w-5 h-5 text-blue-600" /> Setup</span>
 
-<a
-  href="https://static-01.cinema8.com/player/api/cinema8.player.api.min.js"
-  target="_blank"
-  rel="nofollow noopener"
-  download
-  className="inline-flex items-center gap-2 mt-10 text-blue-600 font-medium"
->
-   Download Cinema8 Player JavaScript API
-</a>
-
+Include the player API script directly from the CDN — no download required:
 
 ```html filename="cdn-setup.html"
-<script type="text/javascript" src="cinema8.player.api.min.js"></script>
+<script src="https://static-01.cinema8.com/player/api/cinema8.player.api.min.js"></script>
 ```
+
+Or <a href="https://static-01.cinema8.com/player/api/cinema8.player.api.min.js" target="_blank" rel="nofollow noopener" download className="text-blue-600 font-medium">download the file</a> and host it yourself.
 
 ---
 
 ## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><CodeBracketIcon className="w-5 h-5 text-blue-600" /> Basic Setup</span>
 
+Create a `Cinema8Player` instance by passing a CSS selector and an options object:
+
 ```js filename="basic-setup.js" showLineNumbers
 var player = new Cinema8Player("#video", {
-  id: "rJVZ6nJg",
+  id: "WDerp5Xy",
   autoplay: false,
   controls: true,
+
+  // Lifecycle events
   onReady: () => console.log("Player ready"),
-  onPlay: () => console.log("Playing..."),
+  onPlay: () => console.log("Playing"),
   onPause: () => console.log("Paused"),
+  onProgress: () => console.log("Time updated"),
   onEnd: () => console.log("Playback ended"),
-  onCustomCallback: (param) => console.log("Custom callback:", param),
-  onWebhookResponse: (res) => console.log("Webhook response:", res)
+
+  // Interaction events
+  onVolumeChange: (volume) => console.log("Volume:", volume),
+  onFullscreenChange: (params) => console.log("Fullscreen changed:", params),
+  onSubtitleChange: (params) => console.log("Subtitle changed:", params),
+  onVariableChange: (params) => console.log("Variable changed:", params),
+
+  // Integration events
+  onCustomCallback: (params) => console.log("Custom callback:", params),
+  onWebhookResponse: (res) => console.log("Webhook response:", res),
+  onScormEvent: (params) => console.log("SCORM event:", params),
+  onError: (err) => console.error("Player error:", err),
 });
 ```
 
@@ -67,147 +77,209 @@ var player = new Cinema8Player("#video", {
 
 ## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><Cog6ToothIcon className="w-5 h-5 text-blue-600" /> Configuration Options</span>
 
-Here are the configuration options you can pass when initializing the `Cinema8Player`:
-
 ```js filename="player-options.js" showLineNumbers
 {
-  id: "your-project-id",                // Unique ID of the Cinema8 project
-  width: 854,                           // Player width (default: 854px)
-  height: 480,                          // Player height (default: 480px)
-  autoplay: false,                     // Automatically play the video (default: false)
-  controls: true,                      // Show player controls (default: true)
-  muted: false,                        // Start video muted (default: false)
-  loop: false,                         // Loop video on end (default: false)
-  externalVideoUrl: "video.mp4",       // URL of external video file (HLS, MP4, FLV, etc.)
-  subtitle: "en",                      // Default subtitle language (e.g. 'en', 'tr')
-  defaultLang: 1,                      // Index of default audio track (1, 2, 3, ...)
-  authToken: "your-auth-token",        // JWT token for authenticated sessions
-  resumeLastPosition: true,            // Resume video from last watched time (for logged-in users)
-  campaignParams: "utm_source=...",    // Optional campaign tracking query parameters
-  time: 0                              // Start the video at a specific time in seconds
-}
-```
+  // Core
+  id: "your-video-id",             // Unique ID of the Cinema8 video
 
----
+  // Dimensions
+  width: "854px",                  // Player width (default: "854px")
+  height: "480px",                 // Player height (default: "480px")
+  style: "",                       // Inline CSS string applied to the iframe
+                                   // For responsive (fluid) embedding use:
+                                   // style: "position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%; border: 0;"
 
+  // Playback
+  autoplay: false,                 // Automatically start playback (default: false)
+  forceAutoplay: false,            // If autoplay is blocked by the browser, falls back to muted autoplay (default: false)
+  muted: false,                    // Start video muted (default: false)
+  loop: false,                     // Loop video on end (default: false)
+  time: 0,                         // Start at a specific time in seconds
+  resumeLastPosition: false,       // Resume from last watched position for logged-in users
 
-```js filename="player-options.js"
-{
-  id: "your-project-id",
-  width: 854,
-  height: 480,
-  autoplay: false,
-  controls: true,
-  muted: false,
-  loop: false,
-  campaignParams: null,
-  time: 0,
-  externalVideoUrl: "video.mp4",
-  subtitle: "en",
-  defaultLang: 1,
-  authToken: "your-auth-token",
-  resumeLastPosition: true,
-  externalUser: {
+  // Controls
+  controls: true,                  // Show player controls — true/false, or an object for
+                                   // granular control: { play: true, volume: false, ... }  
+
+  // Localisation
+  subtitle: "en",                  // Default subtitle language code (e.g. "en", "tr", "off")
+  defaultLang: 1,                  // Index of the default audio track (1, 2, 3, ...)
+
+  // User / Auth
+  authToken: "jwt-token",          // JWT token for authenticated sessions
+  externalUser: {                  // Pass an external user identity
     name: "John",
     surname: "Doe",
-    email: "john.doe@gmail.com"
-  }
+    email: "john.doe@example.com",
+    reference: "user-123"          // Optional unique reference ID for the user
+  },
+
+  // Tracking
+  campaignParams: "utm_source=web&utm_medium=embed&utm_campaign=launch" // Campaign query parameters appended to the player URL
 }
 ```
 
 ---
 
-## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><PlayCircleIcon className="w-5 h-5 text-blue-600" /> Common Methods</span>
+## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><BellAlertIcon className="w-5 h-5 text-blue-600" /> Event Callbacks</span>
 
-Here's a list of useful methods provided by the Cinema8 Player API:
+All callbacks are passed in the options object at initialization.
 
-```js filename="player-methods.js" showLineNumbers
-player.play();                  // Start playback
-player.pause();                 // Pause playback
-player.duration();             // Get total video duration in seconds
-player.currentTime();          // Get current playback time
-player.currentTime(20);        // Seek to 20 seconds
-player.paused();               // Check if video is paused
-player.volume();               // Get current volume
-player.volume(0.5);            // Set volume (0.0 to 1.0)
-player.subtitles();            // Get list of subtitles
-player.subtitle("fr");         // Switch to French subtitles
-player.subtitle("off");        // Disable subtitles
-player.audioTracks();          // Get list of available audio tracks
-player.audioTrack(1);          // Switch to second audio track
-player.setPlaybackRate(1.25);  // Set playback speed
-player.loop(true);             // Enable looping
-player.loop(false);            // Disable looping
-player.getAuthenticatedUser(); // Get current user info (if authenticated)
-player.getVariables();         // Retrieve all runtime variables
-player.setVariable("key", "value", true); // Set a persistent variable
-player.launchFullscreen();     // Launch fullscreen
-player.exitFullscreen();       // Exit fullscreen
-player.hideControls();         // Hide player controls
-player.showControls();         // Show player controls
-player.qualityLevel();         // Get current quality level
-player.qualityLevel(3);        // Set quality level to specific value
-player.qualityLevel("auto");   // Set quality level to auto
-player.qualityLevels();        // List all quality levels
+### Lifecycle
+
+| Callback | Parameters | Description |
+|----------|-----------|-------------|
+| `onReady` | — | Fired when the player is ready to play |
+| `onPlay` | — | Fired when playback starts |
+| `onPause` | — | Fired when playback is paused |
+| `onProgress` | — | Fired repeatedly as the video plays (timeupdate) |
+| `onEnd` | — | Fired when the video ends |
+
+### Interaction
+
+| Callback | Parameters | Description |
+|----------|-----------|-------------|
+| `onVolumeChange` | `volume` | Fired when the volume changes; receives the new volume value |
+| `onFullscreenChange` | `params` | Fired when fullscreen state changes |
+| `onSubtitleChange` | `params` | Fired when the active subtitle track changes |
+| `onVariableChange` | `params` | Fired when a player variable is updated at runtime |
+
+### Integration
+
+| Callback | Parameters | Description |
+|----------|-----------|-------------|
+| `onCustomCallback` | `params` | Triggered by a Custom Callback action in the editor |
+| `onWebhookResponse` | `response` | Fired when a webhook response is received |
+| `onError` | `error` | Fired on player errors |
+
+---
+
+## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><PlayCircleIcon className="w-5 h-5 text-blue-600" /> Methods</span>
+
+### Playback
+
+```js filename="playback.js" showLineNumbers
+player.play();                    // Start playback
+player.pause();                   // Pause playback
+player.duration();                // Get total video duration in seconds
+player.currentTime();             // Get current playback position in seconds
+player.currentTime(20);           // Seek to 20 seconds
+player.paused();                  // Returns true if the video is paused
+player.watchTime();               // Seconds watched in the current video
+player.totalWatchTime();          // Total cumulative seconds watched
+```
+
+### Audio & Volume
+
+```js filename="audio.js" showLineNumbers
+player.volume();                  // Get current volume (0.0 – 1.0)
+player.volume(0.5);               // Set volume
+player.muted();                   // Returns true if the player is muted
+player.audioTracks();             // Get list of available audio tracks
+player.audioTrack();              // Get the active audio track
+player.audioTrack(1);             // Switch to audio track by index
+```
+
+### Subtitles
+
+```js filename="subtitles.js" showLineNumbers
+player.subtitles();               // Get list of available subtitle tracks
+player.subtitle();                // Get the active subtitle language code
+player.subtitle("fr");            // Switch to French subtitles
+player.subtitle("off");           // Disable subtitles
+```
+
+### Playback Rate
+
+```js filename="playback-rate.js" showLineNumbers
+player.playbackRate();            // Get current playback rate
+player.playbackRate(1.5);         // Set playback rate (e.g. 0.5, 1.0, 1.25, 1.5, 2.0)
+```
+
+### Loop
+
+```js filename="loop.js" showLineNumbers
+player.loop();                    // Get current loop state (true/false)
+player.loop(true);                // Enable looping
+player.loop(false);               // Disable looping
+```
+
+### Fullscreen & Controls
+
+```js filename="fullscreen-controls.js" showLineNumbers
+player.launchFullscreen();        // Enter fullscreen
+player.exitFullscreen();          // Exit fullscreen
+player.isFullscreen();            // Returns true if player is in fullscreen
+player.showControls();            // Show the player control bar
+player.hideControls();            // Hide the player control bar
+```
+
+### Quality
+
+```js filename="quality.js" showLineNumbers
+player.qualityLevels();           // Get list of available quality levels
+player.qualityLevel();            // Get the current quality level
+player.qualityLevel(3);           // Set quality to a specific level index
+player.qualityLevel("auto");      // Set quality to auto
+```
+
+### Variables & Context
+
+```js filename="variables.js" showLineNumbers
+player.getVariables();                       // Get all runtime player variables
+player.getVariable("myVar");                 // Get a single variable by key
+player.setVariable("myVar", "hello", true);  // Set a variable — 3rd arg (persistent): when true,
+                                             // the variable is shared across connected videos;
+                                             // when false, it is scoped to the current video only
+```
+
+### User
+
+```js filename="user.js" showLineNumbers
+player.getAuthenticatedUser();    // Returns the authenticated user object, or null if not logged in
+                                  // { username: "john.doe@example.com", name: "John", surname: "Doe" }
+```
+
+### Misc
+
+```js filename="misc.js" showLineNumbers
+player.unload();                  // Remove the player iframe from the DOM
 ```
 
 ---
 
+## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><FilmIcon className="w-5 h-5 text-blue-600" /> Example</span>
 
-```js filename="player-methods.js"
-player.play();
-player.pause();
-player.duration();
-player.currentTime();
-player.currentTime(20);
-player.volume();
-player.volume(0.5);
-player.paused();
-player.subtitle('fr');
-player.subtitle('off');
-player.audioTracks();
-player.audioTrack();
-player.audioTrack(1);
-player.setPlaybackRate(1.25);
-player.loop();
-player.loop(true);
-player.loop(false);
-player.getVariables();
-player.getVariable("key");
-player.setVariable("key", "value", true);
-player.getAuthenticatedUser();
-player.launchFullscreen();
-player.exitFullscreen();
-player.hideControls();
-player.showControls();
-player.qualityLevel();
-player.qualityLevel(3);
-player.qualityLevel("auto");
-player.qualityLevels();
-```
+<Cinema8Video videoId="WDerp5Xy" autoplay={false} />
 
----
-
-## <span className="inline-flex items-center gap-2 text-gray-900 dark:text-white"><FilmIcon className="w-5 h-5 text-blue-600" /> Example Video Integration</span>
-
-<Cinema8Video videoId="YVX3ZZD4" autoplay={false} />
-
-```html filename="full-example.html"
+```html filename="full-example.html" showLineNumbers
 <html>
   <body>
     <div id="video"></div>
-    <script src="cinema8.player.api.min.js"></script>
+
+    <script src="https://static-01.cinema8.com/player/api/cinema8.player.api.min.js"></script>
     <script>
       var player = new Cinema8Player("#video", {
-        id: "rJVZ6nJg",
+        id: "WDerp5Xy",
+        autoplay: false,
+        controls: true,
+        muted: false,
+
         onReady: () => console.log("onReady fired"),
         onPlay: () => console.log("onPlay fired"),
         onPause: () => console.log("onPause fired"),
         onProgress: () => console.log("onProgress fired"),
         onEnd: () => console.log("onEnd fired"),
-        onCustomCallback: param => console.log(param),
-        onWebhookResponse: response => console.log(response)
+        onVolumeChange: (vol) => console.log("Volume:", vol),
+        onFullscreenChange: (p) => console.log("Fullscreen:", p),
+        onVariableChange: (p) => console.log("Variable changed:", p),
+        onCustomCallback: (p) => console.log("Custom callback:", p),
+        onWebhookResponse: (res) => console.log("Webhook response:", res),
+        onError: (err) => console.error("Error:", err),
       });
+
+      // Example: seek to 10s after 3 seconds
+      setTimeout(() => player.currentTime(10), 3000);
     </script>
   </body>
 </html>
