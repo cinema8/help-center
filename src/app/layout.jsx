@@ -163,8 +163,8 @@ export default async function RootLayout({ children }) {
       <body>
         
 				{/*<InjectA11yWidget /> */}
-        <InjectSearchWidget />
-				<InjectChatbotWidget />
+        {/* <InjectSearchWidget />
+				<InjectChatbotWidget /> */}
 
 				<script
         	type="application/ld+json"
