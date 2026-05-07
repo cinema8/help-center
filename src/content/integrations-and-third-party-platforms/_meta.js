@@ -11,6 +11,7 @@ export default {
   'how-to-use-server-side-web-hooks-to-inject-custom-variables-in-to-video': 'How to Use Server Side Web Hooks to Inject Custom Variables in to Video',
   'scorm-compatible-exports-for-lms': 'SCORM-compatible Exports for LMS',
   'connecting-cinema8-with-other-platforms': 'Connecting Cinema8 with Other Platforms',
+  'how-to-embed-video-lead-generation-forms': 'How to Embed Video Lead Generation Forms',
   'responsive-iframe-embeds': 'Responsive Iframe Embeds',
   'monetise-with-dfp-and-vast': 'DFP and Vast Ads in Your Interactive Videos',
   
