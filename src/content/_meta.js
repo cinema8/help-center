@@ -33,6 +33,7 @@ export default {
 	 'engage-and-monetise': 'Engage and monetise',
 	 'design-advanced-interactivity': 'Design advanced interactivity',
 	 'share-videos-securely': 'Share videos securely',
+	 'live-streaming': 'Live streaming',
 	 'analyze-and-optimise': 'Analyze and optimise',
 	 'integrations-and-third-party-platforms': 'Integrations and third-party platforms',
 	 'advanced-tools-for-developers': 'Advanced tools for developers',

@@ -45,6 +45,15 @@ export const folderMeta = [
     }
   },
   {
+    slug: 'live-streaming',
+    title: 'Live streaming',
+    description: 'Go live from your browser, multistream to social platforms, host webinars with guests and engage your audience in real time.',
+    icon: {
+      src: '/icons/LiveStreamOutlined.svg',
+      alt: 'Live stream broadcast icon'
+    }
+  },
+  {
     slug: 'analyze-and-optimise',
     title: 'Analyze and optimise',
     description: 'Track performance and use analytics to grow your video strategy and improve ROI.',
