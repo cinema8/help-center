@@ -150,6 +150,7 @@ All callbacks are passed in the options object at initialization.
 |----------|-----------|-------------|
 | `onCustomCallback` | `params` | Triggered by a Custom Callback action in the editor |
 | `onWebhookResponse` | `response` | Fired when a webhook response is received |
+| `onWidgetEvent` | `event` | Fired when a widget sends an event to your page (in its code: `w.emit("leadCaptured", { plan: "pro" })`); receives `{ name, detail, trackId, templateId }` |
 | `onError` | `error` | Fired on player errors |
 
 ---
