@@ -27,7 +27,7 @@ A question template is written with [Widget API v2](/advanced-tools-for-develope
 
 ## Make one
 
-**Customisation → Question templates → New question template**: describe it and let AI Writer write it, start from a ready one (All question types, Single choice, Rating, Word bank), or **Blank** with the types it will draw. The editor's **Question** tab replaces Properties:
+**Customisation → Question templates → New question template**: describe it and let AI Writer write it, start from a ready one (Quiz card, Single choice, Rating, Word bank), or **Blank** with the types it will draw. The editor's **Question** tab replaces Properties:
 
 ![A question template in the editor: the stage and the Question tab](/screenshot/widgets-v3/question-template-editor.webp)
 
@@ -68,7 +68,7 @@ Send the answer once with `await q.submit(answer)`. The answer's shape depends o
 
 `submit` rejects an empty or wrong-shaped answer, so let the viewer try again. A question takes one answer.
 
-The result comes to `q.onResult((r) => …)`: `r.correct` (true, false, or null when the question does not check answers), `r.feedback` (the creator's HTML) and `r.hasFeedback`. Show it, then call `r.continue()`: the player closes the question, runs the creator's actions and plays the video. With nothing to show, call it at once. Without `onResult` the question goes on by itself.
+The result comes to `q.onResult((r) => …)`: `r.correct` (true, false, or null when the question does not check answers), `r.feedback` (the creator's HTML) and `r.hasFeedback`. Show it, then call `r.continue()`: the player closes the question, runs the creator's actions and plays the video. Without the creator's feedback call it at once, as the player does with its own questions. Without `onResult` the question goes on by itself.
 
 ```js
 c8.widget((w) => {
@@ -82,7 +82,7 @@ c8.widget((w) => {
   }));
   w.listen(send, "click", () => { send.disabled = true; q.submit(chosen).catch(() => { send.disabled = false; }); });
   q.onResult((r) => {
-    if (!r.hasFeedback && r.correct === null) return r.continue();
+    if (!r.hasFeedback) return r.continue();
     w.$(".result").dataset.correct = String(r.correct);
     w.$(".feedback").innerHTML = r.feedback;
     w.listen(w.$(".go"), "click", () => r.continue(), { once: true });
@@ -111,7 +111,7 @@ Give each word its id and let the runtime do the dragging (mouse and touch):
 {{#each question.dndItems}}<span class="word" data-dnd-drag-id="{{id}}">{{text}}</span>{{/each}}
 ```
 
-Then call `const dnd = q.dragDrop({ items: w.$$(".word") })` once, and `q.submit(dnd.answer())`. Style the drop areas (`input[data-dnd-drop-id]`; a filled one carries `data-c8-dnd-item`). Never write your own drag code.
+Then call `const dnd = q.dragDrop({ items: w.$$(".word") })` once, and `q.submit(dnd.answer())`. Style the drop areas (`input[data-dnd-drop-id]`; a filled one carries `data-c8-dnd-item`). Give the viewer a way back: a button that calls `dnd.reset()` puts every word back in its place (a word dragged onto a filled area sends the one there back too). Never write your own drag code.
 
 ## Matching
 
