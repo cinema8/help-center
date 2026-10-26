@@ -1,6 +1,6 @@
 ---
 title: "Customizing and Using Question Templates in Cinema8"
-description: "Find out how to add and customise question templates in interactive videos for quizzes, surveys and assessments. Visit Cinema8."
+description: "Find out how to make question templates for interactive videos with AI Writer, a ready template or your own code, and how to apply them to one question or to every question of a player theme. Visit Cinema8."
 
 og:type: website
 og:locale: en_US
@@ -15,59 +15,67 @@ import { Steps, Callout } from 'nextra/components'
 
 # How to Use Question Templates
 
-## Adding and Customizing Question Templates in Your Videos
+## Give your questions your own look
 
-You can add questions to your videos in **Cinema8**, and customize the design of the question templates to better fit your content. Let's go through how to change and apply question templates.
+A **question template** draws the questions of your videos in a look of its own: a quiz card in your brand colours, a five-star rating, picture cards to tap, a worksheet with words to drag. You write the questions in Creative Studio as usual (the text, the options, the right answer, the feedback, what happens next); the template only decides how they look and how viewers answer. One template draws every question that uses it, in every video, each with its own words.
+
+A template draws the question types it lists: single choice, multiple choice, free text, fill in the blanks, drag and drop, matching. A question of a type it does not draw keeps the player's own look, and true/false and recorded (audio and video) answers are always drawn by the player.
 
 <Steps>
 
 ### Step 1 — Open Customisation
-Return to the main menu and click the **Customisation** button.
 
-![Cinema8 Tools Button](/screenshot/questions/questionTemplate1.webp)
+In the main menu, click **Customisation**, then the **Question templates** tab. Customisation has three tabs: **Player themes**, **Widgets** and **Question templates**.
 
-### Step 2 — Open Question Templates
-Click the **Question Template** button on the next screen.
+![The Question templates tab of Customisation](/screenshot/widgets-v3/question-templates-list.webp)
 
-![Question Template Screen](/screenshot/questions/questionTemplate2.webp)
+The list shows your templates with the question types each one draws, whether it is published, and how many videos use it. **Used in** opens the list of videos and player themes that use it.
 
-### Step 3 — Explore or Create Templates
-On the screen, you'll see several options:
+### Step 2 — Make a template
 
-- **Search templates**
-- **Your templates**
-- **Default templates from Cinema8**
-- **New Question Template** button
-- **Settings** for each template
+Click **New question template**. There are three ways to start:
 
-Click **New Question Template** to begin.
+- **Describe it, and AI Writer writes it.** Write how the questions should look, how viewers answer and what they see after the answer, or pick one of the suggestions (a quiz for every question type, a five-star rating, picture cards, a word bank, a minimal card, your brand colours). AI Writer uses your account's AI tokens; the window shows the cost before you start.
+- **Start from** a ready template: **All question types**, **Rating**, **Single choice** or **Word bank**. You get your own copy to change.
+- **Blank**: empty code with the question types you choose, for developers.
 
-![Create New Question Template](/screenshot/questions/questionTemplate3.webp)
+**Duplicate a question template…** copies one of yours or one from the Cinema8 library, and **Import code…** brings in a template exported from another account.
 
-### Step 4 — Fill Out Template Info
-- Enter a name
-- Set the status (active/passive)
-- Click to create the template
+![The New question template window](/screenshot/widgets-v3/new-question-template.webp)
 
-### Step 5 — Edit Template Design
-From **My Templates**, click **Actions** > **Edit**. You’ll be taken to a screen where you can customize:
+### Step 3 — Try it in the editor
 
-- HTML code
-- CSS styles
-- JavaScript interactions
+The editor shows your template drawing a sample question on a sample video, at desktop, tablet and phone sizes. The switch above the video (**Single**, **Multiple**, **Free text**, **Blanks**, **Drag & drop**, **Matching**) shows the sample in each type.
 
-![Edit Question Template](/screenshot/questions/questionTemplate4.webp)
+![A question template in the editor](/screenshot/widgets-v3/question-template-editor.webp)
 
-### Step 6 — Apply Template to Videos
-There are two ways to apply your template:
+The **Question** tab on the right holds:
 
-1. From the **Player Themes** in the Cinema8 Admin Panel — applies globally.
-2. From the **Properties Panel** of any question element in the Studio — applies locally to one question.
+- **Draws these question types:** tick the types the template should draw. Each one is checked as you work: **Drawn**, or what is missing.
+- **Sample question:** change the sample to see how the template copes: more options, pictures in the options, long texts, a question viewers can skip, an answer on click, a hidden question text.
+- **Result screen (preview):** answer the sample as right, wrong or not graded, with feedback, to see what viewers see after they answer. Nothing is sent anywhere from the editor.
 
-![Cinema8 Player Themes](/screenshot/questions/questionTemplate5.webp)
+The **About** tab holds the template's name, description and picture, shown when creators choose a template. To change the template, use **Write with AI** in the top bar (describe the change, then review it before it goes in) or open **Code** to edit the HTML, CSS and JavaScript yourself. Your changes are saved as you work, as a draft: videos keep the published version until you publish.
+
+### Step 4 — Publish
+
+Click **Publish**. The window says how many questions, videos and player themes change at once, lists anything the editor's checks found, and asks you to confirm if you stopped drawing a type that questions use (those questions then go back to the player's own look). Each publish is a new version; **Version history** in the ⋯ menu can bring an earlier one back.
+
+### Step 5 — Apply it to your questions
+
+There are two ways to use a template:
+
+1. **For one question**, in Creative Studio: select the question, open its **Appearance** page, choose **Template** under **Drawn with**, then pick the template. Pointing at a template previews it on the video.
+2. **For every question of a player theme**: **Customisation → Player themes**, open the theme, and choose it as its **Question template**. Every video with that theme draws its questions with the template, unless a question picks another one on its Appearance page.
+
+![The Appearance page of a question in Creative Studio](/screenshot/widgets-v3/appearance-page.webp)
 
 </Steps>
 
 <Callout type="info">
-Selecting a question template from **Player Settings** applies it across all videos, while setting it from **Properties** affects only that individual question.
+  A template chosen in a **player theme** applies to every question of the videos using that theme, while a template chosen on a question's **Appearance** page affects only that question.
+</Callout>
+
+<Callout type="default">
+  **For developers:** question templates are written with Widget API v2. The question's fields, the answer for each type and a complete example are on [Question templates with Widget API v2](/advanced-tools-for-developers/question-template-api).
 </Callout>

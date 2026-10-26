@@ -15,9 +15,13 @@ og:title: Cinema8 Help Center
 import { Callout } from 'nextra/components'
 import Cinema8Video from '@components/mdx/Cinema8Video'
 
-# Widget Development Playground
+# Widget Development Playground (runtime 1)
 
-This page demonstrates the full capabilities of the [Cinema8 Widget API](/advanced-tools-for-developers/widget-api) using a live video example. It includes all supported widget property types, HTML usage with Handlebars, dynamic interactions with JavaScript, and runtime variable access.
+<Callout type="warning" className="mt-6 mb-8">
+  **This playground is written with runtime 1, the earlier Widget API.** Widgets written this way keep working. New widgets are written with [Widget API v2](/advanced-tools-for-developers/widget-api), whose guide walks through a complete widget from start to finish; the widget editor's ready widgets (Button, Lower third, Info card, Countdown, Chapter menu, Lead form, Poll with live results) are complete v2 examples to start from.
+</Callout>
+
+This page demonstrates the [runtime 1 Widget API](/advanced-tools-for-developers/widget-api-runtime-1) using a live video example. It includes all supported widget property types, HTML usage with Handlebars, dynamic interactions with JavaScript, and runtime variable access.
 
 <Callout type="info" className="mb-6">
 This playground showcases a working widget built using Cinema8’s native development environment. You can inspect widget behavior, supported methods, events, and more.
@@ -614,5 +618,5 @@ Explore the full API capabilities including:
 ---
 
 <Callout type="tip" className="mt-10">
-You can build your own widgets by following the [Widget API Guide](/advanced-tools-for-developers/widget-api) or clone the sample from this playground.
+You can build your own widgets by following the [runtime 1 Widget API](/advanced-tools-for-developers/widget-api-runtime-1) or clone the sample from this playground.
 </Callout>

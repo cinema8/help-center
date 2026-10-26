@@ -1,201 +1,254 @@
 ---
-title: "Developer guide to building custom widgets in Cinema8"
-description: "Develop custom widgets for Cinema8 with full access to the runtime player environment, timeline data, dynamic props, and user actions."
+title: "Cinema8 Widget API v2: developer guide to building widgets"
+description: "Write interactive Cinema8 widgets with Widget API v2: HTML, CSS and JavaScript drawn in their own sealed box, typed properties, actions, collections, variables, animation and question templates."
 
 og:type: website
 og:locale: en_US
 og:site_name: Cinema8 Help Center
- 
+
 og:description: Learn how to use Cinema8 to create, publish, and analyze interactive videos.
 og:title: Cinema8 Help Center
 
 ---
 
 import { Callout } from 'nextra/components'
-import { CodeBracketIcon, Cog6ToothIcon, PuzzlePieceIcon, PlayCircleIcon } from '@heroicons/react/24/outline'
 
-# Cinema8 Widget API
+# Cinema8 Widget API v2
 
-<span className="block text-gray-500 text-base font-normal mt-1">Build interactive widgets with JavaScript, CSS, and Handlebars templating</span>
+<span className="block text-gray-500 text-base font-normal mt-1">Build interactive widgets with HTML, CSS and JavaScript, drawn in their own sealed box on the video</span>
 
-Widgets are reusable components that run inside the Cinema8 player. You can use the default widgets or develop your own using the **Cinema8 Widget Development Environment**.
+Widget API v2 is how a Cinema8 widget is written: three parts (HTML, CSS, JavaScript) that the player draws on the video in their own sealed box, with one object, `w`, for everything a widget does: its properties, the player, the creator's actions, collections, variables, animation and questions. This guide explains the ideas and walks through a widget from start to finish.
+
+- The rules, one by one, are in the [Widget API v2 Reference](/advanced-tools-for-developers/widget-api-reference). The widget editor's **Reference** panel shows the same text beside your code and can insert its examples.
+- Question templates are written with the same API: see [Question templates with Widget API v2](/advanced-tools-for-developers/question-template-api).
+- To make a widget without writing code (with AI Writer or from a ready widget), see [Create your own widgets](/engage-and-monetise/create-your-own-widgets).
 
 <Callout type="info" className="mt-6 mb-8">
-  See also: [Widget Playground](/advanced-tools-for-developers/widget-development-playground)
+  **Who can use it.** Every account: **Customisation → Widgets → New widget**, then **Blank** with the **Widget API v2** switch on, or one of the ready widgets under **Start from**. Accounts with question templates make them the same way. Viewers see v2 widgets everywhere, like any widget.
 </Callout>
 
-## Widget Basics
+<Callout type="default" className="mb-8">
+  Widgets written before Widget API v2 (runtime 1, with `c8PlayerApi`) keep working unchanged. Their API is on [Widget API: runtime 1](/advanced-tools-for-developers/widget-api-runtime-1); see [Coming from runtime 1](#coming-from-runtime-1) to write the same widget in v2.
+</Callout>
 
-* Widgets are embedded on the video timeline.
-* They support dynamic properties, actions, and runtime control.
-* You can configure widgets via Creative Studio.
+## Ideas
 
-### Common Widget Properties
+- **Template and placement.** A widget (template) is written once in the widget editor. A creator places it on a video in Creative Studio, as many times as they like, and fills in its properties there. Each placement is a box on the video with a start and an end time. Publishing a new version changes every placement (their values stay).
+- **Three parts.** HTML is a Handlebars template of the properties. CSS is plain CSS. JS is plain modern JavaScript that calls `c8.widget((w) => { … })` once.
+- **A sealed box.** Each placement is drawn in its own shadow root inside its box. Your CSS reaches only your elements, the player's and other widgets' CSS do not reach yours, and your code finds only your elements (`w.$`, `w.$$`). Class names need no prefixes.
+- **`w` is the placement.** Everything goes through it: `w.props`, `w.player`, `w.runActions`, `w.records`, `w.vars`, `w.gsap`, timers and listeners. What you make through `w` is removed when the element ends, so a widget does not leak into the page or into its next start.
+- **Starts and ends.** The element starts at its time, again after a seek back into it, and again when the video loops; every start runs your code with a fresh `w`. It ends at its end time, on a seek away, or when the video changes.
+- **One bundle, loaded when needed.** The runtime (with GSAP 3.15 and its plugins) is loaded only on videos that have a v2 widget, once, and is shared by all of them.
 
-All widgets inherit:
+## A widget from start to finish
 
-* `name`
-* `start`, `end`
-* `visible`
-* `onStart`, `onEnd`, `onClick`
-* `position` (percentage-based)
+A "tip card": a title, a text, a button that runs the creator's actions, a close button, and a slide in and out.
 
-You can also define your own **custom props** (e.g., `text`, `color`, `video`).
+**1. Make it.** Customisation → Widgets → **New widget** → **Blank**, name it, pick its kind, keep **Widget API v2** on. The editor opens with an empty `c8.widget` in the JS.
 
-### Supported Property Types
+**2. Properties** (the panel on the right, **Add a property**):
 
-* Text (string)
-* Text Area (multiline string)
-* Color (hex string)
-* Image (URL)
-* Video (URL)
-* Boolean
-* Text List (array)
-* Image List (array)
-* Select (dropdown)
-* Action (clickable)
+| Name | Key | Type | Default |
+|---|---|---|---|
+| Title | `title` | Text | Did you know? |
+| Text | `text` | Text area | Most viewers skip this part. |
+| Button text | `buttonText` | Text, clickable | Show me |
+| Accent | `accent` | Color | #A101FF |
+| Text size | `size` | Number, unit rem | 0.8 |
+| When closed | `onClose` | Actions | |
 
-## Accessing Parameters
+"Clickable" means the creator can set actions on the button's text in Creative Studio ("When clicked").
 
-### HTML
-
-Use Handlebars templates:
+**3. HTML.**
 
 ```html
-<p>{{text}}</p>
+<article class="card">
+  <h2 class="title">{{title}}</h2>
+  <p class="text">{{text}}</p>
+  <button class="cta" data-c8-click="buttonText">{{buttonText}}</button>
+  <button class="close" aria-label="Close">×</button>
+</article>
 ```
 
-Lists:
+`data-c8-click="buttonText"` runs the button text's actions on a click; nothing else to write for it.
 
-```html
-<ul>
-  {{#each textList}}
-    <li>{{this}}</li>
-  {{/each}}
-</ul>
-```
-
-### JavaScript
-
-```js
-c8PlayerApi.getWidgetProps()
-c8PlayerApi.getWidgetProp('textArea')
-```
-
-Unique IDs:
-
-```js
-$('.c-{{uid}} .widget-button').click(() => {
-  console.log(c8PlayerApi.getWidgetProp('text'))
-})
-```
-
-### CSS
+**4. CSS.** Sizes in `em` from one size on `:host`, so the card keeps its look at any video size:
 
 ```css
-.c-{{uid}} {
-  background: {{color}};
-  padding: 1rem;
-}
+:host { font-size: var(--prop-size, .8rem); }
+.card { position: absolute; inset: 0; padding: 1em 1.2em; border-radius: .8em; background: #fff; color: #1a1a1a; }
+.title { margin: 0 0 .4em; font-size: 1.4em; }
+.cta { padding: .5em 1em; border: 0; border-radius: 999px; background: var(--prop-accent); color: #fff; }
+.close { position: absolute; top: .4em; right: .4em; border: 0; background: none; font-size: 1.2em; }
 ```
 
-## Using `{{uid}}`
-
-Ensures unique styling and DOM selection:
-
-* HTML: `<div class="c-{{uid}}">`
-* CSS: `.c-{{uid}} {}`
-* JS: `$('.c-{{uid}}')`
-
-## Accessing Runtime Data
+**5. JS.**
 
 ```js
-c8PlayerApi.getTrackProps()
-c8PlayerApi.getTrackProp('duration')
+c8.widget((w) => {
+  const card = w.$(".card");
+  const enter = w.gsap.from(card, { opacity: 0, x: "1.5em", duration: 0.4, ease: "power3.out" });
+
+  w.listen(w.$(".close"), "click", () => {
+    w.gsap.to(card, { opacity: 0, x: "1.5em", duration: 0.25, onComplete: () => w.hide() });
+    w.runActions("onClose");
+  });
+
+  // shown again by an action: play the entrance again
+  w.on("visibilityChange", (visible) => { if (visible) enter.restart(); });
+
+  // out before the end
+  w.beforeEnd(0.3, () => w.gsap.to(card, { opacity: 0, duration: 0.3 }));
+});
 ```
 
-Authenticated user:
+No cleanup code: the listener, the tweens and the `visibilityChange` handler end with the element.
+
+**6. Try it.** The preview plays the widget on a sample video at desktop, tablet and phone sizes. Clicks, actions and records show in the Activity line under it; an error shows with its part and line, and the problem list in the top bar collects what the editor's checks found (a property your code reads that does not exist, a key in `runActions` that is not an Actions or clickable property, a record field the collection does not declare).
+
+![The code view with the Reference panel and the live preview](/screenshot/widgets-v3/code-reference.webp)
+
+**7. Publish**, then place it in Creative Studio (Widgets tab): the creator fills in the properties, sets "When clicked" on the button text and "When closed", and moves the box.
+
+The **New widget** window also offers ready widgets to start from (Button, Lower third, Info card, Countdown, Chapter menu, Lead form, Poll with live results); each is a complete, tested example.
+
+## Properties
+
+Properties are what creators change per placement. Keys are lowerCamelCase and stay stable: renaming or removing a property of a widget that is placed loses those placements' values for it (the editor renames its uses in your code for you, and warns before publishing a removal).
+
+How each type reaches each part is one table in the Reference ([Properties](/advanced-tools-for-developers/widget-api-reference#properties)). In short:
+
+- **HTML** sees every value through Handlebars: `{{title}}` (escaped), `{{#if showIcon}}`, `{{#each items}}`, `{{#if (eq position "Left")}}`. Helpers: `eq ne gt lt gte lte and or not json`, nothing else.
+- **CSS** sees colours, images and numbers as variables (`var(--prop-accent)`, `var(--prop-font-size)` with its unit) and switches and choices as attributes on `:host` (`:host([data-prop-show-icon])`, `:host([data-prop-position="Left"])`). Keys are kebab case in CSS.
+- **JS** sees resolved values in `w.props`: strings, numbers, booleans, the chosen value of a choice, image URLs (or null), arrays for lists, product objects. The code editor knows each property's type.
+- **Actions** properties are not values: run them with `w.runActions(key)`.
+- **Collection** properties are not values either: use `w.records` (see [Collections](#collections)).
+
+Number properties are Text properties with a number hint (min, max, step, unit). With unit `rem`, Creative Studio shows and edits them as pixels of a 1080p video.
+
+## Look
+
+- **Size with `rem` and `em`.** 1rem is 2 % of the video's width, so a widget scales with the video. Put the base size on `:host` (from a Number property) and size everything inside in `em`.
+- **Phones.** The player makes its text a third larger on phones (1rem is 2.625 % of the width there). A box that just holds the content on a computer overflows on a phone. Let the content scroll, or shrink the text until it fits: `w.fit(".card")` does it in one line, and the Poll, Lead form and Info card widgets use it.
+- **The box.** `:host` fills the box the creator drew. A box larger than what you draw catches clicks meant for what is under it, so give the template a default box that fits its content (drag the box's handles in the preview). `position: fixed` is relative to the box.
+- **360° videos.** The widget sits on the sphere; the host has `data-c8-360`, where `rem` is not tied to the video: `:host([data-c8-360]) { font-size: 28px; }`.
+- **Fonts.** Google Fonts (`@import url("https://fonts.googleapis.com/css2?…")`) and `@font-face` work. Other `@import`s are not loaded.
+- **Stacking.** Each widget is its own stacking context; the creator orders elements with layers.
+- **Images and video** from properties are URLs; a missing one is null (use `{{#if image}}`).
+
+## Behaviour
+
+- **Elements:** `w.$(selector)`, `w.$$(selector)` (never `document`). Elements you create with `document.createElement` and add inside your root are yours too.
+- **Listeners and timers:** `w.listen(el, "click", fn)`, `w.setTimeout`, `w.setInterval`, `w.observe(...)` for Resize, Intersection and Mutation observers, `w.onCleanup(fn)` for anything else. All end with the element.
+- **Animation:** `w.gsap` is GSAP 3.15 with every plugin (SplitText, Draggable, Flip, DrawSVG, MotionPath, MorphSVG, CustomEase, Physics2D, ScrambleText, Inertia, Text). Selector strings find your elements; everything is reverted at the end. The page's global `gsap` is an older version and cannot see your elements.
+- **Out animation:** `w.beforeEnd(seconds, fn)` runs once that long before the end (not on a seek away or an action).
+- **Memory:** `w.memory` keeps values for this placement while the page is open (a seek back finds them); `w.storage.get` and `w.storage.set` keep them on the viewer's device. A poll uses both to let a viewer vote once.
+- **Show and hide:** `w.hide()`, `w.show()`, `w.visible`; creators can show and hide the element with actions, and you hear it with `w.on("visibilityChange", …)`.
+- **Errors in your code** are caught: an exception in your setup, a listener or a timer is reported with its line and never stops the player or other widgets.
+
+## Actions
+
+Creators set actions in Creative Studio: go to a time, open a link or another video, show or hide elements, set a variable, send a webhook, and more. Your widget decides **when** they run:
+
+- `data-c8-click="key"` on an element runs the actions of the clickable property `key` (inside `{{#each items}}`, the item at that position). It works for elements your JS adds too (`data-c8-index` for an item built out of order).
+- `w.runActions("onSubmitActions")` runs an Actions property from code: after a submit, a close, a countdown at zero. `w.hasActions(key)` says whether the creator set any.
+- Write keys as string literals. The editor checks them, and Creative Studio shows "When clicked" only for keys your code wires.
+- The whole element can also have "When clicked" in Creative Studio: a click anywhere on its box, no code needed.
+
+## Collections
+
+A widget that keeps what viewers send (a form, a vote, a comment, a score) has a **Collection** property and declares its fields on the editor's **Saving records** page (email, first name, consent, text, number…). The creator picks or creates the collection per placement; records are listed in the admin's Collections, can be exported, and a collection with an email field can be sent on to Mailchimp, HubSpot and others by the server.
+
+![The Saving records page of a poll](/screenshot/widgets-v3/saving-records.webp)
 
 ```js
-const user = c8PlayerApi.getAuthenticatedUser()
+await w.records.save({ email, firstName, consent });     // fields declared on the Saving records page
+const counts = await w.records.countBy("choice");          // [{ value, count }]
+const page = await w.records.search({ sortField: "created", sortOrder: "desc", limit: 20 });
+w.records.subscribe((record) => { /* every new record, from every video sharing the collection */ });
 ```
 
-## Video Control APIs
+- **Private or shown back.** A form's collection is private: viewers can save but not read. A poll, comments or a leaderboard need a collection that is **shown back** (Saving records → **Who can read the records** → **Viewers too**); only then do `search`, `countBy`, `subscribe` and `presence` work.
+- **A new collection for each placement.** On the Saving records page you can also have Creative Studio make a new collection every time the widget is placed, copied or duplicated, named after the video and the widget.
+- **Live.** `subscribe` hears every record saved to the collection, from any placement and any video, within a moment; `presence` counts the viewers who have it open.
+- **Privacy.** A record never says who saved it. Save a name only when the viewer typed it for that purpose.
+- **Limits.** 2,000 characters of JSON per record; one save per 300 ms and 60 a minute per placement; empty values (`null`, `undefined`, `""`) are left out.
+- **Errors** are `C8Error`s with a `code` (`NO_COLLECTION`, `TOO_LARGE`, `INVALID`, `NOT_WRITABLE`, `NOT_READABLE`, `RATE_LIMITED`, `NETWORK`). `w.records.ready` is false when the creator has not chosen a collection: the widget should still work (a lead form still sets its variables and runs its actions).
 
-```js
-c8PlayerApi.play()
-c8PlayerApi.pause()
-c8PlayerApi.currentTime()
-c8PlayerApi.volume(0.5)
-c8PlayerApi.subtitle("en")
-c8PlayerApi.audioTrack(1)
-c8PlayerApi.qualityLevel("auto")
-```
+## Variables, the player, the page
 
-## Variable Storage
+- **Variables** are the video's memory (set by actions, answers, the page, widgets): `w.vars.get`, `w.vars.set`, `w.on("variableChange")`. A value you set is stored as given and shown as text wherever the video shows it (`${email}`), unless you say it is HTML you built. `${name}` and `${name!fallback}` work in your HTML's text and follow the variable.
+- **The player:** `w.player.play()`, `pause()`, `currentTime()`, `jumpTo(seconds)` (keeps the video's jump rules), `openVideo(id, seconds)`, volume, rate, subtitles, quality, fullscreen. Events: `play`, `pause`, `ended`, `seeked`, `timeupdate` (about 4 a second), `fullscreenChange`, `playbackRateChange`, `resize`. `w.scene` gives the video's title, length and chapters; `w.device` whether it is a phone; `w.locale` the viewer's language.
+- **The embedding page:** `w.emit("leadCaptured", { plan: "pro" })` reaches the web page that embeds the player, through the [JavaScript API](/advanced-tools-for-developers/javascript-api)'s `onWidgetEvent` option (`{ name, detail, trackId, templateId }`).
+- **Analytics:** clicks on `data-c8-click`, saves and answers count as interactions by themselves; `w.interacted()` counts any other.
 
-```js
-c8PlayerApi.setVariable('score', 10)
-c8PlayerApi.getVariable('score')
-```
+## Question templates
 
-Persistent variables:
+A question template draws the video's questions in its own look, with the same API: `w.question` holds the question as the creator wrote it, and there are no properties. How to make one, the question's fields, the answer for each type and a complete example are on [Question templates with Widget API v2](/advanced-tools-for-developers/question-template-api).
 
-```js
-c8PlayerApi.setVariable('userChoice', 'A', true)
-```
+## Where a widget runs
 
-## Saving Data
+`w.runtime` says where the widget is:
 
-```js
-c8PlayerApi.postData({ feedback: 'Great!' }).then(console.log)
-```
+| | Player (`PLAYER`) | Creative Studio (`CREATIVE_STUDIO`) | Widget editor preview (`WIDGET_EDITOR`) |
+|---|---|---|---|
+| Drawing, properties, animation | yes | yes | yes |
+| Actions, player changes, `emit` | run | logged, not run | shown in Activity |
+| `records.save` | saved | not saved | checked against the fields, shown |
+| Reading records | the collection | the collection's real records | sample records |
+| Question result | from the server | simulated | simulated |
 
-Retrieve data:
+Your code needs no special case for this.
 
-```js
-c8PlayerApi.getData().then(console.log)
-```
+## Errors and debugging
 
-## Runtime Events
+- **In the editor:** the problem list checks your code as you type (syntax, properties, keys, record fields, entry point), and the preview runs it in the background through starts, ends, hides and two copies, reporting what breaks. Activity shows what the widget did. `w.log(...)` writes there and to the console. **Fix with AI** hands a problem to AI Writer.
+- **Lines:** an error's line is the line in your JS part (the browser's console shows the file as `c8-widget-<template id>.js`).
+- **After publishing:** viewers' players report a sample of errors; the editor shows a published widget's most frequent ones from the last 7 days in its problem list, with the line.
+- **In Creative Studio** a widget's error shows in its panel and in the editor's checks; **in the player** it goes to the browser's console (developer tools), marked with the widget's template id.
 
-```js
-c8PlayerApi.on("play", () => { ... })
-c8PlayerApi.on("pause", () => { ... })
-c8PlayerApi.on("visibilityChange", visible => { ... })
-c8PlayerApi.on("variableChange", (key, prev, next) => { ... })
-```
+## Limits and support
 
-## Executing Actions
+- **Browsers:** Chrome and Edge 79+, Firefox 78+, Safari 15+ (iOS 15+). Older browsers do not draw v2 widgets.
+- **Size:** the runtime is about 86 KB gzipped, loaded once per page and only when a v2 widget is on the video.
+- **Speed:** keep the setup light (build lists once, animate with `w.gsap`) and try heavy widgets on a phone.
+- **Records:** see [Collections](#collections). **Variables:** stored as strings, numbers or booleans as given.
+- **Not available:** `document`-wide selection, the page's jQuery and global GSAP for your elements, `fetch` to other sites for data (use a collection), loading other scripts.
+- **Versions:** a template keeps the runtime it was made with; publishing stamps the API version it was checked against (2.2 now). Changes to the API keep published widgets working.
 
-```js
-c8PlayerApi.executeWidgetPropActions('onImageHover')
-```
+## Coming from runtime 1
 
-## Using Clickable Props
+Runtime 1 widgets ([Widget API: runtime 1](/advanced-tools-for-developers/widget-api-runtime-1)) keep working unchanged; there is no need to rewrite them. When you write a new one:
 
-Enable "isClickable" in Studio and bind:
+| Runtime 1 | Widget API v2 |
+|---|---|
+| `{{uid}}` in every class, id and global name | not needed: the widget is sealed; plain class names |
+| `$(".btn-{{uid}}")`, `document.querySelector(…)` | `w.$(".btn")`, `w.$$(".item")` |
+| top-level `var`, or an IIFE so a second start does not break | `c8.widget((w) => { … })`, `let` and `const` freely |
+| `c8PlayerApi.getWidgetProp("key")`, `"{{key}}"` in JS strings | `w.props.key` (typed; never Handlebars in JS or CSS) |
+| `selectedKey` for a choice | `w.props.key` is the chosen value |
+| `{{key}}rem` in CSS | `var(--prop-key)` (with its unit) |
+| `data-onclick-ref="key"` (HTML only) | `data-c8-click="key"` (also on elements JS adds) |
+| `c8PlayerApi.executeWidgetPropActions("key")` | `w.runActions("key")` |
+| `c8PlayerApi.on("widgetDestroy", …)` and cleaning by hand | automatic; `w.onCleanup(fn)` for extras |
+| `setInterval` polling `currentTime()` for an exit | `w.beforeEnd(seconds, fn)` |
+| no time events | `w.on("timeupdate")`, `w.on("seeked")` |
+| `c8PlayerApi.getDatastore("key")`, `webSocket(…).publish` | `w.records.save`, `search`, `countBy`, `subscribe` |
+| `c8PlayerApi.setVariable(name, value)` | `w.vars.set(name, value)` |
+| `setVisible()` and `setInvisible()` | `w.show()` and `w.hide()` |
+| global `gsap` (3.7) | `w.gsap` (3.15, every plugin) |
+| `.c8_360_container …` overrides | `:host([data-c8-360])` |
 
-```html
-<li data-onclick-ref="textList">Item</li>
-```
+The question template rows (`submitQuestionForm`, the feedback event, drag and drop, matching) are on [Question templates with Widget API v2](/advanced-tools-for-developers/question-template-api#coming-from-runtime-1).
 
-## Handlebars Helpers
+In the editor, an older widget can be turned into a v2 copy with **Make an AI-ready copy** in the ⋯ menu: AI Writer then rewrites the copy in Widget API v2, and the original stays as it is.
 
-```js
-<#Handlebars>
-  Handlebars.registerHelper("uppercase", val => val.toUpperCase())
-</#Handlebars>
-```
+## Frequently asked questions
 
-Then in HTML:
+**Can a widget reach the page or the player's elements?** No: it sees its own elements; the player through `w.player`.
 
-```html
-{{uppercase text}}
-```
+**Can two placements share state?** Only through a collection (records) or the video's variables.
 
----
+**Why is my button not offered "When clicked" in Creative Studio?** The code does not wire its key: use `data-c8-click="key"` or `w.runActions("key")` with the key as a string literal.
 
-<Callout type="warning">
-Need help? Visit the [Widget Playground](/advanced-tools-for-developers/widget-development-playground) for examples.
-</Callout>
+**Why is nothing saved in the preview?** Previews and Creative Studio never send records; the preview checks and shows them. Place the widget on a video and watch it in the player.

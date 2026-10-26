@@ -1,0 +1,311 @@
+---
+title: "Cinema8 Widget API v2 Reference"
+description: "The rules of Cinema8 Widget API v2, one by one: lifecycle, properties, CSS, clicks and actions, records, variables, the player, animation, forms and questions."
+
+og:type: website
+og:locale: en_US
+og:site_name: Cinema8 Help Center
+
+og:description: Learn how to use Cinema8 to create, publish, and analyze interactive videos.
+og:title: Cinema8 Help Center
+
+---
+
+{/* Generated from backend-jakarta gplayer-web/src/main/c8-widget/v2/reference.md by scripts/sync-help-center.mjs (npm run sync-help-center). Do not edit here. */}
+
+# Widget API v2 Reference
+
+The rules of [Widget API v2](/advanced-tools-for-developers/widget-api), one by one. The widget editor's **Reference** panel shows the same text beside your code (only the sections for what you are writing, a widget or a question template) and can put its examples into your code. Question templates are explained on [Question templates with Widget API v2](/advanced-tools-for-developers/question-template-api).
+
+## Start
+
+A widget has three parts: **HTML** (a Handlebars template), **CSS** (plain CSS) and **JS** (plain JavaScript). It is
+drawn in its own shadow root inside its box on the video, so its CSS cannot reach the player or other widgets and theirs
+cannot reach it. Use any class names (`.card`, `.btn`, `.title`).
+
+The JS part calls `c8.widget` once; everything goes inside it:
+
+```js filename="Widget"
+c8.widget((w) => {
+  const card = w.$(".card");
+  w.gsap.from(card, { opacity: 0, y: "0.5em", duration: 0.4 });
+  w.listen(card, "click", () => w.runActions("onClickActions"));
+});
+```
+
+- `w` is this placement of the widget. Find your elements with `w.$(selector)` and `w.$$(selector)`, never `document`.
+- Make timers, listeners and observers through `w` (`w.setTimeout`, `w.listen`, `w.observe`): they are removed when the
+  element ends. Animate with `w.gsap`.
+- The code runs in strict mode, once each time the element starts. `let`, `const` and `class` at the top are fine.
+- A widget without JS is fine: HTML and CSS with its properties (a button, a lower third, a card).
+
+## Lifecycle
+
+- **Start**: the element starts (at its time, after a seek back into it, when the video loops) → the HTML is drawn, then
+  `setup(w)` runs. Every start is a fresh `w`.
+- **End**: the element ends (its end time, a seek away, the video changes) → what `setup` returned and every
+  `w.onCleanup` run (last registered first), then everything made through `w` is removed and the element is taken
+  away. Nothing can be drawn after that.
+- **Out animation**: `w.beforeEnd(seconds, fn)` runs `fn` once that many seconds before the end. Not run when the
+  element ends by a seek or an action.
+- **Coming back**: `w.memory` keeps values for this placement until the page is closed; `w.storage` keeps them on the
+  viewer's device when the browser allows it. `w.element.entry` is 1, 2, … for each start.
+- **Two copies**: two placements of the widget (or the same one twice on a video) are independent; they share nothing.
+
+```js filename="Animate in and out"
+c8.widget((w) => {
+  const tl = w.gsap.timeline();
+  tl.from(".card", { opacity: 0, y: "1em", duration: 0.4, ease: "power2.out" });
+  w.beforeEnd(0.4, () => tl.reverse());
+});
+```
+
+```js filename="Remember across seeks"
+c8.widget((w) => {
+  w.memory.views = (w.memory.views || 0) + 1;
+  if (w.memory.answered) w.$(".form").hidden = true;
+});
+```
+
+## Properties
+
+_For widgets only._
+
+The properties are the settings a creator fills in for each placement. Their keys are lowerCamelCase (`buttonText`).
+
+| Type | In HTML | In CSS | `w.props.key` in JS |
+|---|---|---|---|
+| Text, Text area | `{{key}}` | — | string |
+| Number | `{{key}}` | `var(--prop-key)` with its unit (`.6rem`) | number |
+| Color | `{{key}}` | `var(--prop-key)` | string |
+| Switch | `{{#if key}}…{{/if}}` | `:host([data-prop-key])` | boolean |
+| Choice | `{{#if (eq key "Left")}}` | `:host([data-prop-key="Left"])` | the chosen value (string) |
+| Image | `<img src="{{key}}">` | `var(--prop-key)` (a `url(…)`) | URL string or null |
+| Video | `<video src="{{key}}">` | — | URL string or null |
+| Text list, Image list | `{{#each key}}{{this}}{{/each}}` | — | string[] |
+| Product | `{{key.title}}` | — | Product or null |
+| Product list | `{{#each key}}{{title}}{{/each}}` | — | Product[] |
+| Actions | — | — | use `w.runActions("key")` |
+| Collection | — | — | use `w.records` |
+
+- In CSS, write the key in kebab case: `fontSize` → `var(--prop-font-size)`, `showIcon` → `:host([data-prop-show-icon])`.
+- `{{key}}` escapes HTML; `{{{key}}}` does not (only for HTML you trust).
+- Handlebars helpers: `eq ne gt lt gte lte and or not` for conditions (`{{#if (and showIcon (eq iconPosition "Left"))}}`)
+  and `json` for data attributes. No other helpers.
+- Handlebars is used only in the HTML. In CSS use the variables and attributes above; in JS use `w.props`.
+
+```css filename="Size from a Number property"
+:host { font-size: var(--prop-font-size, 1rem); }
+.title { font-size: 1.6em; }
+.card { padding: .8em; border-radius: .5em; background: var(--prop-background, #000); }
+```
+
+## CSS
+
+- **Size with `rem` and `em`.** 1rem is 2 % of the video's width, so a widget keeps its look at any size. Put the base
+  size on `:host` and use `em` inside.
+- **Phones.** On a phone the player makes its text a third larger: 1rem is 2.625 % of the video's width there. A box that
+  just holds the text on a computer overflows on a phone; let the text shrink to fit (below), or let the part scroll.
+
+```js filename="Fit the text to the box"
+// .card's text shrinks until the card fits the box (on phones too), and again when the box or its content changes
+w.fit(".card");
+```
+
+- **The box.** `:host` fills the element's box. `position: fixed` is relative to the box, not the player: to cover the
+  whole video, make the element's box the whole video.
+- **360°.** In a 360° video the host has `data-c8-360`: `:host([data-c8-360]) { font-size: 28px; }`.
+- **Fonts.** `@import url("https://fonts.googleapis.com/css2?family=…")` and `@font-face` work (font hosts only). Any other
+  `@import` is not loaded: paste the rules into the CSS.
+- **Stacking.** The widget is its own stacking context: a `z-index` cannot raise it above another element.
+- Do not read the player's own CSS variables (`--c8-…`); they may change.
+
+## Clicks and actions
+
+_For widgets only._
+
+The creator sets actions (go to a time, open a link, set a variable…) on an Actions property or on a clickable property
+(a button's text, an image). Your code says when they run:
+
+- In HTML: `data-c8-click="key"` on the element. A click runs the property's actions. Works for elements your JS adds
+  later too.
+- In lists: inside `{{#each items}}`, `data-c8-click="items"` runs the actions of the item at that position. For an
+  element you build in JS out of order, add `data-c8-index="2"`.
+- In JS: `w.runActions("onSubmitActions")`, `w.runActions("items", 2)`. `w.hasActions(key)` says whether there are any.
+- Write the key as a string literal: the editor checks it and Creative Studio offers "When clicked" for it.
+- Actions run only in a video. In previews and Creative Studio the editor logs what would run.
+
+```html filename="Clickable button"
+<button class="btn" data-c8-click="buttonText">{{buttonText}}</button>
+```
+
+```js filename="Run actions"
+w.runActions("onSubmitActions");
+```
+
+## Records
+
+_For widgets only._
+
+A widget that saves what viewers enter has a Collection property (key `collection`). `w.records` is its collection
+(`w.recordsOf(key)` for another one); null when the widget has none.
+
+- `await w.records.save({ email, consent })` saves one record. Keys must be fields declared on the Saving page. `null`,
+  `undefined` and `""` are left out; `false` and `0` are kept. At most 2,000 characters of JSON. Save once per action:
+  more than one save in 300 ms or 60 in a minute is refused (`RATE_LIMITED`).
+- Reading back needs a collection that is **Shown back**: `search(query)`, `countBy(field)`, and live:
+  `subscribe(handler)` gets every record saved to the collection from any placement and video (yours too), `presence`
+  how many viewers have it open.
+- `w.records.ready` is false when no collection is chosen for this placement.
+- A record does not say who saved it (other viewers' names stay private). A leaderboard saves the name the viewer
+  typed with the score, and keeps its own record's id in `w.storage` to find it again.
+- Errors are `C8Error` with a `code`: `NO_COLLECTION`, `TOO_LARGE`, `INVALID`, `NOT_WRITABLE`, `NOT_READABLE`,
+  `RATE_LIMITED`, `NETWORK`.
+- Outside a video nothing is saved: in the editor's preview the record is checked against the fields and logged and
+  reading back shows sample records; Creative Studio reads the collection's real records.
+
+```js filename="Save a record"
+const form = w.$("form");
+w.listen(form, "submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  try {
+    await w.records.save({ email: String(data.get("email")), consent: data.get("consent") === "on" });
+    w.runActions("onSubmitActions");
+    w.hide();
+  } catch (err) {
+    w.$(".error").textContent = "Could not send. Please try again.";
+  }
+});
+```
+
+```js filename="Live results"
+async function load() {
+  const counts = await w.records.countBy("choice");
+  for (const { value, count } of counts) {
+    const bar = w.$(`[data-choice="${value}"] .count`);
+    if (bar) bar.textContent = String(count);
+  }
+}
+load();
+w.records.subscribe(() => load());
+```
+
+## Variables
+
+The video's variables (set by actions, answers, the page, or widgets).
+
+- `w.vars.get("score")`, `w.vars.all()`.
+- `w.vars.set("email", value)` stores the value as given (never evaluated). It is the viewer's by default: texts showing
+  `${email}` show it as text. `{ fromViewer: false }` lets texts show it as HTML (only for HTML you built).
+  `{ persistent: true }` keeps it in the viewer's next videos.
+- In the HTML, `${name}` in text shows the variable and follows it; `${name!fallback}` shows the fallback while it is
+  empty. Not in attributes: set those from JS.
+- `w.on("variableChange", ({ name, value, previous }) => …)`.
+
+## Player and events
+
+- `w.player.play()`, `pause()`, `paused()`, `currentTime()`, `duration()`, `jumpTo(seconds)` (keeps the video's jump
+  rules: use this to send the viewer somewhere), `seek(seconds)`, `openVideo(id, seconds)`, `mute()`, `volume(v)`,
+  `playbackRate(r)`, `launchFullscreen()`, `subtitle(code)`, `qualityLevel(level)` … Changes run only in a video.
+- `w.on(event, handler)` returns a function that stops listening; it stops by itself when the element ends. Events:
+  `play`, `pause`, `ended`, `seeked` (time), `timeupdate` (time, about 4 a second), `visibilityChange` (visible),
+  `variableChange` (\{ name, value, previous \}), `fullscreenChange`, `playbackRateChange`, `resize` (size).
+- `w.show()`, `w.hide()`, `w.visible`; `w.element` (`start`, `end`, `duration`, `name`, `entry`); `w.scene` (`title`,
+  `duration()`, `chapters()`); `w.viewer`, `w.locale`, `w.device`, `w.size`, `w.is360`.
+- `w.emit("leadCaptured", { plan: "pro" })` tells the web page that embeds the player: its JavaScript API's
+  `onWidgetEvent` gets `{ name, detail, trackId, templateId }`.
+- `w.interacted()` counts an interaction in the video's analytics; clicks on `data-c8-click`, saves and answers count
+  by themselves.
+
+```js filename="Chapter menu"
+for (const chapter of w.scene.chapters()) {
+  const item = document.createElement("button");
+  item.className = "chapter";
+  item.textContent = chapter.title;
+  w.listen(item, "click", () => w.player.jumpTo(chapter.start));
+  w.$(".chapters").appendChild(item);
+}
+```
+
+```js filename="Follow the playhead"
+w.on("timeupdate", (time) => {
+  const left = Math.max(0, Math.ceil(w.element.end - time));
+  w.$(".seconds").textContent = String(left);
+});
+```
+
+## Animation
+
+`w.gsap` is GSAP 3.15 with all its plugins (SplitText, Draggable, Flip, DrawSVG, MotionPath, CustomEase…), for this
+widget only.
+
+- Selector strings (`".card"`) find your elements in any code `w` runs: the setup, `w.on`, `w.listen`, timers.
+- Everything made with it is reverted when the element ends: no cleanup needed.
+- Plugin options that take a selector (`motionPath: { path: "#p" }`) need an element: `w.$("#p")`.
+- The global `gsap`, `$` and `jQuery` cannot see your elements: use `w.gsap` and `w.$`.
+- `<lottie-player src="…json" autoplay loop>` works in the HTML.
+
+```js filename="Split text"
+const split = w.gsap.SplitText(".title", { type: "chars" });
+w.gsap.from(split.chars, { opacity: 0, y: "0.4em", stagger: 0.03, duration: 0.3 });
+```
+
+## Keyboard and forms
+
+- While a field or button of the widget has the focus, the player's keys (space, arrows) are off: viewers can type and
+  press buttons.
+- Stop a form's submit in JS (`e.preventDefault()`), or the page reloads.
+- Size fields in `em` like the rest. The player's page never zooms in on a field; a web page that embeds the player
+  may let an iPhone zoom in on a field under 16px (`font-size: max(16px, 1em)` stops it, but makes fields large on a
+  small video).
+- Give fields `autocomplete` (`email`, `given-name`) so phones can fill them.
+
+## Questions
+
+_For question templates only._
+
+A question template draws questions of the types it says it draws. `w.question` holds the question; `w.props` is empty.
+
+- Send the answer with `await w.question.submit(answer)`: an option id (single choice), ids (multiple choice), the text
+  (free text), `[{ id: "blank1", value }]` (blanks), `[{ id: dropId, value: itemId }]` (drag and drop),
+  `[{ id: promptId, value: optionId }]` (matching). A question takes one answer.
+- The result comes to `w.question.onResult((r) => …)`: `r.correct` (true, false or null), `r.feedback`. Show it, then
+  call `r.continue()` to close the question and go on. Without `onResult` the question goes on by itself.
+- `w.question.skip()` when `w.question.skippable`.
+- `w.question.dragDrop({ items })` makes items draggable onto the drop areas of the question text. Each item carries
+  its id: `{{#each question.dndItems}}<span class="word" data-dnd-drag-id="{{id}}">{{text}}</span>{{/each}}`.
+- `w.question.previousAnswer`: when the creator keeps answers, the viewer's answer from an earlier visit (the shape
+  `submit` takes), else null. Show it chosen; the viewer may answer again (2.2).
+- The question covers the whole video: draw your own backdrop, and a card that fits phones and tall videos
+  (`w.fit(".card")`). The player never shows the question text or a skip button for you.
+
+```js filename="Question"
+c8.widget((w) => {
+  const q = w.question;
+  w.$(".text").innerHTML = q.text;
+  for (const option of q.options) {
+    const b = document.createElement("button");
+    b.textContent = option.text;
+    w.listen(b, "click", () => q.submit(option.id));
+    w.$(".options").appendChild(b);
+  }
+  q.onResult((r) => {
+    w.$(".feedback").innerHTML = r.feedback || (r.correct ? "Correct" : r.correct === false ? "Not quite" : "");
+    w.setTimeout(() => r.continue(), 1500);
+  });
+});
+```
+
+## Previews and Creative Studio
+
+`w.runtime` is `"PLAYER"` in a video, `"CREATIVE_STUDIO"` in Creative Studio and `"WIDGET_EDITOR"` in the editor's
+preview. Outside a video nothing leaves the page: actions, player changes and `emit` are logged, records are checked and
+logged (reading back shows samples), a question's result is simulated. Your code needs no special case for it.
+
+## Errors
+
+An error in your code is shown with its part and line in the editor (preview and problem list); in Creative Studio
+and the player it goes to the browser's console. It never stops the player or other widgets. Listeners added with a
+plain `addEventListener` and timers made with `setTimeout` are neither guarded nor removed: use `w.listen` and
+`w.setTimeout`.

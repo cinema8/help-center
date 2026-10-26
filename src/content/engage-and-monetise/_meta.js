@@ -5,6 +5,7 @@ export default {
   'interaction-elements-how-to-use-the-property-panel': 'Interaction Elements – How to Use the Property Panel',
   'dynamic-ctas-to-boost-conversions': 'Dynamic CTAs to Boost Conversions',
   'getting-started-with-widgets-and-elements': 'Getting Started with Widgets and Elements',
+  'create-your-own-widgets': 'Create Your Own Widgets',
   'capturing-leads-from-videos': 'Capturing Leads from Videos',
   'making-amazing-video-surveys-with-hotspots': 'Making Amazing Video Surveys with Hotspots',
   'html-element': 'HTML Element',

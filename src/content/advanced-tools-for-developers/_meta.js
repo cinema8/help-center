@@ -9,9 +9,13 @@ export default {
   'javascript-api': 'Javascript API',
   'websocket-api': 'WebSocket API',
   'authentication-and-sso': 'Authentication & SSO',
-  'widget-api': 'Widget API',
+  'widget-api': 'Widget API v2',
+  'widget-api-reference': 'Widget API v2 Reference',
+  'question-template-api': 'Question Templates (Widget API v2)',
   'cinema8-private-token-api': 'Cinema8 Private Token API',
   'how-to-use-cinema8-data-api': 'How to Use Cinema8 Data API?',
   'support-for-cmi5-and-xapi': 'Support for CMI5 and Xapi',
-  'widget-development-playground': 'Widget Development Playground',
+  // runtime 1, the earlier Widget API: reachable by their links, not listed
+  'widget-api-runtime-1': { title: 'Widget API: runtime 1', display: 'hidden' },
+  'widget-development-playground': { title: 'Widget Development Playground (runtime 1)', display: 'hidden' },
 };
