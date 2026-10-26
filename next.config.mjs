@@ -8,6 +8,8 @@ const withNextra = nextra({
 export default withNextra({
   // ... Other Next.js config options
    images: {
+    // the footer's certificates and the newsletter form ask for quality 100
+    qualities: [75, 100],
     remotePatterns: [
       {
         protocol: "http",

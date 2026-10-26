@@ -126,7 +126,7 @@ How each type reaches each part is one table in the Reference ([Properties](/adv
 
 Number properties are Text properties with a number hint (min, max, step, unit). With unit `rem`, Creative Studio shows and edits them as pixels of a 1080p video.
 
-## Look
+## Appearance
 
 - **Size with `rem` and `em`.** 1rem is 2 % of the video's width, so a widget scales with the video. Put the base size on `:host` (from a Number property) and size everything inside in `em`.
 - **Phones.** The player makes its text a third larger on phones (1rem is 2.625 % of the width there). A box that just holds the content on a computer overflows on a phone. Let the content scroll, or shrink the text until it fits: `w.fit(".card")` does it in one line, and the Poll, Lead form and Info card widgets use it.

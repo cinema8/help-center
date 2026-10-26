@@ -18,9 +18,10 @@ export default function Card({ title, href, children, icon }) {
           <h3 className="text-lg font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
             {title}
           </h3>
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+          {/* a div: MDX wraps text written on its own line in a <p> of its own */}
+          <div className="mt-1 text-sm text-gray-600 dark:text-gray-300">
             {children}
-          </p>
+          </div>
         </div>
       </div>
     </Link>

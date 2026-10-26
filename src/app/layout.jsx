@@ -47,8 +47,11 @@ const banner = (
   </Banner>
 )
 
+// ConfigProvider (a client component) puts the navbar and the footer in a list beside the page: elements made here
+// reach it without the static-children mark, so each needs a key of its own
 const navbar = (
 	<Navbar
+	  key="navbar"
 	  align="left"
 	  logo={
 		<div className="flex items-center shrink-0 min-w-[260px] sm:min-w-[280px]">
@@ -58,6 +61,7 @@ const navbar = (
 		            src="/logo.webp"
 		            alt="Cinema8"
 		            fill
+		            sizes="144px"
 		            className="object-contain dark:invert"
 		          />
 		        </div>
@@ -117,7 +121,7 @@ const navbar = (
 
 // 📎 Footer
 const footer = (
-  <CustomFooter></CustomFooter>
+  <CustomFooter key="footer"></CustomFooter>
 )
 
 	const organizationJsonLd = {

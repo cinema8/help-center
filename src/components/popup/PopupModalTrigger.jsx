@@ -5,9 +5,6 @@ import PopupModal from '@components/popup/PopupModal';
 export default function PopupModalTrigger({ portalId, formId, region }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Debugging: Log props to ensure they're passed correctly
-  console.log("PopupModalTrigger Props:", { portalId, formId, region });
-
   if (!portalId || !formId || !region) {
     console.error("Missing portalId, formId, or region props in PopupModalTrigger.");
   }

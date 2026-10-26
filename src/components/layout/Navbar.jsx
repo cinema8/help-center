@@ -34,6 +34,7 @@ export default function Navbar() {
 		        src="/logo.webp"
 		        alt="Cinema8"
 		        fill
+		        sizes="128px"
 		        className="object-contain dark:invert"
 		      />
 		    </div>
@@ -51,6 +52,7 @@ export default function Navbar() {
 		  		        src="/logo.webp"
 		  		        alt="Cinema8"
 		  		        fill
+		  		        sizes="128px"
 		  		        className="object-contain dark:invert"
 		  		      />
 		  		    </div>
@@ -66,6 +68,7 @@ export default function Navbar() {
 		        src="/logo.webp"
 		        alt="Cinema8"
 		        fill
+		        sizes="128px"
 		        className="object-contain dark:invert"
 		      />
 		    </div>
@@ -81,6 +84,7 @@ export default function Navbar() {
 		        src="/logo.webp"
 		        alt="Cinema8"
 		        fill
+		        sizes="128px"
 		        className="object-contain dark:invert"
 		      />
 		    </div>
@@ -95,6 +99,7 @@ export default function Navbar() {
 		        src="/logo.webp"
 		        alt="Cinema8"
 		        fill
+		        sizes="128px"
 		        className="object-contain dark:invert"
 		      />
 		    </div>
@@ -183,9 +188,9 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <a className="px-4 py-3 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" target="_parent" title="Sign in" href="https:/www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
+            <a className="px-4 py-3 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" target="_parent" title="Sign in" href="https://www.cinema8.com/signup?licence-prev=smart&amp;payment-plan=monthly">Start free</a>
            
-            <PopupModalTrigger url="https://cinema8.com/static/contact-form.html?v=l2r2ESP2Lfo7Rtb-EAsGa" />
+            <PopupModalTrigger portalId="145119654" formId="77647adc-0b19-45bd-8b89-be131595eace" region="eu1" />
           
             <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex justify-center">
               <button
