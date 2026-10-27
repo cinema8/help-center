@@ -118,6 +118,8 @@ w.fit(".card");
 - **Fonts.** `@import url("https://fonts.googleapis.com/css2?family=…")` and `@font-face` work (font hosts only). Any other
   `@import` is not loaded: paste the rules into the CSS.
 - **Stacking.** The widget is its own stacking context: a `z-index` cannot raise it above another element.
+- **Selecting.** A widget's text is not selected by a drag, a double click or Ctrl+A (fields are). Something a viewer
+  should copy, a discount code say, gets `user-select: text`.
 - Do not read the player's own CSS variables (`--c8-…`); they may change.
 
 ## Clicks and actions
