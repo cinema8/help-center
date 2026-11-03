@@ -255,8 +255,9 @@ w.gsap.from(split.chars, { opacity: 0, y: "0.4em", stagger: 0.03, duration: 0.3 
 
 ## Keyboard and forms
 
-- While a field or button of the widget has the focus, the player's keys (space, arrows) are off: viewers can type and
-  press buttons.
+- While a field of the widget has the focus, the player's keys (space, arrows) are off: viewers can type. A button or
+  link reached with Tab keeps them too (space presses it); one the viewer clicked or tapped leaves them to the player
+  (space plays and pauses the video). A key your code handles with `e.preventDefault()` stays in the widget.
 - Stop a form's submit in JS (`e.preventDefault()`), or the page reloads.
 - Size fields in `em` like the rest. The player's page never zooms in on a field; a web page that embeds the player
   may let an iPhone zoom in on a field under 16px (`font-size: max(16px, 1em)` stops it, but makes fields large on a
